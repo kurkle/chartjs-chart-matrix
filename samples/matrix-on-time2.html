@@ -3,7 +3,7 @@
 	<head>
 		<title>Matrix Chart</title>
 		<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.js"></script>
 		<script src="../dist/chartjs-chart-matrix.js"></script>
 		<style>
 			body{
@@ -11,7 +11,7 @@
 				margin: 0;
 			}
 			#canvas-holder{
-				width:40%;
+				width:80%;
 			}
 		</style>
 	</head>
@@ -24,12 +24,12 @@
 	<script>
 		function generateData() {
 			var data = [];
-			var dt = moment().subtract(1, 'year').startOf('day');
+			var dt = moment().subtract(365, 'days').startOf('day');
 			var end = moment().startOf('day');
 			while(dt <= end) {
 				data.push({
-					x: dt.format('W'),
-					y: dt.format('E'),
+					x: dt.format('YYYY-MM-DD'),
+					y: dt.format('e'),
 					d: dt.format('YYYY-MM-DD'),
 					v: Math.random() * 50
 				});
@@ -39,6 +39,7 @@
 		}
 
 		window.onload = function() {
+			Chart.defaults.global.defaultFontSize = 9;
 			var ctx = document.getElementById("chart-area").getContext("2d");
 			window.myMatrix = new Chart(ctx, {
 				type: 'matrix',
@@ -48,12 +49,12 @@
 						data: generateData(),
 						backgroundColor: function(ctx) {
 							var value = ctx.dataset.data[ctx.dataIndex].v;
-							var alpha = value / 50;
+							var alpha = (10 + value) / 60;
 							return Color('green').alpha(alpha).rgbString();
 						},
 						borderColor: function(ctx) {
 							var value = ctx.dataset.data[ctx.dataIndex].v;
-							var alpha = value / 50;
+							var alpha = (10 + value) / 60;
 							return Color('green').alpha(alpha).darken(0.3).rgbString();
 						},
 						borderWidth: 1,
@@ -63,7 +64,7 @@
 						},
 						height: function(ctx) {
 							var a = ctx.chart.chartArea;
-							return (a.bottom - a.top) / 8;
+							return (a.bottom - a.top) / 7 - 2;
 						}
 					}]
 				},
@@ -87,9 +88,9 @@
 							offset: true,
 							time: {
 								unit: 'week',
-								parser: 'W',
+								round: 'week',
 								displayFormats: {
-									week: 'MMM'
+									week: 'MMM DD'
 								}
 							},
 							ticks: {
@@ -99,24 +100,26 @@
 							gridLines: {
 								display: false,
 								drawBorder: false,
-								tickMarkLength: 0
+								tickMarkLength: 0,
 							}
 						}],
 						yAxes: [{
-							type: 'linear',
-							display: false,
+							type: 'time',
+							offset: true,
 							position: 'right',
 							time: {
 								unit: 'day',
-								parser: 'E',
-								min: '0',
-								max: '7',
+								parser: 'e',
+								xmin: '0',
+								xmax: '7',
 								displayFormats: {
 									day: 'ddd'
 								}
 							},
 							gridLines: {
-								display: false
+								display: false,
+								drawBorder: false,
+								tickMarkLength: 0
 							}
 						}]
 					}
