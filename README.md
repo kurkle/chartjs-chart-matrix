@@ -52,6 +52,26 @@ new Chart(ctx, {
 
 ![Matrix Example Image](matrix.png)
 
+## Development
+
+You first need to install node dependencies  (requires [Node.js](https://nodejs.org/)):
+
+```bash
+> npm install
+```
+
+The following commands will then be available from the repository root:
+
+```bash
+> gulp build            // build dist files
+> gulp build --watch    // build and watch for changes
+> gulp test             // run all tests
+> gulp test --watch     // run all tests and watch for changes
+> gulp test --coverage  // run all tests and generate code coverage
+> gulp lint             // perform code linting
+> gulp package          // create an archive with dist files and samples
+```
+
 ## License
 
 chartjs-chart-matrix is available under the [MIT license](https://opensource.org/licenses/MIT).

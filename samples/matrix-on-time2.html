@@ -1,19 +1,11 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Matrix Chart</title>
+		<title>Matrix Chart on time scale 2</title>
 		<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.js"></script>
-		<script src="../dist/chartjs-chart-matrix.js"></script>
-		<style>
-			body{
-				padding: 0;
-				margin: 0;
-			}
-			#canvas-holder{
-				width:80%;
-			}
-		</style>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.js"></script>
+		<script src="util.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css"></link>
 	</head>
 	<body>
 		<div id="canvas-holder">
@@ -38,7 +30,7 @@
 			return data;
 		}
 
-		window.onload = function() {
+		loadMatrix(function() {
 			Chart.defaults.global.defaultFontSize = 9;
 			var ctx = document.getElementById("chart-area").getContext("2d");
 			window.myMatrix = new Chart(ctx, {
@@ -58,13 +50,15 @@
 							return Color('green').alpha(alpha).darken(0.3).rgbString();
 						},
 						borderWidth: 1,
+						borderSkipped: false,
+						hoverBorderColor: 'yellow',
 						width: function(ctx) {
 							var a = ctx.chart.chartArea;
 							return (a.right - a.left) / 60;
 						},
 						height: function(ctx) {
 							var a = ctx.chart.chartArea;
-							return (a.bottom - a.top) / 7 - 2;
+							return (a.bottom - a.top) / 7 - 3;
 						}
 					}]
 				},
@@ -73,6 +67,7 @@
 						display: false
 					},
 					tooltips: {
+						displayColors: false,
 						callbacks: {
 							title: function() { return '';},
 							label: function(item, data) {
@@ -116,6 +111,10 @@
 									day: 'ddd'
 								}
 							},
+							ticks: {
+								 // workaround, see: https://github.com/chartjs/Chart.js/pull/6257
+								maxRotation: 90
+							},
 							gridLines: {
 								display: false,
 								drawBorder: false,
@@ -125,7 +124,7 @@
 					}
 				}
 			})
-		};
+		});
 	</script>
 	</body>
 </html>

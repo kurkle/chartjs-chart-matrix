@@ -1,27 +1,18 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Matrix Chart</title>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.js"></script>
-		<script src="../dist/chartjs-chart-matrix.js"></script>
-		<style>
-			body{
-				padding: 0;
-				margin: 0;
-			}
-			#canvas-holder{
-				width:40%;
-			}
-		</style>
+		<title>Matrix Chart on time scale</title>
+		<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.js"></script>
+		<script src="util.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css"></link>
 	</head>
 	<body>
 		<div id="canvas-holder">
 			<canvas id="chart-area" width="800" height="300"></canvas>
 		</div>
-
-
 	<script>
-		window.onload = function() {
+		loadMatrix(function() {
 			var ctx = document.getElementById("chart-area").getContext("2d");
 			window.myMatrix = new Chart(ctx, {
 				type: 'matrix',
@@ -110,7 +101,7 @@
 					}
 				}
 			})
-		};
+		});
 	</script>
 	</body>
 </html>
