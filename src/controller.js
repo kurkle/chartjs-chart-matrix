@@ -14,7 +14,6 @@ var Controller = Chart.DatasetController.extend({
 		var data = meta.data || [];
 		var i, ilen;
 
-		console.warn(meta);
 		me._xScale = me.getScaleForId(meta.xAxisID);
 		me._yScale = me.getScaleForId(meta.yAxisID);
 
