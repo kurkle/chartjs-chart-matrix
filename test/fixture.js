@@ -58,7 +58,6 @@ function specsFromFixtures(path) {
 	var regex = new RegExp('(^/base/test/fixtures/' + path + '.+)\\.(png|json|js)');
 	var inputs = {};
 
-	console.warn(__karma__.files);
 	Object.keys(__karma__.files || {}).forEach(function(file) {
 		var matches = file.match(regex);
 		var name = matches && matches[1];
