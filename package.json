@@ -1,6 +1,6 @@
 {
   "name": "chartjs-chart-matrix",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Chart.js module for creating matrix charts",
   "main": "src/index.js",
   "scripts": {
@@ -14,6 +14,10 @@
     "chart.js",
     "chart",
     "matrix"
+  ],
+  "files": [
+    "bower.json",
+    "dist/*.js"
   ],
   "author": "Jukka Kurkela",
   "license": "MIT",
