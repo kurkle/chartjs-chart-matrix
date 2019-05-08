@@ -4,7 +4,7 @@
 		<title>Matrix Chart on time scale 2</title>
 		<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.js"></script>
-		<script src="util.js"></script>
+		<script src="utils.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css"></link>
 	</head>
 	<body>
@@ -30,7 +30,7 @@
 			return data;
 		}
 
-		loadMatrix(function() {
+		Utils.load(function() {
 			Chart.defaults.global.defaultFontSize = 9;
 			var ctx = document.getElementById("chart-area").getContext("2d");
 			window.myMatrix = new Chart(ctx, {
