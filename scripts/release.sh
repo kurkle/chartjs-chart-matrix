@@ -19,7 +19,7 @@ fi
 
 git remote add auth-origin https://$GITHUB_AUTH_TOKEN@github.com/$TRAVIS_REPO_SLUG.git
 git config --global user.email "$GITHUB_AUTH_EMAIL"
-git config --global user.name "Chart.js"
+git config --global user.name "kurkle"
 git checkout --detach --quiet
 git add -f dist/*.js bower.json
 git commit -m "Release $VERSION"
