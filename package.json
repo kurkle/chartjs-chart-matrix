@@ -1,8 +1,8 @@
 {
   "name": "chartjs-chart-matrix",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Chart.js module for creating matrix charts",
-  "main": "src/index.js",
+  "main": "dist/chartjs-chart-matrix.js",
   "scripts": {
     "test": "gulp test"
   },
@@ -54,5 +54,8 @@
     "rollup-plugin-node-resolve": "^4.2.3",
     "rollup-plugin-terser": "^4.0.4",
     "yargs": "^13.2.2"
+  },
+  "peerDependencies": {
+    "chart.js": ">= 2.8.0 < 3"
   }
 }
