@@ -2,7 +2,8 @@
 <html>
 	<head>
 		<title>Matrix Chart</title>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.js"></script>
 		<script src="../dist/chartjs-chart-matrix.js"></script>
 		<style>
 			body{
@@ -16,11 +17,27 @@
 	</head>
 	<body>
 		<div id="canvas-holder">
-			<canvas id="chart-area" width="800" height="300"></canvas>
+			<canvas id="chart-area" width="800" height="100"></canvas>
 		</div>
 
 
 	<script>
+		function generateData() {
+			var data = [];
+			var dt = moment().subtract(1, 'year').startOf('day');
+			var end = moment().startOf('day');
+			while(dt <= end) {
+				data.push({
+					x: dt.format('W'),
+					y: dt.format('E'),
+					d: dt.format('YYYY-MM-DD'),
+					v: Math.random() * 50
+				});
+				dt = dt.add(1, 'day');
+			}
+			return data;
+		}
+
 		window.onload = function() {
 			var ctx = document.getElementById("chart-area").getContext("2d");
 			window.myMatrix = new Chart(ctx, {
@@ -28,35 +45,25 @@
 				data: {
 					datasets: [{
 						label: 'My Matrix',
-						data: [
-							{ x: '2019-01-05', y: '08:00', v: 11 },
-							{ x: '2019-01-01', y: '12:00', v: 12 },
-							{ x: '2019-01-01', y: '16:00', v: 13 },
-							{ x: '2019-01-02', y: '08:00', v: 21 },
-							{ x: '2019-01-02', y: '12:00', v: 22 },
-							{ x: '2019-01-02', y: '16:00', v: 23 },
-							{ x: '2019-01-03', y: '08:00', v: 31 },
-							{ x: '2019-01-03', y: '12:00', v: 32 },
-							{ x: '2019-01-04', y: '16:00', v: 33 }
-						],
+						data: generateData(),
 						backgroundColor: function(ctx) {
 							var value = ctx.dataset.data[ctx.dataIndex].v;
-							var alpha = (value - 5) / 40;
+							var alpha = value / 50;
 							return Color('green').alpha(alpha).rgbString();
 						},
 						borderColor: function(ctx) {
 							var value = ctx.dataset.data[ctx.dataIndex].v;
-							var alpha = (value - 5) / 40;
+							var alpha = value / 50;
 							return Color('green').alpha(alpha).darken(0.3).rgbString();
 						},
-						borderWidth: {left: 3, right: 3},
+						borderWidth: 1,
 						width: function(ctx) {
 							var a = ctx.chart.chartArea;
-							return (a.right - a.left) / 5.5;
+							return (a.right - a.left) / 60;
 						},
 						height: function(ctx) {
 							var a = ctx.chart.chartArea;
-							return (a.bottom - a.top) / 3.5;
+							return (a.bottom - a.top) / 8;
 						}
 					}]
 				},
@@ -69,39 +76,44 @@
 							title: function() { return '';},
 							label: function(item, data) {
 								var v = data.datasets[item.datasetIndex].data[item.index];
-								return ["x: " + v.x, "y: " + v.y, "v: " + v.v];
+								return ["d: " + v.d, "v: " + v.v.toFixed(2)];
 							}
 						}
 					},
 					scales: {
 						xAxes: [{
 							type: 'time',
+							position: 'bottom',
 							offset: true,
 							time: {
-								unit: 'day'
-							},
-							ticks: {
-							},
-							gridLines: {
-								display: false
-							}
-						}],
-						yAxes: [{
-							type: 'time',
-							position: 'right',
-							labels: ['08:00', '12:00', '16:00'],
-							time: {
-								unit: 'hour',
-								parser: 'HH:mm',
-								min: '06:00',
-								max: '18:00',
+								unit: 'week',
+								parser: 'W',
 								displayFormats: {
-									hour: 'HH'
+									week: 'MMM'
 								}
 							},
 							ticks: {
-								source: 'labels',
-								reverse: false
+								maxRotation: 0,
+								autoSkip: true
+							},
+							gridLines: {
+								display: false,
+								drawBorder: false,
+								tickMarkLength: 0
+							}
+						}],
+						yAxes: [{
+							type: 'linear',
+							display: false,
+							position: 'right',
+							time: {
+								unit: 'day',
+								parser: 'E',
+								min: '0',
+								max: '7',
+								displayFormats: {
+									day: 'ddd'
+								}
 							},
 							gridLines: {
 								display: false
