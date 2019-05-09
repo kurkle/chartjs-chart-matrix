@@ -36,6 +36,7 @@ deploy:
       - "./dist/chartjs-chart-matrix.min.js"
       - "./dist/chartjs-chart-matrix.zip"
     skip_cleanup: true
+    tag: next
     on:
       tags: true
   - provider: npm
