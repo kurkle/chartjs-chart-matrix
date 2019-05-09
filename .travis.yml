@@ -29,6 +29,11 @@ deploy:
     skip_cleanup: true
     on:
       branch: release
+  - provider: script
+    script: ./scripts/next-release.sh
+    skip_cleanup: true
+    on:
+      branch: next-release
   - provider: releases
     api_key: $GITHUB_AUTH_TOKEN
     file:
@@ -36,12 +41,12 @@ deploy:
       - "./dist/chartjs-chart-matrix.min.js"
       - "./dist/chartjs-chart-matrix.zip"
     skip_cleanup: true
-    tag: next
     on:
       tags: true
   - provider: npm
     email: $NPM_AUTH_EMAIL
     api_key: $NPM_AUTH_TOKEN
     skip_cleanup: true
+    tag: next
     on:
       tags: true
