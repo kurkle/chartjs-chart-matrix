@@ -2,8 +2,8 @@
 
 set -e
 
-if [ "$TRAVIS_BRANCH" != "release" ]; then
-    echo "Skipping release because this is not the 'release' branch"
+if [[ ! "$TRAVIS_BRANCH" =~ ^release/.*$ ]]; then
+    echo "Skipping release because this is not a 'release/*' branch"
     exit 0
 fi
 
