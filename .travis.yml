@@ -28,7 +28,9 @@ deploy:
     script: ./scripts/release.sh
     skip_cleanup: true
     on:
-      branch: /^release\/.*$/
+      branch:
+         - release/master
+         - release/next
   - provider: releases
     api_key: $GITHUB_AUTH_TOKEN
     file:
