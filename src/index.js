@@ -23,6 +23,7 @@ Chart.defaults.matrix = {
 	},
 	elements: {
 		rectangle: {
+			borderSkipped: false,
 			width: 20,
 			height: 20
 		}
