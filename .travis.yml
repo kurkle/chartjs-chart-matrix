@@ -46,3 +46,12 @@ deploy:
     skip_cleanup: true
     on:
       tags: true
+      branch: release/master
+  - provider: npm
+    email: $NPM_AUTH_EMAIL
+    api_key: $NPM_AUTH_TOKEN
+    skip_cleanup: true
+    tag: next
+    on:
+      tags: true
+      branch: release/next
