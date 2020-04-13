@@ -1,112 +1,61 @@
 'use strict';
 
 import Chart from 'chart.js';
+import Rectangle from './rectangle';
 
-var resolve = Chart.helpers.options.resolve;
+export default class MatrixController extends Chart.DatasetController {
 
-var Controller = Chart.DatasetController.extend({
-
-	dataElementType: Chart.elements.Rectangle,
-
-	update: function(reset) {
+	update(mode) {
 		var me = this;
-		var meta = me.getMeta();
-		var data = meta.data || [];
-		var i, ilen;
+		var meta = me._cachedMeta;
 
-		me._xScale = me.getScaleForId(meta.xAxisID);
-		me._yScale = me.getScaleForId(meta.yAxisID);
+		me.updateElements(meta.data, 0, mode);
+	}
 
-		for (i = 0, ilen = data.length; i < ilen; ++i) {
-			me.updateElement(data[i], i, reset);
+	updateElements(rects, start, mode) {
+		const me = this;
+		const reset = mode === 'reset';
+		const {xScale, yScale} = me._cachedMeta;
+		const firstOpts = me.resolveDataElementOptions(start, mode);
+		const sharedOptions = me.getSharedOptions(mode, rects[start], firstOpts);
+
+		for (let i = 0; i < rects.length; i++) {
+			const index = start + i;
+			const parsed = !reset && me.getParsed(index);
+			const x = reset ? xScale.getBasePixel() : xScale.getPixelForValue(parsed.x);
+			const y = reset ? yScale.getBasePixel() : yScale.getPixelForValue(parsed.y);
+			const options = me.resolveDataElementOptions(i, mode);
+			const {width, height} = options;
+			const properties = {
+				x: x - width / 2,
+				y: y - height / 2,
+				width,
+				height,
+				options
+			};
+			me.updateElement(rects[i], index, properties, mode);
 		}
-	},
 
-	updateElement: function(item, index, reset) {
-		var me = this;
-		var dataset = me.getDataset();
-		var datasetIndex = me.index;
-		var value = dataset.data[index];
-		var xScale = me._xScale;
-		var yScale = me._yScale;
-		var options = me._resolveElementOptions(item, index);
-		var x = reset ? xScale.getBasePixel() : xScale.getPixelForValue(value, index, datasetIndex);
-		var y = reset ? yScale.getBasePixel() : yScale.getPixelForValue(value, index, datasetIndex);
-		var h = options.height;
-		var w = options.width;
-		var halfH = h / 2;
+		me.updateSharedOptions(sharedOptions, mode);
+	}
 
-		item._xScale = xScale;
-		item._yScale = yScale;
-		item._options = options;
-		item._datasetIndex = datasetIndex;
-		item._index = index;
-
-		item._model = {
-			x: x,
-			base: y - halfH,
-			y: y + halfH,
-			width: w,
-			height: h,
-			backgroundColor: options.backgroundColor,
-			borderColor: options.borderColor,
-			borderSkipped: options.borderSkipped,
-			borderWidth: options.borderWidth
-		};
-
-		item.pivot();
-	},
-
-	draw: function() {
+	draw() {
 		var me = this;
 		var data = me.getMeta().data || [];
 		var i, ilen;
 
 		for (i = 0, ilen = data.length; i < ilen; ++i) {
-			data[i].draw();
+			data[i].draw(me._ctx);
 		}
-	},
-
-	/**
-	 * @private
-	 */
-	_resolveElementOptions: function(rectangle, index) {
-		var me = this;
-		var chart = me.chart;
-		var datasets = chart.data.datasets;
-		var dataset = datasets[me.index];
-		var options = chart.options.elements.rectangle;
-		var values = {};
-		var i, ilen, key;
-
-		// Scriptable options
-		var context = {
-			chart: chart,
-			dataIndex: index,
-			dataset: dataset,
-			datasetIndex: me.index
-		};
-
-		var keys = [
-			'backgroundColor',
-			'borderColor',
-			'borderSkipped',
-			'borderWidth',
-			'width',
-			'height'
-		];
-
-		for (i = 0, ilen = keys.length; i < ilen; ++i) {
-			key = keys[i];
-			values[key] = resolve([
-				dataset[key],
-				options[key]
-			], context, index);
-		}
-
-		return values;
 	}
+};
 
-});
+MatrixController.prototype.dataElementType = Rectangle;
 
-export default Controller;
+MatrixController.prototype.dataElementOptions = [
+	'backgroundColor',
+	'borderColor',
+	'borderWidth',
+	'width',
+	'height'
+];

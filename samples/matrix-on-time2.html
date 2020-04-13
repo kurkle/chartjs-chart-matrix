@@ -2,8 +2,8 @@
 <html>
 	<head>
 		<title>Matrix Chart on time scale 2</title>
-		<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0-alpha/dist/Chart.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@1.1.0-alpha/dist/chartjs-adapter-date-fns.bundle.js"></script>
 		<script src="utils.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css"></link>
 	</head>
@@ -14,24 +14,34 @@
 
 
 	<script>
+		function startOfToday() {
+			var d = new Date();
+			return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+		}
+		function isoDayOfWeek(dt) {
+			var wd = dt.getDay(); // 0..6, from sunday
+			wd = (wd + 6) % 7 + 1; // 1..7 from monday
+			return '' + wd; // string so it gets parsed
+		}
 		function generateData() {
 			var data = [];
-			var dt = moment().subtract(365, 'days').startOf('day');
-			var end = moment().startOf('day');
+			var end = startOfToday();
+			var dt = new Date(new Date().setDate(end.getDate()-365));
 			while(dt <= end) {
+				var iso = dt.toISOString().substr(0, 10);
 				data.push({
-					x: dt.format('YYYY-MM-DD'),
-					y: dt.format('e'),
-					d: dt.format('YYYY-MM-DD'),
+					x: iso,
+					y: isoDayOfWeek(dt),
+					d: iso,
 					v: Math.random() * 50
 				});
-				dt = dt.add(1, 'day');
+				dt = new Date(dt.setDate(dt.getDate() + 1));
 			}
 			return data;
 		}
 
 		Utils.load(function() {
-			Chart.defaults.global.defaultFontSize = 9;
+			Chart.defaults.fontSize = 9;
 			var ctx = document.getElementById("chart-area").getContext("2d");
 			window.myMatrix = new Chart(ctx, {
 				type: 'matrix',
@@ -42,23 +52,25 @@
 						backgroundColor: function(ctx) {
 							var value = ctx.dataset.data[ctx.dataIndex].v;
 							var alpha = (10 + value) / 60;
-							return Color('green').alpha(alpha).rgbString();
+							return Chart.helpers.color('green').alpha(alpha).rgbString();
 						},
 						borderColor: function(ctx) {
 							var value = ctx.dataset.data[ctx.dataIndex].v;
 							var alpha = (10 + value) / 60;
-							return Color('green').alpha(alpha).darken(0.3).rgbString();
+							return Chart.helpers.color('green').alpha(alpha).darken(0.3).rgbString();
 						},
 						borderWidth: 1,
-						borderSkipped: false,
-						hoverBorderColor: 'yellow',
+						hoverBackgroundColor: 'yellow',
+						hoverBorderColor: 'yellowgreen',
 						width: function(ctx) {
-							var a = ctx.chart.chartArea;
-							return (a.right - a.left) / 60;
+							var a = ctx.chart.chartArea || {};
+							var nt = ctx.chart.scales.x.ticks.length;
+							return (a.right - a.left) / nt - 3;
 						},
 						height: function(ctx) {
-							var a = ctx.chart.chartArea;
-							return (a.bottom - a.top) / 7 - 3;
+							var a = ctx.chart.chartArea || {};
+							var nt = ctx.chart.scales.y.ticks.length;
+							return (a.bottom - a.top) / nt - 3;
 						}
 					}]
 				},
@@ -77,15 +89,16 @@
 						}
 					},
 					scales: {
-						xAxes: [{
+						x: {
 							type: 'time',
 							position: 'bottom',
 							offset: true,
 							time: {
 								unit: 'week',
 								round: 'week',
+								isoWeekDay: 1,
 								displayFormats: {
-									week: 'MMM DD'
+									week: 'MMM dd'
 								}
 							},
 							ticks: {
@@ -97,28 +110,31 @@
 								drawBorder: false,
 								tickMarkLength: 0,
 							}
-						}],
-						yAxes: [{
+						},
+						y: {
 							type: 'time',
 							offset: true,
-							position: 'right',
+							isoWeekDay: 1,
 							time: {
 								unit: 'day',
-								parser: 'e',
+								parser: 'i',
 								displayFormats: {
-									day: 'ddd'
+									day: 'iiiiii'
 								}
 							},
+							reverse: true,
+							position: 'right',
 							ticks: {
 								 // workaround, see: https://github.com/chartjs/Chart.js/pull/6257
-								maxRotation: 90
+								 source: 'data',
+								maxRotation: 90,
 							},
 							gridLines: {
 								display: false,
 								drawBorder: false,
 								tickMarkLength: 0
 							}
-						}]
+						}
 					}
 				}
 			})

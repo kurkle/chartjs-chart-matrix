@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Matrix Chart on time scale 2</title>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0-alpha/dist/Chart.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@1.1.0-alpha/dist/chartjs-adapter-date-fns.bundle.js"></script>
+		<script src="utils.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css"></link>
+	</head>
+	<body>
+		<div class="canvas-holder">
+			<canvas id="chart-area"></canvas>
+		</div>
+		<div class="canvas-holder">
+			<canvas id="chart-area2"></canvas>
+		</div>
+
+
+	<script>
+		function startOfToday() {
+			var d = new Date();
+			return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+		}
+		function isoDayOfWeek(dt) {
+			var wd = dt.getDay(); // 0..6, from sunday
+			wd = (wd + 6) % 7 + 1; // 1..7 from monday
+			return '' + wd; // string so it gets parsed
+		}
+		function generateData() {
+			var data = [];
+			var end = new Date(2020, 03, 31); //startOfToday();
+			var dt = new Date(2020, 03, 01);//new Date(new Date().setDate(end.getDate()-60));
+			while(dt <= end) {
+				var iso = dt.toISOString().substr(0, 10);
+				data.push({
+					x: isoDayOfWeek(dt),
+					y: iso,
+					d: iso,
+					v: Math.random() * 50
+				});
+				dt = new Date(dt.setDate(dt.getDate() + 1));
+			}
+			return data;
+		}
+		function generateData2() {
+			var data = [];
+			var end = new Date(2020, 04, 30); //startOfToday();
+			var dt = new Date(2020, 04, 01);//new Date(new Date().setDate(end.getDate()-60));
+			while(dt <= end) {
+				var iso = dt.toISOString().substr(0, 10);
+				data.push({
+					x: isoDayOfWeek(dt),
+					y: iso,
+					d: iso,
+					v: Math.random() * 50
+				});
+				dt = new Date(dt.setDate(dt.getDate() + 1));
+			}
+			return data;
+		}
+
+		Utils.load(function() {
+			Chart.defaults.fontSize = 9;
+			var ctx = document.getElementById("chart-area").getContext("2d");
+			window.myMatrix = new Chart(ctx, {
+				type: 'matrix',
+				data: {
+					datasets: [{
+						label: 'My Matrix',
+						data: generateData(),
+						backgroundColor: function(ctx) {
+							var value = ctx.dataset.data[ctx.dataIndex].v;
+							var alpha = (10 + value) / 60;
+							return Chart.helpers.color('green').alpha(alpha).rgbString();
+						},
+						borderColor: function(ctx) {
+							var value = ctx.dataset.data[ctx.dataIndex].v;
+							var alpha = (10 + value) / 60;
+							return Chart.helpers.color('green').alpha(alpha).darken(0.3).rgbString();
+						},
+						borderWidth: 1,
+						hoverBackgroundColor: 'yellow',
+						hoverBorderColor: 'yellowgreen',
+						width: function(ctx) {
+							var a = ctx.chart.chartArea || {};
+							var nt = ctx.chart.scales.x.ticks.length;
+							return (a.right - a.left) / nt - 3;
+						},
+						height: function(ctx) {
+							var a = ctx.chart.chartArea || {};
+							var nt = ctx.chart.scales.y.ticks.length;
+							return (a.bottom - a.top) / nt - 3;
+						}
+					}]
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
+					tooltips: {
+						displayColors: false,
+						callbacks: {
+							title: function() { return '';},
+							label: function(item, data) {
+								var v = data.datasets[item.datasetIndex].data[item.index];
+								return ["d: " + v.d, "v: " + v.v.toFixed(2)];
+							}
+						}
+					},
+					scales: {
+						y: {
+							type: 'time',
+							left: 'left',
+							offset: true,
+							time: {
+								unit: 'week',
+								round: 'week',
+								isoWeekDay: 1,
+								displayFormats: {
+									week: 'w'
+								}
+							},
+							ticks: {
+								maxRotation: 0,
+								autoSkip: true,
+								padding: 1
+							},
+							gridLines: {
+								display: false,
+								drawBorder: false,
+								tickMarkLength: 0,
+							},
+							scaleLabel: {
+								display: true,
+								fontSize: 15,
+								labelString: 'March, 2020',
+								padding: 0
+							}
+						},
+						x: {
+							type: 'time',
+							position: 'top',
+							offset: true,
+							isoWeekDay: 1,
+							time: {
+								unit: 'day',
+								parser: 'i',
+								displayFormats: {
+									day: 'iiiiii'
+								}
+							},
+							reverse: true,
+							ticks: {
+								source: 'data',
+								padding: 4
+							},
+							gridLines: {
+								display: false,
+								drawBorder: false,
+								tickMarkLength: 0
+							}
+						}
+					}
+				}
+			});
+
+			var ctx2 = document.getElementById("chart-area2").getContext("2d");
+			window.myMatrix2 = new Chart(ctx2, {
+				type: 'matrix',
+				data: {
+					datasets: [{
+						label: 'My Matrix',
+						data: generateData2(),
+						backgroundColor: function(ctx) {
+							var value = ctx.dataset.data[ctx.dataIndex].v;
+							var alpha = (10 + value) / 60;
+							return Chart.helpers.color('green').alpha(alpha).rgbString();
+						},
+						borderColor: function(ctx) {
+							var value = ctx.dataset.data[ctx.dataIndex].v;
+							var alpha = (10 + value) / 60;
+							return Chart.helpers.color('green').alpha(alpha).darken(0.3).rgbString();
+						},
+						borderWidth: 1,
+						hoverBackgroundColor: 'yellow',
+						hoverBorderColor: 'yellowgreen',
+						width: function(ctx) {
+							var a = ctx.chart.chartArea || {};
+							var nt = ctx.chart.scales.x.ticks.length;
+							return (a.right - a.left) / nt - 3;
+						},
+						height: function(ctx) {
+							var a = ctx.chart.chartArea || {};
+							var nt = ctx.chart.scales.y.ticks.length;
+							return (a.bottom - a.top) / nt - 3;
+						}
+					}]
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
+					tooltips: {
+						displayColors: false,
+						callbacks: {
+							title: function() { return '';},
+							label: function(item, data) {
+								var v = data.datasets[item.datasetIndex].data[item.index];
+								return ["d: " + v.d, "v: " + v.v.toFixed(2)];
+							}
+						}
+					},
+					scales: {
+						y: {
+							type: 'time',
+							left: 'left',
+							offset: true,
+							time: {
+								unit: 'week',
+								round: 'week',
+								isoWeekDay: 1,
+								displayFormats: {
+									week: 'w'
+								}
+							},
+							ticks: {
+								maxRotation: 0,
+								autoSkip: true,
+								padding: 1
+							},
+							gridLines: {
+								display: false,
+								drawBorder: false,
+								tickMarkLength: 0,
+							},
+							scaleLabel: {
+								display: true,
+								fontSize: 15,
+								labelString: 'April, 2020',
+								padding: 0
+							}
+						},
+						x: {
+							type: 'time',
+							position: 'top',
+							offset: true,
+							isoWeekDay: 1,
+							time: {
+								unit: 'day',
+								parser: 'i',
+								displayFormats: {
+									day: 'iiiiii'
+								}
+							},
+							reverse: true,
+							ticks: {
+								source: 'data',
+								padding: 4
+							},
+							gridLines: {
+								display: false,
+								drawBorder: false,
+								tickMarkLength: 0
+							}
+						}
+					}
+				}
+			});
+		});
+	</script>
+	</body>
+</html>

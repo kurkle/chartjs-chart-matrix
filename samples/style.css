@@ -6,3 +6,8 @@ body {
 	width:80%;
 	margin: auto;
 }
+div.canvas-holder {
+	width: 210px;
+	height: 150px;
+	margin: auto;
+}

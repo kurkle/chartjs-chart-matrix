@@ -1,6 +1,6 @@
-const commonjs = require('rollup-plugin-commonjs');
-const istanbul = require('rollup-plugin-istanbul');
-const resolve = require('rollup-plugin-node-resolve');
+const babel = require('rollup-plugin-babel');
+const commonjs = require('@rollup/plugin-commonjs');
+const resolve = require('@rollup/plugin-node-resolve');
 const builds = require('./rollup.config');
 
 module.exports = function(karma) {
@@ -21,8 +21,8 @@ module.exports = function(karma) {
 		files: [
 			{pattern: './test/fixtures/**/*.js', included: false},
 			{pattern: './test/fixtures/**/*.png', included: false},
-			'node_modules/moment/min/moment.min.js',
 			'node_modules/chart.js/dist/Chart.js',
+			'node_modules/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.js',
 			'test/index.js',
 			'src/index.js'
 		].concat(args.inputs),

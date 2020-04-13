@@ -20,28 +20,34 @@ export default {
 				backgroundColor: function(ctx) {
 					var value = ctx.dataset.data[ctx.dataIndex].v;
 					var alpha = (value - 5) / 40;
-					return Color('green').alpha(alpha).rgbString();
+					return Chart.helpers.color('green').alpha(alpha).rgbString();
 				},
 				borderColor: function(ctx) {
 					var value = ctx.dataset.data[ctx.dataIndex].v;
 					var alpha = (value - 5) / 40;
-					return Color('green').alpha(alpha).darken(0.3).rgbString();
+					return Chart.helpers.color('green').alpha(alpha).darken(0.4).rgbString();
 				},
 				borderWidth: {left: 3, right: 3},
 				width: function(ctx) {
 					var a = ctx.chart.chartArea;
+					if (!a) return 0;
 					return (a.right - a.left) / 5.5;
 				},
 				height: function(ctx) {
 					var a = ctx.chart.chartArea;
+					if (!a) return 0;
 					return (a.bottom - a.top) / 3.5;
 				}
 			}]
 		},
 		options: {
+			animation: false,
 			maintainAspectRatio: false,
+			legend: {
+				display: false
+			},
 			scales: {
-				xAxes: [{
+				x: {
 					type: 'time',
 					offset: true,
 					time: {
@@ -53,26 +59,26 @@ export default {
 					gridLines: {
 						display: false
 					}
-				}],
-				yAxes: [{
+				},
+				y: {
 					type: 'time',
+					min: '06:00',
+					max: '18:00',
 					time: {
 						unit: 'hour',
 						parser: 'HH:mm',
-						min: '06:00',
-						max: '18:00',
 						displayFormats: {
 							hour: 'HH'
 						}
 					},
+					reverse: false,
 					ticks: {
-						display: false,
-						reverse: true
+						display: false
 					},
 					gridLines: {
 						display: false
 					}
-				}]
+				}
 			}
 		}
 	},

@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Matrix Chart on linear scale</title>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0-alpha/dist/Chart.js"></script>
 		<script src="utils.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css"></link>
 	</head>
@@ -34,14 +34,16 @@
 						backgroundColor: function(ctx) {
 							var value = ctx.dataset.data[ctx.dataIndex].v;
 							var alpha = (value - 5) / 40;
-							return Color('green').alpha(alpha).rgbString();
+							return Chart.helpers.color('green').alpha(alpha).rgbString();
 						},
 						width: function(ctx) {
 							var a = ctx.chart.chartArea;
+							if (!a) return 0;
 							return (a.right - a.left) / 3.5;
 						},
 						height: function(ctx) {
 							var a = ctx.chart.chartArea;
+							if (!a) return 0;
 							return (a.bottom - a.top) / 3.5;
 						}
 					}]
@@ -60,34 +62,25 @@
 						}
 					},
 					scales: {
-						xAxes: [{
+						x: {
 							ticks: {
 								display: true,
-								min: 0.5,
-								max: 3.5,
 								stepSize: 1
 							},
 							gridLines: {
 								display: false
-							},
-							afterBuildTicks: function(scale, ticks) {
-								return ticks.slice(1, 4);
 							}
-						}],
-						yAxes: [{
+						},
+						y: {
+							offset: true,
 							ticks: {
 								display: true,
-								min: 0.5,
-								max: 3.5,
 								stepSize: 1
 							},
 							gridLines: {
 								display: false
-							},
-							afterBuildTicks: function(scale, ticks) {
-								return ticks.slice(1, 4);
 							}
-						}]
+						}
 					}
 				}
 			})

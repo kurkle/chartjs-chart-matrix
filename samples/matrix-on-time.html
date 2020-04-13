@@ -2,8 +2,9 @@
 <html>
 	<head>
 		<title>Matrix Chart on time scale</title>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0-alpha/dist/Chart.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
 		<script src="utils.js"></script>
 		<link rel="stylesheet" type="text/css" href="style.css"></link>
 	</head>
@@ -33,20 +34,22 @@
 						backgroundColor: function(ctx) {
 							var value = ctx.dataset.data[ctx.dataIndex].v;
 							var alpha = (value - 5) / 40;
-							return Color('green').alpha(alpha).rgbString();
+							return Chart.helpers.color('green').alpha(alpha).rgbString();
 						},
 						borderColor: function(ctx) {
 							var value = ctx.dataset.data[ctx.dataIndex].v;
 							var alpha = (value - 5) / 40;
-							return Color('green').alpha(alpha).darken(0.3).rgbString();
+							return Chart.helpers.color('green').alpha(alpha).darken(0.3).rgbString();
 						},
 						borderWidth: {left: 3, right: 3},
 						width: function(ctx) {
 							var a = ctx.chart.chartArea;
+							if(!a) return 0;
 							return (a.right - a.left) / 5.5;
 						},
 						height: function(ctx) {
 							var a = ctx.chart.chartArea;
+							if(!a) return 0;
 							return (a.bottom - a.top) / 3.5;
 						}
 					}]
@@ -65,7 +68,7 @@
 						}
 					},
 					scales: {
-						xAxes: [{
+						x: {
 							type: 'time',
 							offset: true,
 							time: {
@@ -76,16 +79,16 @@
 							gridLines: {
 								display: false
 							}
-						}],
-						yAxes: [{
+						},
+						y: {
 							type: 'time',
 							position: 'right',
 							labels: ['08:00', '12:00', '16:00'],
+							min: '06:00',
+							max: '18:00',
 							time: {
 								unit: 'hour',
 								parser: 'HH:mm',
-								min: '06:00',
-								max: '18:00',
 								displayFormats: {
 									hour: 'HH'
 								}
@@ -97,7 +100,7 @@
 							gridLines: {
 								display: false
 							}
-						}]
+						}
 					}
 				}
 			})

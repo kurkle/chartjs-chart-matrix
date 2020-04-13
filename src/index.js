@@ -9,21 +9,30 @@ Chart.defaults.matrix = {
 		mode: 'nearest',
 		intersect: true
 	},
+	datasets: {
+		animation: {
+			numbers: {
+				type: 'number',
+				properties: ['x', 'y', 'width', 'height']
+			}
+		}
+	},
 	tooltips: {
 		mode: 'nearest',
 		intersect: true
 	},
 	scales: {
-		xAxes: [{
-			type: 'linear'
-		}],
-		yAxes: [{
-			type: 'linear'
-		}]
+		x: {
+			type: 'linear',
+			offset: true
+		},
+		y: {
+			type: 'linear',
+			reverse: true
+		}
 	},
 	elements: {
 		rectangle: {
-			borderSkipped: false,
 			width: 20,
 			height: 20
 		}
