@@ -1,28 +1,30 @@
-/* global Promise */
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable import/no-nodejs-modules */
+/* eslint-disable import/no-commonjs */
 
-var eslint = require('gulp-eslint');
-var {exec} = require('child_process');
-var gulp = require('gulp');
-var file = require('gulp-file');
-var replace = require('gulp-replace');
-var streamify = require('gulp-streamify');
-var zip = require('gulp-zip');
-var karma = require('karma');
-var merge = require('merge2');
-var path = require('path');
-var yargs = require('yargs');
-var pkg = require('./package.json');
+const eslint = require('gulp-eslint');
+const {exec} = require('child_process');
+const gulp = require('gulp');
+const file = require('gulp-file');
+const replace = require('gulp-replace');
+const streamify = require('gulp-streamify');
+const zip = require('gulp-zip');
+const karma = require('karma');
+const merge = require('merge2');
+const path = require('path');
+const yargs = require('yargs');
+const pkg = require('./package.json');
 
-var argv = yargs
+const argv = yargs
 	.option('output', {alias: 'o', default: 'dist'})
 	.option('samples-dir', {default: 'samples'})
 	.argv;
 
 function run(bin, args) {
 	return new Promise((resolve, reject) => {
-		var exe = '"' + process.execPath + '"';
-		var src = require.resolve(bin);
-		var ps = exec([exe, src].concat(args || []).join(' '));
+		const exe = '"' + process.execPath + '"';
+		const src = require.resolve(bin);
+		const ps = exec([exe, src].concat(args || []).join(' '));
 
 		ps.stdout.pipe(process.stdout);
 		ps.stderr.pipe(process.stderr);
@@ -42,6 +44,8 @@ gulp.task('build', function() {
 
 
 gulp.task('test', function(done) {
+	// use `env.test` from `babel.config.json` for karma builds
+	process.env.NODE_ENV = 'test';
 	new karma.Server({
 		configFile: path.join(__dirname, 'karma.config.js'),
 		singleRun: !argv.watch,
@@ -59,7 +63,7 @@ gulp.task('test', function(done) {
 });
 
 gulp.task('lint', function() {
-	var files = [
+	const files = [
 		'samples/**/*.js',
 		'src/**/*.js',
 		'test/**/*.js',
@@ -73,15 +77,15 @@ gulp.task('lint', function() {
 });
 
 gulp.task('samples', function() {
-	var out = path.join(argv.output, argv.samplesDir);
+	const out = path.join(argv.output, argv.samplesDir);
 	return gulp.src('samples/**/*', {base: 'samples'})
 		.pipe(streamify(replace(/src="((?:\.\.\/)+)dist\//g, 'src="$1', {skipBinary: true})))
 		.pipe(gulp.dest(out));
 });
 
 gulp.task('package', gulp.series(gulp.parallel('build', 'samples'), function() {
-	var out = argv.output;
-	var streams = merge(
+	const out = argv.output;
+	const streams = merge(
 		gulp.src(path.join(out, argv.samplesDir, '**/*'), {base: out}),
 		gulp.src([path.join(out, '*.js'), 'LICENSE'])
 	);
@@ -92,7 +96,7 @@ gulp.task('package', gulp.series(gulp.parallel('build', 'samples'), function() {
 }));
 
 gulp.task('bower', function() {
-	var json = JSON.stringify({
+	const json = JSON.stringify({
 		name: pkg.name,
 		description: pkg.description,
 		homepage: pkg.homepage,

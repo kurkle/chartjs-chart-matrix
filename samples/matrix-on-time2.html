@@ -1,34 +1,39 @@
 <!doctype html>
 <html>
-	<head>
-		<title>Matrix Chart on time scale 2</title>
-		<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0-alpha/dist/Chart.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@1.1.0-alpha/dist/chartjs-adapter-date-fns.bundle.js"></script>
-		<script src="utils.js"></script>
-		<link rel="stylesheet" type="text/css" href="style.css"></link>
-	</head>
-	<body>
-		<div id="canvas-holder">
-			<canvas id="chart-area" width="800" height="100"></canvas>
-		</div>
+
+<head>
+	<title>Matrix Chart on time scale 2</title>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0-alpha/dist/Chart.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@1.1.0-alpha/dist/chartjs-adapter-date-fns.bundle.js"></script>
+	<script src="utils.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	</link>
+</head>
+
+<body>
+	<div id="canvas-holder">
+		<canvas id="chart-area" width="800" height="100"></canvas>
+	</div>
 
 
 	<script>
+		/* global Utils, Chart */
 		function startOfToday() {
-			var d = new Date();
+			const d = new Date();
 			return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
 		}
 		function isoDayOfWeek(dt) {
-			var wd = dt.getDay(); // 0..6, from sunday
+			let wd = dt.getDay(); // 0..6, from sunday
 			wd = (wd + 6) % 7 + 1; // 1..7 from monday
 			return '' + wd; // string so it gets parsed
 		}
 		function generateData() {
-			var data = [];
-			var end = startOfToday();
-			var dt = new Date(new Date().setDate(end.getDate()-365));
-			while(dt <= end) {
-				var iso = dt.toISOString().substr(0, 10);
+			const data = [];
+			const end = startOfToday();
+			let dt = new Date(new Date().setDate(end.getDate() - 365));
+			while (dt <= end) {
+				const iso = dt.toISOString().substr(0, 10);
 				data.push({
 					x: iso,
 					y: isoDayOfWeek(dt),
@@ -40,36 +45,36 @@
 			return data;
 		}
 
-		Utils.load(function() {
+		Utils.load(() => {
 			Chart.defaults.fontSize = 9;
-			var ctx = document.getElementById("chart-area").getContext("2d");
+			const ctx = document.getElementById('chart-area').getContext('2d');
 			window.myMatrix = new Chart(ctx, {
 				type: 'matrix',
 				data: {
 					datasets: [{
 						label: 'My Matrix',
 						data: generateData(),
-						backgroundColor: function(ctx) {
-							var value = ctx.dataset.data[ctx.dataIndex].v;
-							var alpha = (10 + value) / 60;
+						backgroundColor(c) {
+							const value = c.dataset.data[c.dataIndex].v;
+							const alpha = (10 + value) / 60;
 							return Chart.helpers.color('green').alpha(alpha).rgbString();
 						},
-						borderColor: function(ctx) {
-							var value = ctx.dataset.data[ctx.dataIndex].v;
-							var alpha = (10 + value) / 60;
+						borderColor(c) {
+							const value = c.dataset.data[c.dataIndex].v;
+							const alpha = (10 + value) / 60;
 							return Chart.helpers.color('green').alpha(alpha).darken(0.3).rgbString();
 						},
 						borderWidth: 1,
 						hoverBackgroundColor: 'yellow',
 						hoverBorderColor: 'yellowgreen',
-						width: function(ctx) {
-							var a = ctx.chart.chartArea || {};
-							var nt = ctx.chart.scales.x.ticks.length;
+						width(c) {
+							const a = c.chart.chartArea || {};
+							const nt = c.chart.scales.x.ticks.length;
 							return (a.right - a.left) / nt - 3;
 						},
-						height: function(ctx) {
-							var a = ctx.chart.chartArea || {};
-							var nt = ctx.chart.scales.y.ticks.length;
+						height(c) {
+							const a = c.chart.chartArea || {};
+							const nt = c.chart.scales.y.ticks.length;
 							return (a.bottom - a.top) / nt - 3;
 						}
 					}]
@@ -81,10 +86,12 @@
 					tooltips: {
 						displayColors: false,
 						callbacks: {
-							title: function() { return '';},
-							label: function(item, data) {
-								var v = data.datasets[item.datasetIndex].data[item.index];
-								return ["d: " + v.d, "v: " + v.v.toFixed(2)];
+							title() {
+								return '';
+							},
+							label(item, data) {
+								const v = data.datasets[item.datasetIndex].data[item.index];
+								return ['d: ' + v.d, 'v: ' + v.v.toFixed(2)];
 							}
 						}
 					},
@@ -125,8 +132,8 @@
 							reverse: true,
 							position: 'right',
 							ticks: {
-								 // workaround, see: https://github.com/chartjs/Chart.js/pull/6257
-								 source: 'data',
+								// workaround, see: https://github.com/chartjs/Chart.js/pull/6257
+								source: 'data',
 								maxRotation: 90,
 							},
 							gridLines: {
@@ -137,8 +144,9 @@
 						}
 					}
 				}
-			})
+			});
 		});
 	</script>
-	</body>
+</body>
+
 </html>

@@ -1,5 +1,3 @@
-/* global Color */
-
 export default {
 	config: {
 		type: 'matrix',
@@ -17,25 +15,23 @@ export default {
 					{x: '2019-01-03', y: '12:00', v: 32},
 					{x: '2019-01-04', y: '16:00', v: 33}
 				],
-				backgroundColor: function(ctx) {
-					var value = ctx.dataset.data[ctx.dataIndex].v;
-					var alpha = (value - 5) / 40;
+				backgroundColor(ctx) {
+					const value = ctx.dataset.data[ctx.dataIndex].v;
+					const alpha = (value - 5) / 40;
 					return Chart.helpers.color('green').alpha(alpha).rgbString();
 				},
-				borderColor: function(ctx) {
-					var value = ctx.dataset.data[ctx.dataIndex].v;
-					var alpha = (value - 5) / 40;
+				borderColor(ctx) {
+					const value = ctx.dataset.data[ctx.dataIndex].v;
+					const alpha = (value - 5) / 40;
 					return Chart.helpers.color('green').alpha(alpha).darken(0.4).rgbString();
 				},
 				borderWidth: {left: 3, right: 3},
-				width: function(ctx) {
-					var a = ctx.chart.chartArea;
-					if (!a) return 0;
+				width(ctx) {
+					const a = ctx.chart.chartArea || {};
 					return (a.right - a.left) / 5.5;
 				},
-				height: function(ctx) {
-					var a = ctx.chart.chartArea;
-					if (!a) return 0;
+				height(ctx) {
+					const a = ctx.chart.chartArea || {};
 					return (a.bottom - a.top) / 3.5;
 				}
 			}]

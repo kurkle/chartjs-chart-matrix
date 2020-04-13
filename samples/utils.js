@@ -1,12 +1,12 @@
 'use strict';
 
 (function(Utils) {
-	var localUrl = '../dist/chartjs-chart-matrix.js';
-	var remoteUrl = 'https://cdn.jsdelivr.net/npm/chartjs-chart-matrix/dist/chartjs-chart-matrix.js';
+	const localUrl = '../dist/chartjs-chart-matrix.js';
+	const remoteUrl = 'https://cdn.jsdelivr.net/npm/chartjs-chart-matrix/dist/chartjs-chart-matrix.js';
 
 	function addScript(url, done, error) {
-		var head = document.getElementsByTagName('head')[0];
-		var script = document.createElement('script');
+		const head = document.getElementsByTagName('head')[0];
+		const script = document.createElement('script');
 		script.type = 'text/javascript';
 		script.onreadystatechange = function() {
 			if (this.readyState === 'complete') {
@@ -21,16 +21,16 @@
 	}
 
 	function loadError() {
-		var msg = document.createTextNode('Error loading chartjs-chart-matrix');
+		const msg = document.createTextNode('Error loading chartjs-chart-matrix');
 		document.body.appendChild(msg);
 		return true;
 	}
 
 	Utils.load = function(done) {
-		addScript(localUrl, done, function(event) {
+		addScript(localUrl, done, (event) => {
 			event.preventDefault();
 			event.stopPropagation();
 			addScript(remoteUrl, done, loadError);
 		});
 	};
-}(this.Utils = this.Utils || {}));
+}(window.Utils = window.Utils || {}));

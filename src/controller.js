@@ -6,8 +6,8 @@ import Rectangle from './rectangle';
 export default class MatrixController extends Chart.DatasetController {
 
 	update(mode) {
-		var me = this;
-		var meta = me._cachedMeta;
+		const me = this;
+		const meta = me._cachedMeta;
 
 		me.updateElements(meta.data, 0, mode);
 	}
@@ -40,15 +40,15 @@ export default class MatrixController extends Chart.DatasetController {
 	}
 
 	draw() {
-		var me = this;
-		var data = me.getMeta().data || [];
-		var i, ilen;
+		const me = this;
+		const data = me.getMeta().data || [];
+		let i, ilen;
 
 		for (i = 0, ilen = data.length; i < ilen; ++i) {
 			data[i].draw(me._ctx);
 		}
 	}
-};
+}
 
 MatrixController.prototype.dataElementType = Rectangle;
 

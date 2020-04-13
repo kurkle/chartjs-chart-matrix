@@ -1,4 +1,4 @@
-const babel = require('rollup-plugin-babel');
+/* eslint-disable import/no-commonjs */
 const commonjs = require('@rollup/plugin-commonjs');
 const resolve = require('@rollup/plugin-node-resolve');
 const builds = require('./rollup.config');
@@ -49,7 +49,7 @@ module.exports = function(karma) {
 		rollupPreprocessor: {
 			plugins: [
 				resolve(),
-				commonjs()
+				commonjs({exclude: ['src/**', 'test/**']})
 			],
 			external: [
 				'chart.js'
@@ -88,14 +88,5 @@ module.exports = function(karma) {
 				{type: 'lcovonly', subdir: '.'}
 			]
 		};
-		[
-			karma.rollupPreprocessor,
-			karma.customPreprocessors.sources.options
-		].forEach((v) => {
-			(v.plugins || (v.plugins = [])).push(
-				istanbul({
-					include: 'src/**/*.js'
-				}));
-		});
 	}
 };

@@ -1,3 +1,7 @@
+/* eslint-disable import/no-commonjs */
+/* eslint-env es6 */
+
+const babel = require('rollup-plugin-babel');
 const resolve = require('@rollup/plugin-node-resolve');
 const terser = require('rollup-plugin-terser').terser;
 const pkg = require('./package.json');
@@ -9,12 +13,12 @@ const banner = `/*!
  * Released under the ${pkg.license} license
  */`;
 
- module.exports = [
+module.exports = [
 	{
 		input: 'src/index.js',
 		output: {
 			file: `dist/${pkg.name}.js`,
-			banner: banner,
+			banner,
 			format: 'umd',
 			indent: false,
 			globals: {
@@ -22,7 +26,8 @@ const banner = `/*!
 			}
 		},
 		plugins: [
-			resolve()
+			resolve(),
+			babel(),
 		],
 		external: [
 			'chart.js'
@@ -40,6 +45,7 @@ const banner = `/*!
 		},
 		plugins: [
 			resolve(),
+			babel(),
 			terser({
 				output: {
 					preamble: banner
@@ -49,12 +55,12 @@ const banner = `/*!
 		external: [
 			'chart.js'
 		]
-	 },
-	 {
+	},
+	{
 		input: 'src/index.js',
 		output: {
 			file: `dist/${pkg.name}.esm.js`,
-			banner: banner,
+			banner,
 			format: 'esm',
 			indent: false,
 			globals: {
@@ -62,7 +68,8 @@ const banner = `/*!
 			}
 		},
 		plugins: [
-			resolve()
+			resolve(),
+			babel({envName: 'es6'}),
 		],
 		external: [
 			'chart.js'
@@ -80,6 +87,7 @@ const banner = `/*!
 		},
 		plugins: [
 			resolve(),
+			babel({envName: 'es6'}),
 			terser({
 				output: {
 					preamble: banner
