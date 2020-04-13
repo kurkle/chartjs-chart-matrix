@@ -8,6 +8,8 @@
 
 To create a matrix chart, include chartjs-chart-matrix.js after chart.js and then create the chart by setting the `type` attribute to `'matrix'`
 
+**Note:** Chart.js v3.0.0-alpha is supported by @next version.
+
 ```js
 new Chart(ctx, {
     type: 'matrix',
