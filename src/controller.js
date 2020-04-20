@@ -25,10 +25,10 @@ export default class MatrixController extends Chart.DatasetController {
 			const x = reset ? xScale.getBasePixel() : xScale.getPixelForValue(parsed.x);
 			const y = reset ? yScale.getBasePixel() : yScale.getPixelForValue(parsed.y);
 			const options = me.resolveDataElementOptions(i, mode);
-			const {width, height} = options;
+			const {width, height, anchorX, anchorY} = options;
 			const properties = {
-				x: x - width / 2,
-				y: y - height / 2,
+				x: anchorX === 'left' ? x : x - width / (anchorX === 'right' ? 1 : 2),
+				y: anchorY === 'top' ? y : y - height / (anchorY === 'bottom' ? 1 : 2),
 				width,
 				height,
 				options
@@ -56,6 +56,8 @@ MatrixController.prototype.dataElementOptions = [
 	'backgroundColor',
 	'borderColor',
 	'borderWidth',
+	'anchorX',
+	'anchorY',
 	'width',
 	'height'
 ];

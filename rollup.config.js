@@ -9,7 +9,7 @@ const pkg = require('./package.json');
 const banner = `/*!
  * ${pkg.name} v${pkg.version}
  * ${pkg.homepage}
- * (c) ${(new Date(process.env.SOURCE_DATE_EPOCH ? (process.env.SOURCE_DATE_EPOCH * 1000) : new Date().getTime())).getFullYear()}  ${pkg.author}
+ * (c) ${(new Date(process.env.SOURCE_DATE_EPOCH ? (process.env.SOURCE_DATE_EPOCH * 1000) : new Date().getTime())).getFullYear()} ${pkg.author}
  * Released under the ${pkg.license} license
  */`;
 

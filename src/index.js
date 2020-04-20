@@ -15,7 +15,9 @@ Chart.defaults.matrix = {
 				type: 'number',
 				properties: ['x', 'y', 'width', 'height']
 			}
-		}
+		},
+		anchorX: 'center',
+		anchorY: 'center'
 	},
 	tooltips: {
 		mode: 'nearest',
