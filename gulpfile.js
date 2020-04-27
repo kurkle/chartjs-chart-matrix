@@ -95,18 +95,4 @@ gulp.task('package', gulp.series(gulp.parallel('build', 'samples'), function() {
 		.pipe(gulp.dest(out));
 }));
 
-gulp.task('bower', function() {
-	const json = JSON.stringify({
-		name: pkg.name,
-		description: pkg.description,
-		homepage: pkg.homepage,
-		license: pkg.license,
-		version: pkg.version,
-		main: argv.output + '/' + pkg.name + '.js'
-	}, null, 2);
-
-	return file('bower.json', json, {src: true})
-		.pipe(gulp.dest('./'));
-});
-
 gulp.task('default', gulp.parallel('build'));
