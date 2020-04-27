@@ -5,7 +5,6 @@
 const eslint = require('gulp-eslint');
 const {exec} = require('child_process');
 const gulp = require('gulp');
-const file = require('gulp-file');
 const replace = require('gulp-replace');
 const streamify = require('gulp-streamify');
 const zip = require('gulp-zip');
