@@ -13,7 +13,6 @@ script:
   - gulp test --coverage
   - gulp lint
   - gulp package
-  - gulp bower
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

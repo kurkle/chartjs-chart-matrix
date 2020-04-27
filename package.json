@@ -16,7 +16,6 @@
     "matrix"
   ],
   "files": [
-    "bower.json",
     "dist/*.js"
   ],
   "author": "Jukka Kurkela",
