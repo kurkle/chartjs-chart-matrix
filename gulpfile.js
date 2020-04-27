@@ -1,17 +1,16 @@
 /* global Promise */
 
-var eslint = require('gulp-eslint');
-var {exec} = require('child_process');
-var gulp = require('gulp');
-var file = require('gulp-file');
-var replace = require('gulp-replace');
-var streamify = require('gulp-streamify');
-var zip = require('gulp-zip');
-var karma = require('karma');
-var merge = require('merge2');
-var path = require('path');
-var yargs = require('yargs');
-var pkg = require('./package.json');
+const eslint = require('gulp-eslint');
+const {exec} = require('child_process');
+const gulp = require('gulp');
+const replace = require('gulp-replace');
+const streamify = require('gulp-streamify');
+const zip = require('gulp-zip');
+const karma = require('karma');
+const merge = require('merge2');
+const path = require('path');
+const yargs = require('yargs');
+const pkg = require('./package.json');
 
 var argv = yargs
 	.option('output', {alias: 'o', default: 'dist'})
