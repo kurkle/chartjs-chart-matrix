@@ -69,13 +69,11 @@
 						hoverBorderColor: 'yellowgreen',
 						width(c) {
 							const a = c.chart.chartArea || {};
-							const nt = c.chart.scales.x.ticks.length;
-							return (a.right - a.left) / nt - 3;
+							return (a.right - a.left) / 53 - 1;
 						},
 						height(c) {
 							const a = c.chart.chartArea || {};
-							const nt = c.chart.scales.y.ticks.length;
-							return (a.bottom - a.top) / nt - 3;
+							return (a.bottom - a.top) / 7 - 1;
 						}
 					}]
 				},
