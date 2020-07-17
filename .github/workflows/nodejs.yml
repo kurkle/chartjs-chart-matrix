@@ -1,0 +1,29 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ master, next ]
+  pull_request:
+    branches: [ master, next ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Setup xvfb
+      run: |
+        Xvfb :99 -screen 0 1024x768x24 &
+        echo "::set-env name=DISPLAY:::99.0"
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
