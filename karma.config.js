@@ -5,8 +5,7 @@ const builds = require('./rollup.config');
 
 module.exports = function(karma) {
 	const args = karma.args || {};
-	const regex = args.watch ? /x\.js$/ : /x\.min\.js$/;
-	const build = builds.filter((v) => v && v.output.file.match(regex))[0];
+	const build = builds[0];
 
 	if (args.watch) {
 		build.output.sourcemap = 'inline';
@@ -21,11 +20,12 @@ module.exports = function(karma) {
 		files: [
 			{pattern: './test/fixtures/**/*.js', included: false},
 			{pattern: './test/fixtures/**/*.png', included: false},
-			'node_modules/chart.js/dist/Chart.js',
+			'node_modules/chart.js/dist/chart.js',
 			'node_modules/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.js',
+			'src/index.js',
 			'test/index.js',
-			'src/index.js'
-		].concat(args.inputs),
+			'test/specs/**/*.js'
+		],
 
 		// Explicitly disable hardware acceleration to make image
 		// diff more stable when ran on Travis and dev machine.

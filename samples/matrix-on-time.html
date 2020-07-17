@@ -3,9 +3,6 @@
 
 <head>
 	<title>Matrix Chart on time scale</title>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0-alpha/dist/Chart.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
 	<script src="utils.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	</link>
@@ -71,8 +68,8 @@
 							title() {
 								return '';
 							},
-							label(item, data) {
-								const v = data.datasets[item.datasetIndex].data[item.index];
+							label(context) {
+								const v = context.dataset.data[context.dataIndex];
 								return ['x: ' + v.x, 'y: ' + v.y, 'v: ' + v.v];
 							}
 						}

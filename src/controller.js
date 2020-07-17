@@ -1,9 +1,6 @@
-'use strict';
+import {DatasetController} from 'chart.js';
 
-import Chart from 'chart.js';
-import Rectangle from './rectangle';
-
-export default class MatrixController extends Chart.DatasetController {
+export default class MatrixController extends DatasetController {
 
 	update(mode) {
 		const me = this;
@@ -50,14 +47,46 @@ export default class MatrixController extends Chart.DatasetController {
 	}
 }
 
-MatrixController.prototype.dataElementType = Rectangle;
+MatrixController.id = 'matrix';
+MatrixController.defaults = {
+	dataElementType: 'matrix',
+	dataElementOptions: [
+		'backgroundColor',
+		'borderColor',
+		'borderWidth',
+		'anchorX',
+		'anchorY',
+		'width',
+		'height'
+	],
 
-MatrixController.prototype.dataElementOptions = [
-	'backgroundColor',
-	'borderColor',
-	'borderWidth',
-	'anchorX',
-	'anchorY',
-	'width',
-	'height'
-];
+	hover: {
+		mode: 'nearest',
+		intersect: true
+	},
+	datasets: {
+		animation: {
+			numbers: {
+				type: 'number',
+				properties: ['x', 'y', 'width', 'height']
+			}
+		},
+		anchorX: 'center',
+		anchorY: 'center'
+	},
+	tooltips: {
+		mode: 'nearest',
+		intersect: true
+	},
+	scales: {
+		x: {
+			type: 'linear',
+			offset: true
+		},
+		y: {
+			type: 'linear',
+			reverse: true
+		}
+	},
+};
+

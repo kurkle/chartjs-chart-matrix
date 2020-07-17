@@ -1,6 +1,6 @@
 # chartjs-chart-matrix
 
-[Chart.js](https://www.chartjs.org/) **v3.0.0-alpha** module for creating matrix charts
+[Chart.js](https://www.chartjs.org/) **v3.0.0-alpha.2** module for creating matrix charts
 
 ![npm](https://img.shields.io/npm/v/chartjs-chart-matrix.svg) [![release](https://img.shields.io/github/release/kurkle/chartjs-chart-matrix.svg?style=flat-square)](https://github.com/kurkle/chartjs-chart-matrix/releases/latest) [![travis](https://img.shields.io/travis/kurkle/chartjs-chart-matrix.svg?style=flat-square&maxAge=60)](https://travis-ci.org/kurkle/chartjs-chart-matrix) ![npm bundle size](https://img.shields.io/bundlephobia/min/chartjs-chart-matrix.svg) ![GitHub](https://img.shields.io/github/license/kurkle/chartjs-chart-matrix.svg)
 
@@ -63,13 +63,10 @@ You first need to install node dependencies  (requires [Node.js](https://nodejs.
 The following commands will then be available from the repository root:
 
 ```bash
-> gulp build            // build dist files
-> gulp build --watch    // build and watch for changes
-> gulp test             // run all tests
-> gulp test --watch     // run all tests and watch for changes
-> gulp test --coverage  // run all tests and generate code coverage
-> gulp lint             // perform code linting
-> gulp package          // create an archive with dist files and samples
+> npm run build        // build dist files
+> npm test             // run all tests
+> npm run lint         // perform code linting
+> npm package          // create an archive with dist files and samples
 ```
 
 ## License

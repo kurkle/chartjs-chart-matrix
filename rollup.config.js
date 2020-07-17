@@ -57,7 +57,7 @@ module.exports = [
 		]
 	},
 	{
-		input: 'src/index.js',
+		input: 'src/index.esm.js',
 		output: {
 			file: `dist/${pkg.name}.esm.js`,
 			banner,
@@ -68,31 +68,7 @@ module.exports = [
 			}
 		},
 		plugins: [
-			resolve(),
-			babel({envName: 'es6'}),
-		],
-		external: [
-			'chart.js'
-		]
-	},
-	{
-		input: 'src/index.js',
-		output: {
-			file: `dist/${pkg.name}.esm.min.js`,
-			format: 'esm',
-			indent: false,
-			globals: {
-				'chart.js': 'Chart'
-			}
-		},
-		plugins: [
-			resolve(),
-			babel({envName: 'es6'}),
-			terser({
-				output: {
-					preamble: banner
-				}
-			})
+			resolve()
 		],
 		external: [
 			'chart.js'

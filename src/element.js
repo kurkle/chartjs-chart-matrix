@@ -1,8 +1,9 @@
-import Chart from 'chart.js';
+import {Element} from 'chart.js';
+import {isObject} from 'chart.js/helpers/core';
 
 /**
  * Helper function to get the bounds of the rect
- * @param {Rectangle} rect the rect
+ * @param {Matrix} rect the rect
  * @param {boolean} [useFinalPosition]
  * @return {object} bounds of the rect
  * @private
@@ -20,7 +21,7 @@ function parseBorderWidth(rect, maxW, maxH) {
 	const value = rect.options.borderWidth;
 	let t, r, b, l;
 
-	if (Chart.helpers.isObject(value)) {
+	if (isObject(value)) {
 		t = +value.top || 0;
 		r = +value.right || 0;
 		b = +value.bottom || 0;
@@ -69,10 +70,7 @@ function inRange(rect, x, y, useFinalPosition) {
 		&& (skipY || y >= bounds.top && y <= bounds.bottom);
 }
 
-export default class Rectangle extends Chart.Element {
-
-	static _type = 'rectangle';
-
+export default class Matrix extends Element {
 	constructor(cfg) {
 		super();
 
@@ -136,3 +134,9 @@ export default class Rectangle extends Chart.Element {
 		return axis === 'x' ? this.width / 2 : this.height / 2;
 	}
 }
+
+Matrix.id = 'matrix';
+Matrix.defaults = {
+	width: 20,
+	height: 20
+};
