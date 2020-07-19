@@ -70,8 +70,6 @@ module.exports = [
 		plugins: [
 			resolve()
 		],
-		external: [
-			'chart.js'
-		]
+		external: (i) => i === 'chart.js' || i.startsWith('chart.js/'),
 	}
 ];
