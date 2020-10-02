@@ -1,6 +1,6 @@
 /* eslint-disable import/no-commonjs */
 const commonjs = require('@rollup/plugin-commonjs');
-const resolve = require('@rollup/plugin-node-resolve');
+const resolve = require('@rollup/plugin-node-resolve').nodeResolve;
 const builds = require('./rollup.config');
 
 module.exports = function(karma) {

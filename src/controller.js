@@ -1,24 +1,27 @@
 import {DatasetController} from 'chart.js';
 
 export default class MatrixController extends DatasetController {
+	initialize() {
+		this.enableOptionSharing = true;
+		super.initialize();
+	}
 
 	update(mode) {
 		const me = this;
 		const meta = me._cachedMeta;
 
-		me.updateElements(meta.data, 0, mode);
+		me.updateElements(meta.data, 0, meta.data.length, mode);
 	}
 
-	updateElements(rects, start, mode) {
+	updateElements(rects, start, count, mode) {
 		const me = this;
 		const reset = mode === 'reset';
 		const {xScale, yScale} = me._cachedMeta;
 		const firstOpts = me.resolveDataElementOptions(start, mode);
 		const sharedOptions = me.getSharedOptions(mode, rects[start], firstOpts);
 
-		for (let i = 0; i < rects.length; i++) {
-			const index = start + i;
-			const parsed = !reset && me.getParsed(index);
+		for (let i = start; i < start + count; i++) {
+			const parsed = !reset && me.getParsed(i);
 			const x = reset ? xScale.getBasePixel() : xScale.getPixelForValue(parsed.x);
 			const y = reset ? yScale.getBasePixel() : yScale.getPixelForValue(parsed.y);
 			const options = me.resolveDataElementOptions(i, mode);
@@ -30,7 +33,7 @@ export default class MatrixController extends DatasetController {
 				height,
 				options
 			};
-			me.updateElement(rects[i], index, properties, mode);
+			me.updateElement(rects[i], i, properties, mode);
 		}
 
 		me.updateSharedOptions(sharedOptions, mode);

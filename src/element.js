@@ -1,5 +1,5 @@
 import {Element} from 'chart.js';
-import {isObject} from 'chart.js/helpers/core';
+import {isObject} from 'chart.js/helpers';
 
 /**
  * Helper function to get the bounds of the rect

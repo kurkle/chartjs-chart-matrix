@@ -2,7 +2,7 @@
 /* eslint-env es6 */
 
 const babel = require('rollup-plugin-babel');
-const resolve = require('@rollup/plugin-node-resolve');
+const resolve = require('@rollup/plugin-node-resolve').nodeResolve;
 const terser = require('rollup-plugin-terser').terser;
 const pkg = require('./package.json');
 
