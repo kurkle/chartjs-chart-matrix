@@ -67,7 +67,6 @@ export default {
 					},
 					ticks: {
 						display: false,
-						reverse: true
 					},
 					gridLines: {
 						display: false
