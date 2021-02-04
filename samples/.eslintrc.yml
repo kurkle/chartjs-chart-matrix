@@ -1,0 +1,9 @@
+globals:
+  Chart: true
+  Utils: true
+  randomScalingFactor: true
+
+rules:
+  indent: ["error", "tab", {flatTernaryExpressions: true}]
+  no-console: "off"
+  consistent-this: "off"

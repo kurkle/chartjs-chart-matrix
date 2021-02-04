@@ -1,48 +1,16 @@
-'use strict';
+import {acquireChart, addMatchers, releaseCharts, specsFromFixtures, triggerMouseEvent, afterEvent} from 'chartjs-test-utils';
 
-import Chart from 'chart.js';
-import fixture from './fixture';
-import matchers from './matchers';
-import utils from './utils';
-
-var charts = {};
-
-// force ratio=1 for tests on high-res/retina devices
 window.devicePixelRatio = 1;
+window.acquireChart = acquireChart;
+window.afterEvent = afterEvent;
+window.triggerMouseEvent = triggerMouseEvent;
 
-jasmine.chart = {
-	acquire: function() {
-		var chart = utils.acquireChart.apply(utils, arguments);
-		charts[chart.id] = chart;
-		return chart;
-	},
-	release: function(chart) {
-		utils.releaseChart.apply(utils, arguments);
-		delete charts[chart.id];
-	}
-};
-
-jasmine.fixture = fixture;
-jasmine.triggerMouseEvent = utils.triggerMouseEvent;
+jasmine.fixtures = specsFromFixtures;
 
 beforeEach(function() {
-	jasmine.addMatchers(matchers);
-
-	Chart.helpers.merge(Chart.defaults.global, {
-		animation: false,
-		legend: {display: false},
-		responsive: false,
-		title: {display: false},
-		tooltips: false
-	});
+  addMatchers();
 });
 
 afterEach(function() {
-	// Auto releasing acquired charts
-	Object.keys(charts).forEach(function(id) {
-		var chart = charts[id];
-		if (!(chart.$test || {}).persistent) {
-			jasmine.chart.release(chart);
-		}
-	});
+  releaseCharts();
 });
