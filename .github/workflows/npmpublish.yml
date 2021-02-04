@@ -1,30 +1,33 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
-
 name: Node.js Package
 
 on:
   release:
-    types: [created]
+    types: [published]
 
 jobs:
-  build:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.trim.outputs.version }}
+    steps:
+      - id: trim
+        run: echo "::set-output name=version::${TAG:1}"
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - name: Setup xvfb
-        run: |
-          Xvfb :99 -screen 0 1024x768x24 &
-          echo "::set-env name=DISPLAY:::99.0"
-      - run: npm ci
-      - run: npm run build
-      - run: npm test
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+    - name: Test
+      run: |
+        npm ci
+        xvfb-run --auto-servernum npm test
 
   publish-npm:
-    needs: build
+    needs: [test, setup]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -32,8 +35,23 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm run build
-      - run: npm publish --access=public
+      - name: Setup and build
+        run: |
+          npm ci
+          npm install -g json
+          json -I -f package.json -e "this.version=\"$VERSION\""
+          json -I -f package-lock.json -e "this.version=\"$VERSION\""
+          npm run build
+          npm pack
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          VERSION: ${{ needs.setup.outputs.version }}
+      - name: Publish @next
+        run: npm publish --access=public --tag next
+        if: "github.event.release.prerelease"
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+      - name: Publish @latest
+        run: npm publish --access=public --tag latest
+        if: "!github.event.release.prerelease"
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}

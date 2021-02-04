@@ -1,1 +1,1 @@
-describe('auto', jasmine.fixture.specs('scales'));
+describe('auto', jasmine.fixtures('scales'));

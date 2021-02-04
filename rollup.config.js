@@ -1,8 +1,4 @@
-/* eslint-disable import/no-commonjs */
-/* eslint-env es6 */
-
-const babel = require('rollup-plugin-babel');
-const resolve = require('@rollup/plugin-node-resolve').nodeResolve;
+const resolve = require('@rollup/plugin-node-resolve').default;
 const terser = require('rollup-plugin-terser').terser;
 const pkg = require('./package.json');
 
@@ -13,63 +9,65 @@ const banner = `/*!
  * Released under the ${pkg.license} license
  */`;
 
+const input = 'src/index.js';
+const inputESM = 'src/index.esm.js';
+const external = [
+  'chart.js',
+  'chart.js/helpers'
+];
+const globals = {
+  'chart.js': 'Chart',
+  'chart.js/helpers': 'Chart.helpers'
+};
+
 module.exports = [
-	{
-		input: 'src/index.js',
-		output: {
-			file: `dist/${pkg.name}.js`,
-			banner,
-			format: 'umd',
-			indent: false,
-			globals: {
-				'chart.js': 'Chart'
-			}
-		},
-		plugins: [
-			resolve(),
-			babel(),
-		],
-		external: [
-			'chart.js'
-		]
-	},
-	{
-		input: 'src/index.js',
-		output: {
-			file: `dist/${pkg.name}.min.js`,
-			format: 'umd',
-			indent: false,
-			globals: {
-				'chart.js': 'Chart'
-			}
-		},
-		plugins: [
-			resolve(),
-			babel(),
-			terser({
-				output: {
-					preamble: banner
-				}
-			})
-		],
-		external: [
-			'chart.js'
-		]
-	},
-	{
-		input: 'src/index.esm.js',
-		output: {
-			file: `dist/${pkg.name}.esm.js`,
-			banner,
-			format: 'esm',
-			indent: false,
-			globals: {
-				'chart.js': 'Chart'
-			}
-		},
-		plugins: [
-			resolve()
-		],
-		external: (i) => i === 'chart.js' || i.startsWith('chart.js/'),
-	}
+  {
+    input,
+    output: {
+      name: pkg.name,
+      file: pkg.main,
+      banner,
+      format: 'umd',
+      indent: false,
+      globals
+    },
+    plugins: [
+      resolve(),
+    ],
+    external
+  },
+  {
+    input,
+    output: {
+      name: pkg.name,
+      file: pkg.main.replace('.js', '.min.js'),
+      format: 'umd',
+      sourcemap: true,
+      indent: false,
+      globals
+    },
+    plugins: [
+      resolve(),
+      terser({
+        output: {
+          preamble: banner
+        }
+      })
+    ],
+    external
+  },
+  {
+    input: inputESM,
+    output: {
+      name: pkg.name,
+      file: pkg.module,
+      banner,
+      format: 'esm',
+      indent: false,
+    },
+    plugins: [
+      resolve()
+    ],
+    external
+  }
 ];
