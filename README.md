@@ -2,7 +2,10 @@
 
 [Chart.js](https://www.chartjs.org/) **v3.0.0-beta.10** module for creating matrix charts
 
-![npm](https://img.shields.io/npm/v/chartjs-chart-matrix.svg) [![release](https://img.shields.io/github/release/kurkle/chartjs-chart-matrix.svg?style=flat-square)](https://github.com/kurkle/chartjs-chart-matrix/releases/latest) [![travis](https://img.shields.io/travis/kurkle/chartjs-chart-matrix.svg?style=flat-square&maxAge=60)](https://travis-ci.org/kurkle/chartjs-chart-matrix) ![npm bundle size](https://img.shields.io/bundlephobia/min/chartjs-chart-matrix.svg) ![GitHub](https://img.shields.io/github/license/kurkle/chartjs-chart-matrix.svg)
+[![npm](https://img.shields.io/npm/v/chartjs-chart-matrix.svg)](https://www.npmjs.com/package/chartjs-chart-matrix)
+[![release](https://img.shields.io/github/release/kurkle/chartjs-chart-matrix.svg?style=flat-square)](https://github.com/kurkle/chartjs-chart-matrix/releases/latest)
+![npm bundle size](https://img.shields.io/bundlephobia/min/chartjs-chart-matrix.svg)
+![GitHub](https://img.shields.io/github/license/kurkle/chartjs-chart-matrix.svg)
 [![Coverage Status](https://coveralls.io/repos/github/kurkle/chartjs-chart-matrix/badge.svg?branch=next)](https://coveralls.io/github/kurkle/chartjs-chart-matrix?branch=next)
 
 ## Documentation
