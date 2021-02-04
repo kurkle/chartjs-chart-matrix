@@ -14,7 +14,7 @@ module.exports = function(karma) {
   }
 
   karma.set({
-    browsers: ['firefox'],
+    browsers: ['chrome', 'firefox'],
     frameworks: ['jasmine'],
     reporters: ['spec', 'kjhtml'],
     logLevel: karma.LOG_WARN,
@@ -33,6 +33,15 @@ module.exports = function(karma) {
     // diff more stable when ran on Travis and dev machine.
     // https://github.com/chartjs/Chart.js/pull/5629
     customLaunchers: {
+      chrome: {
+        base: 'Chrome',
+        flags: [
+          '--disable-accelerated-2d-canvas',
+          '--disable-background-timer-throttling',
+          '--disable-backgrounding-occluded-windows',
+          '--disable-renderer-backgrounding'
+        ]
+      },
       firefox: {
         base: 'Firefox',
         prefs: {
@@ -80,7 +89,7 @@ module.exports = function(karma) {
       dir: 'coverage/',
       reporters: [
         {type: 'html', subdir: 'html'},
-        {type: 'lcovonly', subdir: '.'}
+        {type: 'lcovonly', subdir: (browser) => browser.toLowerCase().split(/[ /-]/)[0]}
       ]
     };
   }

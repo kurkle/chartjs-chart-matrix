@@ -7,7 +7,7 @@
   "scripts": {
     "autobuild": "rollup -c -w",
     "build": "rollup -c",
-    "dev": "karma start --no-signle-run --auto-watch",
+    "dev": "karma start --no-signle-run --auto-watch --browsers chrome",
     "lint": "eslint --ignore-path .gitignore .",
     "lint-fix": "eslint --ignore-path .gitignore --fix .",
     "test": "cross-env NODE_ENV=test concurrently \"npm:test-*\"",
@@ -47,6 +47,7 @@
     "eslint-plugin-html": "^6.1.1",
     "jasmine-core": "^3.6.0",
     "karma": "^6.1.0",
+    "karma-chrome-launcher": "^3.1.0",
     "karma-coverage": "^2.0.3",
     "karma-firefox-launcher": "^2.1.0",
     "karma-jasmine": "^4.0.1",
