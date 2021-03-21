@@ -54,7 +54,7 @@ module.exports = {
           ticks: {
             display: false
           },
-          gridLines: {
+          grid: {
             display: false
           }
         },
@@ -73,7 +73,7 @@ module.exports = {
           ticks: {
             display: false
           },
-          gridLines: {
+          grid: {
             display: false
           }
         }
