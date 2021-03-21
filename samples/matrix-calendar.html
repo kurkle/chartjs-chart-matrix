@@ -93,20 +93,22 @@
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
-					legend: {
-						display: false
-					},
-					tooltips: {
-						displayColors: false,
-						callbacks: {
-							title() {
-								return '';
-							},
-							label(context) {
-								const v = context.dataset.data[context.dataIndex];
-								return ['d: ' + v.d, 'v: ' + v.v.toFixed(2)];
+					plugins: {
+						legend: {
+							display: false
+						},
+						tooltip: {
+							displayColors: false,
+							callbacks: {
+								title() {
+									return '';
+								},
+								label(context) {
+									const v = context.dataset.data[context.dataIndex];
+									return ['d: ' + v.d, 'v: ' + v.v.toFixed(2)];
+								}
 							}
-						}
+						},
 					},
 					scales: {
 						y: {
@@ -126,15 +128,15 @@
 								autoSkip: true,
 								padding: 1
 							},
-							gridLines: {
+							grid: {
 								display: false,
 								drawBorder: false,
 								tickMarkLength: 0,
 							},
-							scaleLabel: {
+							title: {
 								display: true,
 								fontSize: 15,
-								labelString: 'March, 2020',
+								text: 'March, 2020',
 								padding: 0
 							}
 						},
@@ -155,7 +157,7 @@
 								source: 'data',
 								padding: 4
 							},
-							gridLines: {
+							grid: {
 								display: false,
 								drawBorder: false,
 								tickMarkLength: 0
@@ -200,20 +202,22 @@
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
-					legend: {
-						display: false
-					},
-					tooltips: {
-						displayColors: false,
-						callbacks: {
-							title() {
-								return '';
-							},
-							label(context) {
-								const v = context.dataset.data[context.dataIndex];
-								return ['d: ' + v.d, 'v: ' + v.v.toFixed(2)];
+					plugins: {
+						legend: {
+							display: false
+						},
+						tooltip: {
+							displayColors: false,
+							callbacks: {
+								title() {
+									return '';
+								},
+								label(context) {
+									const v = context.dataset.data[context.dataIndex];
+									return ['d: ' + v.d, 'v: ' + v.v.toFixed(2)];
+								}
 							}
-						}
+						},
 					},
 					scales: {
 						y: {
@@ -233,15 +237,15 @@
 								autoSkip: true,
 								padding: 1
 							},
-							gridLines: {
+							grid: {
 								display: false,
 								drawBorder: false,
 								tickMarkLength: 0,
 							},
-							scaleLabel: {
+							title: {
 								display: true,
 								fontSize: 15,
-								labelString: 'April, 2020',
+								text: 'April, 2020',
 								padding: 0
 							}
 						},
@@ -262,7 +266,7 @@
 								source: 'data',
 								padding: 4
 							},
-							gridLines: {
+							grid: {
 								display: false,
 								drawBorder: false,
 								tickMarkLength: 0

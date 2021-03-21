@@ -137,6 +137,11 @@ export default class MatrixElement extends Element {
 
 MatrixElement.id = 'matrix';
 MatrixElement.defaults = {
+  backgroundColor: undefined,
+  borderColor: undefined,
+  borderWidth: undefined,
+  anchorX: undefined,
+  anchorY: undefined,
   width: 20,
   height: 20
 };

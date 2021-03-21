@@ -53,27 +53,18 @@ export default class MatrixController extends DatasetController {
 MatrixController.id = 'matrix';
 MatrixController.defaults = {
   dataElementType: 'matrix',
-  dataElementOptions: [
-    'backgroundColor',
-    'borderColor',
-    'borderWidth',
-    'anchorX',
-    'anchorY',
-    'width',
-    'height'
-  ],
 
-  datasets: {
-    animation: {
-      numbers: {
-        type: 'number',
-        properties: ['x', 'y', 'width', 'height']
-      }
-    },
-    anchorX: 'center',
-    anchorY: 'center'
+  animations: {
+    numbers: {
+      type: 'number',
+      properties: ['x', 'y', 'width', 'height']
+    }
   },
+  anchorX: 'center',
+  anchorY: 'center'
+};
 
+MatrixController.overrides = {
   interaction: {
     mode: 'nearest',
     intersect: true
@@ -90,4 +81,3 @@ MatrixController.defaults = {
     }
   },
 };
-
