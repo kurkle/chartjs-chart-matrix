@@ -33,10 +33,10 @@
   },
   "homepage": "https://github.com/kurkle/chartjs-chart-matrix#readme",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-commonjs": "^18.0.0",
     "@rollup/plugin-node-resolve": "^11.2.0",
-    "chart.js": "^3.0.0-rc.2",
-    "chartjs-adapter-date-fns": "^1.1.0-beta.1",
+    "chart.js": "^3.0.0",
+    "chartjs-adapter-date-fns": "^2.0.0",
     "chartjs-test-utils": "^0.2.2",
     "concurrently": "^6.0.0",
     "cross-env": "^7.0.3",
@@ -60,7 +60,6 @@
     "rollup-plugin-terser": "^7.0.2"
   },
   "peerDependencies": {
-    "chart.js": "^3.0.0-beta.10"
-  },
-  "dependencies": {}
+    "chart.js": "^3.0.0"
+  }
 }
