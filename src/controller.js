@@ -1,4 +1,5 @@
 import {DatasetController} from 'chart.js';
+import {version} from '../package.json';
 
 export default class MatrixController extends DatasetController {
   initialize() {
@@ -51,6 +52,9 @@ export default class MatrixController extends DatasetController {
 }
 
 MatrixController.id = 'matrix';
+
+MatrixController.version = version;
+
 MatrixController.defaults = {
   dataElementType: 'matrix',
 
