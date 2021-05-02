@@ -11,7 +11,7 @@
 
 ## Documentation
 
-To create a matrix chart, include chartjs-chart-matrix.js after chart.js and then create the chart by setting the `type` attribute to `'matrix'`
+To create a matrix chart, include `chartjs-chart-matrix.js` after `chart.js` and then create the chart by setting the `type` attribute to `'matrix'`
 
 ```js
 const chart = new Chart(ctx, {
