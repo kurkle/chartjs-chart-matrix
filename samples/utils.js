@@ -1,8 +1,8 @@
 'use strict';
 
 (function(Utils) {
-	const chartjsUrl = 'https://cdn.jsdelivr.net/npm/chart.js@next/dist/chart.js';
-	const dateFnsUrl = 'https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@1.1.0-alpha/dist/chartjs-adapter-date-fns.bundle.js';
+	const chartjsUrl = 'https://cdn.jsdelivr.net/npm/chart.js/dist/chart.js';
+	const dateFnsUrl = 'https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.js';
 	const localUrl = '../dist/chartjs-chart-matrix.js';
 	const remoteUrl = 'https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@next/dist/chartjs-chart-matrix.js';
 

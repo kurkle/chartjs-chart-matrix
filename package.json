@@ -1,15 +1,20 @@
 {
   "name": "chartjs-chart-matrix",
-  "version": "1.0.0-rc",
+  "version": "1.0.0",
   "description": "Chart.js module for creating matrix charts",
   "main": "dist/chartjs-chart-matrix.js",
   "module": "dist/chartjs-chart-matrix.esm.js",
+  "types": "types/index.esm.d.ts",
   "scripts": {
     "autobuild": "rollup -c -w",
     "build": "rollup -c",
     "dev": "karma start --no-signle-run --auto-watch --browsers chrome",
-    "lint": "eslint --ignore-path .gitignore .",
-    "lint-fix": "eslint --ignore-path .gitignore --fix .",
+    "docs": "npm run build && vuepress build docs --no-cache",
+    "docs:dev": "npm run build && vuepress dev docs --no-cache",
+    "lint": "concurrently -r \"npm:lint-*\"",
+    "lint-js": "eslint \"src/**/*.js\" \"test/**/*.js\" \"docs/**/*.js\"",
+    "lint-md": "eslint \"**/*.md\"",
+    "lint-types": "eslint \"types/**/*.ts\" && tsc -p types/tests/",
     "test": "cross-env NODE_ENV=test concurrently \"npm:test-*\"",
     "test-lint": "npm run lint",
     "test-karma": "karma start --auto-watch --single-run"
@@ -31,10 +36,13 @@
   "bugs": {
     "url": "https://github.com/kurkle/chartjs-chart-matrix/issues"
   },
-  "homepage": "https://github.com/kurkle/chartjs-chart-matrix#readme",
+  "homepage": "https://chartjs-chart-matrix.pages.dev/",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^18.0.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.2.0",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
     "chart.js": "^3.0.0",
     "chartjs-adapter-date-fns": "^2.0.0",
     "chartjs-test-utils": "^0.2.2",
@@ -45,6 +53,7 @@
     "eslint-config-chartjs": "^0.3.0",
     "eslint-plugin-es": "^4.1.0",
     "eslint-plugin-html": "^6.1.2",
+    "eslint-plugin-markdown": "^2.1.0",
     "jasmine-core": "^3.7.1",
     "karma": "^6.2.0",
     "karma-chrome-launcher": "^3.1.0",
@@ -56,8 +65,14 @@
     "karma-spec-reporter": "0.0.32",
     "pixelmatch": "^5.2.1",
     "rollup": "^2.42.1",
+    "rollup-plugin-analyzer": "^4.0.0",
     "rollup-plugin-istanbul": "^3.0.0",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "^4.2.4",
+    "vuepress": "^1.8.2",
+    "vuepress-plugin-flexsearch": "^0.1.0",
+    "vuepress-plugin-redirect": "^1.2.5",
+    "vuepress-theme-chartjs": "^0.2.0"
   },
   "peerDependencies": {
     "chart.js": "^3.0.0"

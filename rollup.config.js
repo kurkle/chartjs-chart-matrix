@@ -1,5 +1,6 @@
 const resolve = require('@rollup/plugin-node-resolve').default;
 const terser = require('rollup-plugin-terser').terser;
+const json = require('@rollup/plugin-json');
 const pkg = require('./package.json');
 
 const banner = `/*!
@@ -33,6 +34,7 @@ module.exports = [
     },
     plugins: [
       resolve(),
+      json(),
     ],
     external
   },
@@ -48,6 +50,7 @@ module.exports = [
     },
     plugins: [
       resolve(),
+      json(),
       terser({
         output: {
           preamble: banner
@@ -66,7 +69,8 @@ module.exports = [
       indent: false,
     },
     plugins: [
-      resolve()
+      resolve(),
+      json(),
     ],
     external
   }
