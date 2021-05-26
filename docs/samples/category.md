@@ -1,4 +1,4 @@
-# Basic (Linear Scale)
+# On Category Scale
 
 ```js chart-editor
 // <block:data:1>
@@ -6,15 +6,15 @@ const data = {
   datasets: [{
     label: 'My Matrix',
     data: [
-      {x: 1, y: 1, v: 11},
-      {x: 1, y: 2, v: 12},
-      {x: 1, y: 3, v: 13},
-      {x: 2, y: 1, v: 21},
-      {x: 2, y: 2, v: 22},
-      {x: 2, y: 3, v: 23},
-      {x: 3, y: 1, v: 31},
-      {x: 3, y: 2, v: 32},
-      {x: 3, y: 3, v: 33}
+      {x: 'A', y: 'X', v: 11},
+      {x: 'A', y: 'Y', v: 12},
+      {x: 'A', y: 'Z', v: 13},
+      {x: 'B', y: 'X', v: 21},
+      {x: 'B', y: 'Y', v: 22},
+      {x: 'B', y: 'Z', v: 23},
+      {x: 'C', y: 'X', v: 31},
+      {x: 'C', y: 'Y', v: 32},
+      {x: 'C', y: 'Z', v: 33}
     ],
     backgroundColor(context) {
       const value = context.dataset.data[context.dataIndex].v;
@@ -55,17 +55,21 @@ const config = {
     },
     scales: {
       x: {
+        type: 'category',
+        labels: ['A', 'B', 'C'],
         ticks: {
-          stepSize: 1
+          display: true
         },
         grid: {
           display: false
         }
       },
       y: {
+        type: 'category',
+        labels: ['X', 'Y', 'Z'],
         offset: true,
         ticks: {
-          stepSize: 1
+          display: true
         },
         grid: {
           display: false
@@ -83,7 +87,7 @@ const actions = [
     handler(chart) {
       chart.data.datasets.forEach(dataset => {
         dataset.data.forEach(point => {
-          point.v = Math.random() * 20;
+          point.v = Math.random() * 50;
         });
       });
       chart.update();

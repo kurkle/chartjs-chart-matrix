@@ -38,3 +38,14 @@ export function numbers(config) {
 
   return data;
 }
+
+export function isoDayOfWeek(dt) {
+  let wd = dt.getDay(); // 0..6, from sunday
+  wd = (wd + 6) % 7 + 1; // 1..7 from monday
+  return '' + wd; // string so it gets parsed
+}
+
+export function startOfToday() {
+  const d = new Date();
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+}

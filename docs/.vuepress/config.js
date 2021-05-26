@@ -47,6 +47,9 @@ module.exports = {
         '/samples/': [
           'basic',
           'calendar',
+          'category',
+          'time',
+          'utils'
         ],
         '/': [
           '',

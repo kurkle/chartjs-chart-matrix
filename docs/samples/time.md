@@ -1,17 +1,16 @@
-# Calendar (Time Scale)
+# On Time Scale
 
 ```js chart-editor
 // <block:generate:4>
 function generateData() {
-  const adapter = new helpers._adapters._date();
   const data = [];
-  let dt = adapter.startOf(new Date(), 'month');
-  const end = adapter.endOf(dt, 'month');
+  const end = Utils.startOfToday();
+  let dt = new Date(new Date().setDate(end.getDate() - 365));
   while (dt <= end) {
-    const iso = adapter.format(dt, 'yyyy-MM-dd');
+    const iso = dt.toISOString().substr(0, 10);
     data.push({
-      x: Utils.isoDayOfWeek(dt),
-      y: iso,
+      x: iso,
+      y: Utils.isoDayOfWeek(dt),
       d: iso,
       v: Math.random() * 50
     });
@@ -24,20 +23,29 @@ function generateData() {
 // <block:data:2>
 const data = {
   datasets: [{
+    label: 'My Matrix',
     data: generateData(),
-    backgroundColor({raw}) {
-      const alpha = (10 + raw.v) / 60;
+    backgroundColor(c) {
+      const value = c.dataset.data[c.dataIndex].v;
+      const alpha = (10 + value) / 60;
       return helpers.color('green').alpha(alpha).rgbString();
     },
-    borderColor({raw}) {
-      const alpha = (10 + raw.v) / 60;
+    borderColor(c) {
+      const value = c.dataset.data[c.dataIndex].v;
+      const alpha = (10 + value) / 60;
       return helpers.color('green').alpha(alpha).darken(0.3).rgbString();
     },
     borderWidth: 1,
     hoverBackgroundColor: 'yellow',
     hoverBorderColor: 'yellowgreen',
-    width: ({chart}) => (chart.chartArea || {}).width / chart.scales.x.ticks.length - 3,
-    height: ({chart}) =>(chart.chartArea || {}).height / chart.scales.y.ticks.length - 3
+    width(c) {
+      const a = c.chart.chartArea || {};
+      return (a.right - a.left) / 53 - 1;
+    },
+    height(c) {
+      const a = c.chart.chartArea || {};
+      return (a.bottom - a.top) / 7 - 1;
+    }
   }]
 };
 // </block:data>
@@ -46,54 +54,55 @@ const data = {
 const scales = {
   y: {
     type: 'time',
-    left: 'left',
+    offset: true,
+    time: {
+      unit: 'day',
+      round: 'day',
+      isoWeekday: 1,
+      parser: 'i',
+      displayFormats: {
+        day: 'iiiiii'
+      }
+    },
+    reverse: true,
+    position: 'right',
+    ticks: {
+      maxRotation: 0,
+      autoSkip: true,
+      padding: 1,
+      font: {
+        size: 9
+      }
+    },
+    grid: {
+      display: false,
+      drawBorder: false,
+      tickMarkLength: 0
+    }
+  },
+  x: {
+    type: 'time',
+    position: 'bottom',
     offset: true,
     time: {
       unit: 'week',
       round: 'week',
       isoWeekday: 1,
       displayFormats: {
-        week: 'I'
+        week: 'MMM dd'
       }
     },
     ticks: {
       maxRotation: 0,
       autoSkip: true,
-      padding: 1
+      font: {
+        size: 9
+      }
     },
     grid: {
       display: false,
       drawBorder: false,
       tickMarkLength: 0,
-    },
-    title: {
-      display: true,
-      font: {size: 15, weigth: 'bold'},
-      text: ({chart}) => chart.scales.x._adapter.format(Date.now(), 'MMM, yyyy'),
-      padding: 0
-    }
-  },
-  x: {
-    type: 'time',
-    position: 'top',
-    offset: true,
-    time: {
-      unit: 'day',
-      parser: 'i',
-      isoWeekday: 1,
-      displayFormats: {
-        day: 'iiiiii'
-      }
-    },
-    reverse: false,
-    ticks: {
-      source: 'data',
-      padding: 0,
-      maxRotation: 0,
-    },
-    grid: {
-      display: false,
-      drawBorder: false,
     }
   }
 };
@@ -101,6 +110,7 @@ const scales = {
 
 // <block:options:1>
 const options = {
+  aspectRatio: 5,
   plugins: {
     legend: false,
     tooltip: {
@@ -119,11 +129,12 @@ const options = {
   scales: scales,
   layout: {
     padding: {
-      top: 10,
+      top: 10
     }
   }
 };
 // </block:options>
+
 // <block:config:0>
 const config = {
   type: 'matrix',
