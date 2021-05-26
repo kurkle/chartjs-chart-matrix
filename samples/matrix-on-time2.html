@@ -74,20 +74,22 @@
 					}]
 				},
 				options: {
-					legend: {
-						display: false
-					},
-					tooltips: {
-						displayColors: false,
-						callbacks: {
-							title() {
-								return '';
-							},
-							label(context) {
-								const v = context.dataset.data[context.dataIndex];
-								return ['d: ' + v.d, 'v: ' + v.v.toFixed(2)];
+					plugins: {
+						legend: {
+							display: false
+						},
+						tooltip: {
+							displayColors: false,
+							callbacks: {
+								title() {
+									return '';
+								},
+								label(context) {
+									const v = context.dataset.data[context.dataIndex];
+									return ['d: ' + v.d, 'v: ' + v.v.toFixed(2)];
+								}
 							}
-						}
+						},
 					},
 					scales: {
 						x: {
