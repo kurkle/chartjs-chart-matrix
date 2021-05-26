@@ -97,7 +97,7 @@
 							time: {
 								unit: 'week',
 								round: 'week',
-								isoWeekDay: 1,
+								isoWeekday: 1,
 								displayFormats: {
 									week: 'MMM dd'
 								}
@@ -115,9 +115,10 @@
 						y: {
 							type: 'time',
 							offset: true,
-							isoWeekDay: 1,
 							time: {
 								unit: 'day',
+								round: 'day',
+								isoWeekday: 1,
 								parser: 'i',
 								displayFormats: {
 									day: 'iiiiii'
@@ -126,9 +127,9 @@
 							reverse: true,
 							position: 'right',
 							ticks: {
-								// workaround, see: https://github.com/chartjs/Chart.js/pull/6257
-								source: 'data',
-								maxRotation: 90,
+								maxRotation: 0,
+								autoSkip: true,
+								padding: 1
 							},
 							grid: {
 								display: false,
