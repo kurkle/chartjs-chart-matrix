@@ -64,7 +64,7 @@ const scales = {
     grid: {
       display: false,
       drawBorder: false,
-      tickMarkLength: 0,
+      tickLength: 0,
     },
     title: {
       display: true,
