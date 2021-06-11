@@ -1,6 +1,6 @@
 {
   "name": "chartjs-chart-matrix",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Chart.js module for creating matrix charts",
   "main": "dist/chartjs-chart-matrix.js",
   "module": "dist/chartjs-chart-matrix.esm.js",
@@ -29,7 +29,8 @@
     "matrix"
   ],
   "files": [
-    "dist/*.js"
+    "dist/*.js",
+    "types/index.esm.d.ts"
   ],
   "author": "Jukka Kurkela",
   "license": "MIT",
@@ -70,7 +71,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "^4.2.4",
     "vuepress": "^1.8.2",
-    "vuepress-plugin-flexsearch": "^0.1.0",
+    "vuepress-plugin-flexsearch": "^0.2.0",
     "vuepress-plugin-redirect": "^1.2.5",
     "vuepress-theme-chartjs": "^0.2.0"
   },
