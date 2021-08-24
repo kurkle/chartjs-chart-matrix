@@ -1,4 +1,5 @@
 import {
+  BorderRadius,
   Chart,
   ChartType,
   ChartComponent,
@@ -46,6 +47,7 @@ export interface MatrixProps {
 export type AnchorX = 'left' | 'center' | 'right';
 export type AnchorY = 'top' | 'center' | 'bottom';
 export interface MatrixOptions extends CommonElementOptions {
+  borderRadius: number | BorderRadius;
   anchorX: AnchorX;
   anchorY: AnchorY;
   width: number;
