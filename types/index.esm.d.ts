@@ -32,6 +32,7 @@ declare module 'chart.js' {
       datasetOptions: MatrixControllerDatasetOptions<'matrix'>;
       defaultDataPoint: MatrixDataPoint;
       parsedDataType: MatrixDataPoint;
+      metaExtensions: AnyObject;
       scales: never;
     }
   }
