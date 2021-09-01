@@ -1,5 +1,5 @@
 import {Element} from 'chart.js';
-import {isObject} from 'chart.js/helpers';
+import {isObject, addRoundedRectPath, toTRBLCorners} from 'chart.js/helpers';
 
 /**
  * Helper function to get the bounds of the rect
@@ -86,21 +86,23 @@ export default class MatrixElement extends Element {
   draw(ctx) {
     const options = this.options;
     const {inner, outer} = boundingRects(this);
+    const radius = toTRBLCorners(options.borderRadius);
 
     ctx.save();
 
     if (outer.w !== inner.w || outer.h !== inner.h) {
       ctx.beginPath();
-      ctx.rect(outer.x, outer.y, outer.w, outer.h);
-      ctx.clip();
-      ctx.rect(inner.x, inner.y, inner.w, inner.h);
+      addRoundedRectPath(ctx, {x: outer.x, y: outer.y, w: outer.w, h: outer.h, radius});
+      addRoundedRectPath(ctx, {x: inner.x, y: inner.y, w: inner.w, h: inner.h, radius});
       ctx.fillStyle = options.backgroundColor;
       ctx.fill();
       ctx.fillStyle = options.borderColor;
       ctx.fill('evenodd');
     } else {
+      ctx.beginPath();
+      addRoundedRectPath(ctx, {x: inner.x, y: inner.y, w: inner.w, h: inner.h, radius});
       ctx.fillStyle = options.backgroundColor;
-      ctx.fillRect(inner.x, inner.y, inner.w, inner.h);
+      ctx.fill();
     }
 
     ctx.restore();
@@ -140,6 +142,7 @@ MatrixElement.defaults = {
   backgroundColor: undefined,
   borderColor: undefined,
   borderWidth: undefined,
+  borderRadius: 0,
   anchorX: undefined,
   anchorY: undefined,
   width: 20,
