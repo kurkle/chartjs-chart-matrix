@@ -28,8 +28,8 @@ export default class MatrixController extends DatasetController {
       const options = me.resolveDataElementOptions(i, mode);
       const {width, height, anchorX, anchorY} = options;
       const properties = {
-        x: anchorX === 'left' ? x : x - width / (anchorX === 'right' ? 1 : 2),
-        y: anchorY === 'top' ? y : y - height / (anchorY === 'bottom' ? 1 : 2),
+        x: resolveX(anchorX, x, width),
+        y: resolveY(anchorY, y, height),
         width,
         height,
         options
@@ -49,6 +49,26 @@ export default class MatrixController extends DatasetController {
       data[i].draw(me._ctx);
     }
   }
+}
+
+function resolveX(anchorX, x, width) {
+  if (anchorX === 'left' || anchorX === 'start') {
+    return x;
+  }
+  if (anchorX === 'right' || anchorX === 'end') {
+    return x - width;
+  }
+  return x - width / 2;
+}
+
+function resolveY(anchorY, y, height) {
+  if (anchorY === 'top' || anchorY === 'start') {
+    return y;
+  }
+  if (anchorY === 'bottom' || anchorY === 'end') {
+    return y - height;
+  }
+  return y - height / 2;
 }
 
 MatrixController.id = 'matrix';
