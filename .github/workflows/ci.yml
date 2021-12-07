@@ -7,7 +7,7 @@ on:
     branches: [ next, 2.x ]
 
 jobs:
-  build:
+  ci:
 
     runs-on: ubuntu-latest
 
