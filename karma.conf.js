@@ -91,7 +91,7 @@ module.exports = function(karma) {
       dir: 'coverage/',
       reporters: [
         {type: 'html', subdir: 'html'},
-        {type: 'lcovonly'}
+        {type: 'lcovonly', subdir: (browser) => browser.toLowerCase().split(/[ /-]/)[0]}
       ]
     };
   }
