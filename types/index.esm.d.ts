@@ -33,7 +33,7 @@ declare module 'chart.js' {
       defaultDataPoint: MatrixDataPoint;
       parsedDataType: MatrixDataPoint;
       metaExtensions: AnyObject;
-      scales: never;
+      scales: keyof CartesianScaleTypeRegistry;
     }
   }
 }
