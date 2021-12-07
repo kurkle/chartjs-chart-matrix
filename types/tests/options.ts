@@ -17,4 +17,11 @@ const chart = new Chart('test', {
       hoverBorderWidth: () => 2,
     }]
   },
+  options: {
+    scales: {
+      x: {
+        type: 'linear'
+      }
+    }
+  }
 });
