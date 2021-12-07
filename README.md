@@ -6,7 +6,7 @@
 [![release](https://img.shields.io/github/release/kurkle/chartjs-chart-matrix.svg?style=flat-square)](https://github.com/kurkle/chartjs-chart-matrix/releases/latest)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/chartjs-chart-matrix.svg)
 ![GitHub](https://img.shields.io/github/license/kurkle/chartjs-chart-matrix.svg)
-[![Coverage Status](https://coveralls.io/repos/github/kurkle/chartjs-chart-matrix/badge.svg?branch=next)](https://coveralls.io/github/kurkle/chartjs-chart-matrix?branch=next)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kurkle_chartjs-chart-matrix&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kurkle_chartjs-chart-matrix)
 [![documentation](https://img.shields.io/static/v1?message=Documentation&color=informational)](https://chartjs-chart-matrix.pages.dev)
 
 ## Documentation
