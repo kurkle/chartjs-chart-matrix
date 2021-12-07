@@ -7,49 +7,25 @@ on:
     branches: [ next, 2.x ]
 
 jobs:
-  build:
+  ci:
 
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-      fail-fast: false
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js
-      uses: actions/setup-node@v1
-    - run: |
-        npm ci
-        npm run build
-        if [ "${{ runner.os }}" == "Windows" ]; then
-          npm test
-        else
-          xvfb-run --auto-servernum npm test
-        fi
-      shell: bash
-    - name: Coveralls Parallel - Chrome
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.github_token }}
-        path-to-lcov: './coverage/chrome/lcov.info'
-        flag-name: ${{ matrix.os }}-chrome
-        parallel: true
-    - name: Coveralls Parallel - Firefox
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.github_token }}
-        path-to-lcov: './coverage/firefox/lcov.info'
-        flag-name: ${{ matrix.os }}-firefox
-        parallel: true
-
-  finish:
-    needs: build
     runs-on: ubuntu-latest
+
     steps:
-    - name: Coveralls Finished
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.github_token }}
-        parallel-finished: true
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis (SonarCloud)
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - run: |
+          npm ci
+          npm run build
+          xvfb-run --auto-servernum npm test
+        shell: bash
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
