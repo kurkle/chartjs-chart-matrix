@@ -22,11 +22,7 @@ jobs:
       - run: |
           npm ci
           npm run build
-          if [ "${{ runner.os }}" == "Windows" ]; then
-            npm test
-          else
-            xvfb-run --auto-servernum npm test
-          fi
+          xvfb-run --auto-servernum npm test
         shell: bash
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
