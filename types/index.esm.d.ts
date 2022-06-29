@@ -21,8 +21,10 @@ export interface MatrixControllerDatasetOptions<TType extends ChartType>
 }
 
 export interface MatrixDataPoint {
-  x: number,
-  y: number,
+  x: number | string;
+  y: number | string;
+  d?: number | string;
+  v: number;
 }
 
 declare module 'chart.js' {
