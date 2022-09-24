@@ -29,7 +29,7 @@
     "matrix"
   ],
   "files": [
-    "dist/*.js",
+    "dist/*",
     "types/index.esm.d.ts"
   ],
   "author": "Jukka Kurkela",
