@@ -84,8 +84,6 @@ MatrixController.defaults = {
       properties: ['x', 'y', 'width', 'height']
     }
   },
-  anchorX: 'center',
-  anchorY: 'center'
 };
 
 MatrixController.overrides = {

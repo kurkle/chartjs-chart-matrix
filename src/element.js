@@ -143,8 +143,8 @@ MatrixElement.defaults = {
   borderColor: undefined,
   borderWidth: undefined,
   borderRadius: 0,
-  anchorX: undefined,
-  anchorY: undefined,
+  anchorX: 'center',
+  anchorY: 'center',
   width: 20,
   height: 20
 };
