@@ -24,7 +24,7 @@ module.exports = function(karma) {
     files: [
       {pattern: './test/fixtures/**/*.js', included: false},
       {pattern: './test/fixtures/**/*.png', included: false},
-      'node_modules/chart.js/dist/chart.js',
+      'node_modules/chart.js/dist/chart.umd.js',
       'node_modules/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.js',
       'src/index.js',
       'test/index.js',
