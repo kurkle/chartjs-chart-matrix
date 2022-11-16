@@ -1,18 +1,21 @@
 import {
   BorderRadius,
+  CartesianScaleTypeRegistry,
   Chart,
-  ChartType,
   ChartComponent,
+  ChartType,
   CommonElementOptions,
   CommonHoverOptions,
   ControllerDatasetOptions,
+  CoreChartOptions,
   DatasetController,
   Element,
   ScriptableAndArrayOptions,
   ScriptableContext,
   VisualElement
 } from 'chart.js';
-import { AnyObject } from 'chart.js/types/basic';
+
+type AnyObject = Record<string, unknown>;
 
 export interface MatrixControllerDatasetOptions<TType extends ChartType>
   extends ControllerDatasetOptions,
