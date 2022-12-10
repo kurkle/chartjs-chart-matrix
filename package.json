@@ -8,7 +8,7 @@
   "scripts": {
     "autobuild": "rollup -c -w",
     "build": "rollup -c",
-    "dev": "karma start --no-signle-run --auto-watch --browsers chrome",
+    "dev": "karma start ./karma.conf.cjs --no-signle-run --auto-watch --browsers chrome",
     "docs": "npm run build && vuepress build docs --no-cache",
     "docs:dev": "npm run build && vuepress dev docs --no-cache",
     "lint": "concurrently -r \"npm:lint-*\"",
@@ -17,7 +17,7 @@
     "lint-types": "eslint \"types/**/*.ts\" && tsc -p types/tests/",
     "test": "cross-env NODE_ENV=test concurrently \"npm:test-*\"",
     "test-lint": "npm run lint",
-    "test-karma": "karma start --auto-watch --single-run"
+    "test-karma": "karma start ./karma.conf.cjs --auto-watch --single-run"
   },
   "repository": {
     "type": "git",

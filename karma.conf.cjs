@@ -1,10 +1,10 @@
 const istanbul = require('rollup-plugin-istanbul');
 const resolve = require('@rollup/plugin-node-resolve').nodeResolve;
 const json = require('@rollup/plugin-json');
-const builds = require('./rollup.config');
 const env = process.env.NODE_ENV;
 
-module.exports = function(karma) {
+module.exports = async function(karma) {
+  const builds = (await import('./rollup.config.js')).default;
   const build = builds[0];
 
   if (env === 'test') {
