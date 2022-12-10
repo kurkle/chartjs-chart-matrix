@@ -2,9 +2,16 @@
   "name": "chartjs-chart-matrix",
   "version": "1.3.0",
   "description": "Chart.js module for creating matrix charts",
-  "main": "dist/chartjs-chart-matrix.js",
-  "module": "dist/chartjs-chart-matrix.esm.js",
+  "type": "module",
+  "main": "dist/chartjs-chart-matrix.esm.js",
   "types": "types/index.esm.d.ts",
+  "jsdelivr": "dist/chartjs-chart-matrix.min.js",
+  "unpkg": "dist/chartjs-chart-matrix.min.js",
+  "exports": {
+    "types": "./types/index.esm.d.ts",
+    "import": "./dist/chartjs-chart-matrix.esm.js",
+    "require": "./dist/chartjs-chart-matrix.min.js"
+  },
   "scripts": {
     "autobuild": "rollup -c -w",
     "build": "rollup -c",
@@ -30,6 +37,7 @@
   ],
   "files": [
     "dist/*",
+    "!dist/docs/**",
     "types/index.esm.d.ts"
   ],
   "author": "Jukka Kurkela",

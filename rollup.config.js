@@ -1,13 +1,15 @@
-const resolve = require('@rollup/plugin-node-resolve').default;
-const terser = require('@rollup/plugin-terser').default;
-const json = require('@rollup/plugin-json');
-const pkg = require('./package.json');
+import resolve from '@rollup/plugin-node-resolve';
+import terser from '@rollup/plugin-terser';
+import json from '@rollup/plugin-json';
+import {readFileSync} from 'fs';
+
+const {author, name, version, homepage, main, license} = JSON.parse(readFileSync('./package.json'));
 
 const banner = `/*!
- * ${pkg.name} v${pkg.version}
- * ${pkg.homepage}
- * (c) ${(new Date(process.env.SOURCE_DATE_EPOCH ? (process.env.SOURCE_DATE_EPOCH * 1000) : new Date().getTime())).getFullYear()} ${pkg.author}
- * Released under the ${pkg.license} license
+ * ${name} v${version}
+ * ${homepage}
+ * (c) ${(new Date(process.env.SOURCE_DATE_EPOCH ? (process.env.SOURCE_DATE_EPOCH * 1000) : new Date().getTime())).getFullYear()} ${author}
+ * Released under the ${license} license
  */`;
 
 const input = 'src/index.js';
@@ -21,12 +23,27 @@ const globals = {
   'chart.js/helpers': 'Chart.helpers'
 };
 
-module.exports = [
+export default [
+  {
+    input: inputESM,
+    output: {
+      name,
+      file: main,
+      banner,
+      format: 'esm',
+      indent: false,
+    },
+    plugins: [
+      resolve(),
+      json(),
+    ],
+    external
+  },
   {
     input,
     output: {
-      name: pkg.name,
-      file: pkg.main,
+      name,
+      file: main.replace('.esm.js', '.js'),
       banner,
       format: 'umd',
       indent: false,
@@ -41,8 +58,8 @@ module.exports = [
   {
     input,
     output: {
-      name: pkg.name,
-      file: pkg.main.replace('.js', '.min.js'),
+      name,
+      file: main.replace('.esm.js', '.min.js'),
       format: 'umd',
       sourcemap: true,
       indent: false,
@@ -59,19 +76,4 @@ module.exports = [
     ],
     external
   },
-  {
-    input: inputESM,
-    output: {
-      name: pkg.name,
-      file: pkg.module,
-      banner,
-      format: 'esm',
-      indent: false,
-    },
-    plugins: [
-      resolve(),
-      json(),
-    ],
-    external
-  }
 ];

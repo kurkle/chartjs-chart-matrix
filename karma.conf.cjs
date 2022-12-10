@@ -5,7 +5,8 @@ const env = process.env.NODE_ENV;
 
 module.exports = async function(karma) {
   const builds = (await import('./rollup.config.js')).default;
-  const build = builds[0];
+  const regex = karma.autoWatch ? /chartjs-chart-matrix\.js$/ : /chartjs-chart-matrix\.min\.js$/;
+  const build = builds.filter(v => v.output.file && v.output.file.match(regex))[0];
 
   if (env === 'test') {
     build.plugins = [
