@@ -11,4 +11,4 @@ Because of this please don't rely on this file in production environments.
 
 <<< @/docs/scripts/utils.js
 
-[File on github](https://github.com/kurkle/chartjs-chart-matrix/blob/next/docs/scripts/utils.js)
+[File on github](https://github.com/kurkle/chartjs-chart-matrix/blob/main/docs/scripts/utils.js)
