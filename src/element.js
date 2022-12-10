@@ -71,6 +71,20 @@ function inRange(rect, x, y, useFinalPosition) {
 }
 
 export default class MatrixElement extends Element {
+
+  static id = 'matrix';
+
+  static defaults = {
+    backgroundColor: undefined,
+    borderColor: undefined,
+    borderWidth: undefined,
+    borderRadius: 0,
+    anchorX: 'center',
+    anchorY: 'center',
+    width: 20,
+    height: 20
+  };
+
   constructor(cfg) {
     super();
 
@@ -136,15 +150,3 @@ export default class MatrixElement extends Element {
     return axis === 'x' ? this.width / 2 : this.height / 2;
   }
 }
-
-MatrixElement.id = 'matrix';
-MatrixElement.defaults = {
-  backgroundColor: undefined,
-  borderColor: undefined,
-  borderWidth: undefined,
-  borderRadius: 0,
-  anchorX: 'center',
-  anchorY: 'center',
-  width: 20,
-  height: 20
-};

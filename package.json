@@ -12,6 +12,7 @@
     "import": "./dist/chartjs-chart-matrix.esm.js",
     "require": "./dist/chartjs-chart-matrix.min.js"
   },
+  "sideEffects": ["dist/chartjs-chart-matrix.js", "dist/chartjs-chart-matrix-min.js"],
   "scripts": {
     "autobuild": "rollup -c -w",
     "build": "rollup -c",

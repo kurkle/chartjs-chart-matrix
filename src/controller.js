@@ -2,6 +2,38 @@ import {DatasetController} from 'chart.js';
 import {version} from '../package.json';
 
 export default class MatrixController extends DatasetController {
+
+  static id = 'matrix';
+  static version = version;
+
+  static defaults = {
+    dataElementType: 'matrix',
+
+    animations: {
+      numbers: {
+        type: 'number',
+        properties: ['x', 'y', 'width', 'height']
+      }
+    },
+  };
+
+  static overrides = {
+    interaction: {
+      mode: 'nearest',
+      intersect: true
+    },
+    scales: {
+      x: {
+        type: 'linear',
+        offset: true
+      },
+      y: {
+        type: 'linear',
+        reverse: true
+      }
+    },
+  };
+
   initialize() {
     this.enableOptionSharing = true;
     super.initialize();
@@ -70,36 +102,3 @@ function resolveY(anchorY, y, height) {
   }
   return y - height / 2;
 }
-
-MatrixController.id = 'matrix';
-
-MatrixController.version = version;
-
-MatrixController.defaults = {
-  dataElementType: 'matrix',
-
-  animations: {
-    numbers: {
-      type: 'number',
-      properties: ['x', 'y', 'width', 'height']
-    }
-  },
-};
-
-MatrixController.overrides = {
-  interaction: {
-    mode: 'nearest',
-    intersect: true
-  },
-
-  scales: {
-    x: {
-      type: 'linear',
-      offset: true
-    },
-    y: {
-      type: 'linear',
-      reverse: true
-    }
-  },
-};
