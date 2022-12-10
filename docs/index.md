@@ -1,6 +1,6 @@
 # Getting Started
 
-[Chart.js](https://www.chartjs.org/) **v3** extension for creating matrix charts.
+[Chart.js](https://www.chartjs.org/) **v3+, v4+** extension for creating matrix charts.
 
 ![matrix Example Image](matrix.png)
 

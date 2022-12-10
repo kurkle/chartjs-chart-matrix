@@ -1,6 +1,6 @@
 # chartjs-chart-matrix
 
-[Chart.js](https://www.chartjs.org/) **v3.0.0** module for creating matrix charts
+[Chart.js](https://www.chartjs.org/) **v3+, v4+** module for creating matrix charts
 
 [![npm](https://img.shields.io/npm/v/chartjs-chart-matrix.svg)](https://www.npmjs.com/package/chartjs-chart-matrix)
 [![release](https://img.shields.io/github/release/kurkle/chartjs-chart-matrix.svg?style=flat-square)](https://github.com/kurkle/chartjs-chart-matrix/releases/latest)
@@ -15,7 +15,7 @@
 
 ## Documentation
 
-You can find documentation for chartjs-chart-treemap at [https://chartjs-chart-matrix.pages.dev/](https://chartjs-chart-matrix.pages.dev/).
+You can find documentation for chartjs-chart-matrix at [https://chartjs-chart-matrix.pages.dev/](https://chartjs-chart-matrix.pages.dev/).
 
 ## Quickstart
 
