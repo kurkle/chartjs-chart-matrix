@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "description": "chartjs-chart-matrix should work in Node, using commonjs",
+    "scripts": {
+      "test": "node test.js"
+    }
+  }
