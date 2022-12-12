@@ -3,16 +3,21 @@
   "version": "2.0.0",
   "description": "Chart.js module for creating matrix charts",
   "type": "module",
-  "main": "dist/chartjs-chart-matrix.esm.js",
+  "main": "dist/chartjs-chart-matrix.cjs",
+  "module": "dist/chartjs-chart-matrix.esm.js",
   "types": "types/index.esm.d.ts",
   "jsdelivr": "dist/chartjs-chart-matrix.min.js",
   "unpkg": "dist/chartjs-chart-matrix.min.js",
   "exports": {
     "types": "./types/index.esm.d.ts",
     "import": "./dist/chartjs-chart-matrix.esm.js",
-    "require": "./dist/chartjs-chart-matrix.min.js"
+    "require": "./dist/chartjs-chart-matrix.cjs",
+    "script": "./dist/chartjs-chart-matrix.min.js"
   },
-  "sideEffects": ["dist/chartjs-chart-matrix.js", "dist/chartjs-chart-matrix-min.js"],
+  "sideEffects": [
+    "dist/chartjs-chart-matrix.cjs",
+    "dist/chartjs-chart-matrix-min.js"
+  ],
   "scripts": {
     "autobuild": "rollup -c -w",
     "build": "rollup -c",
@@ -25,7 +30,9 @@
     "lint-types": "eslint \"types/**/*.ts\" && tsc -p types/tests/",
     "test": "cross-env NODE_ENV=test concurrently \"npm:test-*\"",
     "test-lint": "npm run lint",
-    "test-karma": "karma start ./karma.conf.cjs --auto-watch --single-run"
+    "test-karma": "karma start ./karma.conf.cjs --auto-watch --single-run",
+    "test-integration:node-commonjs": "npm run test --prefix test/integration/node-commonjs",
+    "test-integration:node-module": "npm run test --prefix test/integration/node-module"
   },
   "repository": {
     "type": "git",
@@ -48,6 +55,7 @@
   },
   "homepage": "https://chartjs-chart-matrix.pages.dev/",
   "devDependencies": {
+    "@napi-rs/canvas": "^0.1.30",
     "@rollup/plugin-commonjs": "^23.0.2",
     "@rollup/plugin-json": "^5.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",

@@ -4,7 +4,10 @@
     "moduleResolution": "Node",
     "alwaysStrict": true,
     "strict": true,
-    "noEmit": true
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": false,
+    "skipLibCheck": true
   },
   "include": [
     "../index.esm.d.ts",
