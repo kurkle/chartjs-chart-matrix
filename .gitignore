@@ -4,5 +4,6 @@ bower.json
 cc-test-reporter
 coverage/
 dist/
-node_modules/
+/node_modules
+/docs/node_modules
 *.stackdump
