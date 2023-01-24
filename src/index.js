@@ -1,6 +1,6 @@
-import Chart from 'chart.js';
-import MatrixController from './controller';
-import MatrixElement from './element';
+import {Chart} from 'chart.js';
+import MatrixController from './controller.js';
+import MatrixElement from './element.js';
 
 Chart.register(MatrixController, MatrixElement);
 

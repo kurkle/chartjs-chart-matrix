@@ -5,8 +5,8 @@ chartjs-chart-matrix can be integrated with plain JavaScript or with different m
 ## Script Tag
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@1.1"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@2"></script>
 <script>
     var myChart = new Chart(ctx, {type: 'matrix', ...});
 </script>

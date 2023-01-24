@@ -1,4 +1,4 @@
-const Chart = require('chart.js');
+const {Chart} = require('chart.js');
 
 // side-effects
 require('chartjs-chart-matrix');

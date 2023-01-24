@@ -21,8 +21,8 @@
 By default, `https://cdn.jsdelivr.net/npm/chartjs-chart-matrix` returns the latest (minified) version, however it's [**highly recommended**](https://www.jsdelivr.com/features) to always specify a version in order to avoid breaking changes. This can be achieved by appending `@{version}` to the url:
 
 ```html
-https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@1.1.1    // exact version
-https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@1        // latest 1.x.x
+https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@2.0.1    // exact version
+https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@2        // latest 2.x.x
 ```
 
 Read more about jsDeliver versioning on their [website](http://www.jsdelivr.com/).

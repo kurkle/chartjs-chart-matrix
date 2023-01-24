@@ -1,2 +1,2 @@
-export {default as MatrixController} from './controller';
-export {default as MatrixElement} from './element';
+export {default as MatrixController} from './controller.js';
+export {default as MatrixElement} from './element.js';
