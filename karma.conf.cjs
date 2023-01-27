@@ -5,8 +5,12 @@ const env = process.env.NODE_ENV;
 
 module.exports = async function(karma) {
   const builds = (await import('./rollup.config.js')).default;
-  const regex = karma.autoWatch ? /chartjs-chart-matrix\.cjs$/ : /chartjs-chart-matrix\.min\.cjs$/;
+  const regex = karma.autoWatch ? /chartjs-chart-matrix\.cjs$/ : /chartjs-chart-matrix\.min\.js$/;
   const build = builds.filter(v => v.output.file && v.output.file.match(regex))[0];
+
+  if (!build) {
+    throw new Error('could not find build for output matching ' + regex);
+  }
 
   if (env === 'test') {
     build.plugins = [
@@ -27,19 +31,15 @@ module.exports = async function(karma) {
       {pattern: './test/fixtures/**/*.png', included: false},
       'node_modules/chart.js/dist/chart.umd.js',
       'node_modules/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.js',
-      'src/index.js',
+      {pattern: 'src/index.js', type: 'js'},
       'test/index.js',
       'test/specs/**/*.js'
     ],
 
-    // Explicitly disable hardware acceleration to make image
-    // diff more stable when ran on Travis and dev machine.
-    // https://github.com/chartjs/Chart.js/pull/5629
     customLaunchers: {
       chrome: {
         base: 'Chrome',
         flags: [
-          '--disable-accelerated-2d-canvas',
           '--disable-background-timer-throttling',
           '--disable-backgrounding-occluded-windows',
           '--disable-renderer-backgrounding'
@@ -75,7 +75,7 @@ module.exports = async function(karma) {
         options: {
           output: {
             format: 'iife',
-            name: 'fixture'
+            name: 'fixture',
           }
         }
       },
