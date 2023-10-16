@@ -1,4 +1,4 @@
-name: Node.js CI
+name: CI
 
 on:
   push:
@@ -8,13 +8,9 @@ on:
 
 jobs:
   ci:
-
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis (SonarCloud)
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           cache: npm
@@ -23,6 +19,19 @@ jobs:
           npm run build
           xvfb-run --auto-servernum npm test
         shell: bash
+
+  sonar:
+    runs-on: ubuntu-latest
+    needs: [ci]
+    # dependabot etc pull request can't have the token, so lets run only on merges.
+    if: ${{ github.event_name == 'push' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis (SonarCloud)
+      - uses: actions/setup-node@v3
+        with:
+          cache: npm
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
