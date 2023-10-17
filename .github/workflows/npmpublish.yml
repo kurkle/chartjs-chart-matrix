@@ -49,11 +49,11 @@ jobs:
           VERSION: ${{ needs.setup.outputs.version }}
       - name: Publish @next
         run: npm publish --access=public --tag next
-        if: "github.event.release.prerelease"
+        if: github.event.release.prerelease
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Publish @latest
         run: npm publish --access=public --tag latest
-        if: "!github.event.release.prerelease"
+        if: !github.event.release.prerelease
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
