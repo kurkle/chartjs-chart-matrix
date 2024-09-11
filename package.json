@@ -82,7 +82,7 @@
     "karma-jasmine-html-reporter": "^2.0.0",
     "karma-rollup-preprocessor": "7.0.8",
     "karma-spec-reporter": "^0.0.36",
-    "pixelmatch": "^5.2.1",
+    "pixelmatch": "^6.0.0",
     "rollup": "^4.21.2",
     "rollup-plugin-analyzer": "^4.0.0",
     "rollup-plugin-istanbul": "^5.0.0",
