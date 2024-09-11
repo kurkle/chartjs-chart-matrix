@@ -63,7 +63,7 @@
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
     "chart.js": "^4.0.1",
-    "chartjs-adapter-date-fns": "^2.0.0",
+    "chartjs-adapter-date-fns": "^3.0.0",
     "chartjs-test-utils": "^0.5.0",
     "concurrently": "^7.4.0",
     "cross-env": "^7.0.3",
