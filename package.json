@@ -71,7 +71,7 @@
     "eslint": "^8.4.1",
     "eslint-config-chartjs": "^0.3.0",
     "eslint-plugin-es": "^4.1.0",
-    "eslint-plugin-html": "^7.1.0",
+    "eslint-plugin-html": "^8.1.2",
     "eslint-plugin-markdown": "^3.0.0",
     "jasmine-core": "^5.1.2",
     "karma": "^6.2.0",
