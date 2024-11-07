@@ -61,6 +61,7 @@ export default defineConfig({
         'calendar',
         'category',
         'time',
+        'yearweek',
         'utils'
       ],
       '/': [

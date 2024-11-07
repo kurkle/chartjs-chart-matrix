@@ -33,7 +33,6 @@ const data = {
 };
 // </block:data>
 
-
 // <block:config:0>
 const config = {
   type: 'matrix',
@@ -78,7 +77,6 @@ const config = {
     }
   }
 };
-
 // </block:config>
 
 const actions = [
