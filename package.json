@@ -67,7 +67,7 @@
     "chartjs-test-utils": "^0.5.0",
     "concurrently": "^9.0.1",
     "cross-env": "^7.0.3",
-    "date-fns": "^2.19.0",
+    "date-fns": "^4.1.0",
     "eslint": "^8.4.1",
     "eslint-config-chartjs": "^0.3.0",
     "eslint-plugin-es": "^4.1.0",
