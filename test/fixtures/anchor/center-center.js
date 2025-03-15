@@ -2,37 +2,37 @@ module.exports = {
   config: {
     type: 'matrix',
     data: {
-      datasets: [{
-        data: [
-          {x: 1, y: 1, v: 1},
-        ],
-        backgroundColor: 'red',
-        borderColor: 'black',
-        borderWidth: 2,
-        width: 50,
-        height: 50
-      }]
+      datasets: [
+        {
+          data: [{ x: 1, y: 1, v: 1 }],
+          backgroundColor: 'red',
+          borderColor: 'black',
+          borderWidth: 2,
+          width: 50,
+          height: 50,
+        },
+      ],
     },
     options: {
       plugins: {
-        legend: false
+        legend: false,
       },
       scales: {
         x: {
           type: 'linear',
-          display: false
+          display: false,
         },
         y: {
           type: 'linear',
-          display: false
-        }
-      }
-    }
+          display: false,
+        },
+      },
+    },
   },
   options: {
     canvas: {
       height: 256,
-      width: 256
-    }
-  }
-};
+      width: 256,
+    },
+  },
+}

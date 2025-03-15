@@ -1,5 +1,5 @@
-import path from 'path';
-import { DefaultThemeConfig, defineConfig, PluginTuple } from 'vuepress/config';
+import path from 'path'
+import { DefaultThemeConfig, defineConfig, PluginTuple } from 'vuepress/config'
 
 export default defineConfig({
   title: 'chartjs-chart-matrix',
@@ -7,28 +7,30 @@ export default defineConfig({
   theme: 'chartjs',
   // base: '',
   dest: path.resolve(__dirname, '../../dist/docs'),
-  head: [
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
-  ],
+  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
   plugins: [
     ['flexsearch'],
-    ['redirect', {
-      redirectors: [
-        // Default sample page when accessing /samples.
-        { base: '/samples', alternative: ['basic'] },
-      ],
-    }],
+    [
+      'redirect',
+      {
+        redirectors: [
+          // Default sample page when accessing /samples.
+          { base: '/samples', alternative: ['basic'] },
+        ],
+      },
+    ],
   ] as PluginTuple[],
   chainWebpack(config) {
     config.module
       .rule('chart.js')
-      .include.add(path.resolve('node_modules/chart.js')).end()
+      .include.add(path.resolve('node_modules/chart.js'))
+      .end()
       .use('babel-loader')
       .loader('babel-loader')
       .options({
-        presets: ['@babel/preset-env']
+        presets: ['@babel/preset-env'],
       })
-      .end();
+      .end()
   },
   themeConfig: {
     repo: 'kurkle/chartjs-chart-matrix',
@@ -42,7 +44,7 @@ export default defineConfig({
         ['scripts/register.js', 'Register'],
         ['scripts/utils.js', 'Utils'],
         ['scripts/helpers.js', 'helpers'],
-      ]
+      ],
     },
     nav: [
       { text: 'Home', link: '/' },
@@ -50,25 +52,12 @@ export default defineConfig({
       {
         text: 'Ecosystem',
         ariaLabel: 'Community Menu',
-        items: [
-          { text: 'Awesome', link: 'https://github.com/chartjs/awesome' },
-        ]
-      }
+        items: [{ text: 'Awesome', link: 'https://github.com/chartjs/awesome' }],
+      },
     ],
     sidebar: {
-      '/samples/': [
-        'basic',
-        'calendar',
-        'category',
-        'time',
-        'yearweek',
-        'utils'
-      ],
-      '/': [
-        '',
-        'integration',
-        'usage'
-      ],
-    }
-  } as DefaultThemeConfig
-});
+      '/samples/': ['basic', 'calendar', 'category', 'time', 'yearweek', 'utils'],
+      '/': ['', 'integration', 'usage'],
+    },
+  } as DefaultThemeConfig,
+})

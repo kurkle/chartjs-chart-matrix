@@ -1,7 +1,25 @@
 # Usage
 
-Tree data should be provided in `tree` property of dataset. `data` is then automatically build. `key` defines the key name in data objects to use for value. `groups` array can be provided to display multiple levels of hierarchy.
-Data is summarized to groups internally.
+The chartjs-chart-matrix plugin provides matrix charts, which visualize data in a grid format using colored rectangular cells. Each cell represents a data point with three key properties:
+
+- X-axis value (column position)
+- Y-axis value (row position)
+- Value (v) (represented by color intensity or another visual cue)
+
+## Common Use Cases
+1. Heatmaps – Show intensity variations across a grid, often used for:
+   - Temperature variations
+   - Website traffic heatmaps
+   - Performance monitoring
+2. Confusion Matrices – Used in machine learning to visualize classification performance.
+3. Availability/Occupancy Grids – Indicate occupied vs. available slots in a schedule or seating arrangement.
+4. Correlation Matrices – Display relationships between variables in datasets.
+
+## Chart Features
+- Supports linear, category, and time scales
+- Customizable cell size (width & height)
+- Dynamic color mapping for data values
+- Interactive tooltips & legend integration
 
 ```js chart-editor
 const config = {
