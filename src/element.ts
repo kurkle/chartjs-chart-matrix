@@ -1,71 +1,10 @@
 import { Element } from 'chart.js'
-import { addRoundedRectPath, isObject, toTRBLCorners } from 'chart.js/helpers'
+import { addRoundedRectPath, toTRBLCorners } from 'chart.js/helpers'
+import { MatrixOptions, MatrixProps } from 'types/index.esm'
 
-type Bounds = { left: number; top: number; right: number; bottom: number }
+import { boundingRects, inRange } from './helpers'
 
-function getBounds(rect: Element, useFinalPosition: boolean): Bounds {
-  const { x, y, width, height } = rect.getProps(['x', 'y', 'width', 'height'], useFinalPosition)
-  return { left: x, top: y, right: x + width, bottom: y + height }
-}
-
-function limit(value, min, max) {
-  return Math.max(Math.min(value, max), min)
-}
-
-function parseBorderWidth(rect, maxW, maxH) {
-  const value = rect.options.borderWidth
-  let t, r, b, l
-
-  if (isObject(value)) {
-    t = +value.top || 0
-    r = +value.right || 0
-    b = +value.bottom || 0
-    l = +value.left || 0
-  } else {
-    t = r = b = l = +value || 0
-  }
-
-  return {
-    t: limit(t, 0, maxH),
-    r: limit(r, 0, maxW),
-    b: limit(b, 0, maxH),
-    l: limit(l, 0, maxW),
-  }
-}
-
-function boundingRects(rect) {
-  const bounds = getBounds(rect, false)
-  const width = bounds.right - bounds.left
-  const height = bounds.bottom - bounds.top
-  const border = parseBorderWidth(rect, width / 2, height / 2)
-
-  return {
-    outer: {
-      x: bounds.left,
-      y: bounds.top,
-      w: width,
-      h: height,
-    },
-    inner: {
-      x: bounds.left + border.l,
-      y: bounds.top + border.t,
-      w: width - border.l - border.r,
-      h: height - border.t - border.b,
-    },
-  }
-}
-
-function inRange(rect, x, y, useFinalPosition) {
-  const skipX = x === null
-  const skipY = y === null
-  const bounds = !rect || (skipX && skipY) ? false : getBounds(rect, useFinalPosition)
-
-  return (
-    bounds && (skipX || (x >= bounds.left && x <= bounds.right)) && (skipY || (y >= bounds.top && y <= bounds.bottom))
-  )
-}
-
-export default class MatrixElement extends Element {
+export default class MatrixElement extends Element<MatrixProps, MatrixOptions> {
   static id = 'matrix'
 
   static override defaults = {
@@ -82,7 +21,7 @@ export default class MatrixElement extends Element {
   width: number
   height: number
 
-  constructor(cfg) {
+  constructor(cfg: MatrixProps) {
     super()
 
     if (cfg) {

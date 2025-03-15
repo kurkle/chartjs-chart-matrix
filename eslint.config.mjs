@@ -19,7 +19,7 @@ const compat = new FlatCompat({
 
 export default [
   {
-    ignores: ['**/*\\{.,-}min.js', 'dist/**/*'],
+    ignores: ['**/*\\{.,-}min.js', 'build/**/*', 'dist/**/*'],
   },
   ...compat.extends('chartjs', 'eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'),
   {

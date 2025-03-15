@@ -18,8 +18,9 @@ type AnyObject = Record<string, unknown>
 
 export type AnchorX = 'left' | 'center' | 'right' | 'start' | 'end'
 export type AnchorY = 'top' | 'center' | 'bottom' | 'start' | 'end'
-export interface MatrixOptions extends CommonElementOptions {
+export interface MatrixOptions extends Omit<CommonElementOptions, 'borderWidth'> {
   borderRadius: number | BorderRadius
+  borderWidth: number | { top?: number; right?: number; bottom?: number; left?: number }
   anchorX: AnchorX
   anchorY: AnchorY
   width: number
@@ -53,6 +54,7 @@ export interface MatrixProps {
   y: number
   width: number
   height: number
+  options?: Partial<MatrixOptions>
 }
 
 export type MatrixController = DatasetController

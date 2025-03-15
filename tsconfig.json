@@ -16,7 +16,7 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "rootDir": "src",
-    "types": [],
+    "types": ["jasmine"],
     /* Emit */
     "declaration": true,
     "inlineSourceMap": true,
