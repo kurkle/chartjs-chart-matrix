@@ -1,6 +1,6 @@
 {
   "name": "chartjs-chart-matrix",
-  "version": "2.1.0",
+  "version": "0.0.0-development",
   "description": "Chart.js module for creating matrix charts",
   "type": "module",
   "main": "dist/chartjs-chart-matrix.cjs",
