@@ -42,6 +42,7 @@ jobs:
           path: |
             coverage/chrome/lcov.info
             coverage/firefox/lcov.info
+            coverage/unit/lcov.info
           key: coverage
 
       - name: Compressed size
@@ -72,6 +73,7 @@ jobs:
           path: |
             coverage/chrome/lcov.info
             coverage/firefox/lcov.info
+            coverage/unit/lcov.info
           key: coverage
           restore-keys: coverage
 
