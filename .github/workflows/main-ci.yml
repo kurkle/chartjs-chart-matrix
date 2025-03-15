@@ -78,6 +78,8 @@ jobs:
           restore-keys: coverage
 
       - name: Set version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION=$(gh release view --json tagName -q .tagName)
           echo -e "\nsonar.projectVersion=$VERSION" >> sonar-project.properties
