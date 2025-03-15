@@ -1,16 +1,23 @@
-import {acquireChart, addMatchers, releaseCharts, specsFromFixtures, triggerMouseEvent, afterEvent} from 'chartjs-test-utils';
+import {
+  acquireChart,
+  addMatchers,
+  afterEvent,
+  releaseCharts,
+  specsFromFixtures,
+  triggerMouseEvent,
+} from 'chartjs-test-utils'
 
-window.devicePixelRatio = 1;
-window.acquireChart = acquireChart;
-window.afterEvent = afterEvent;
-window.triggerMouseEvent = triggerMouseEvent;
+window.devicePixelRatio = 1
+window.acquireChart = acquireChart
+window.afterEvent = afterEvent
+window.triggerMouseEvent = triggerMouseEvent
 
-jasmine.fixtures = specsFromFixtures;
+jasmine.fixtures = specsFromFixtures
 
-beforeEach(function() {
-  addMatchers();
-});
+beforeEach(function () {
+  addMatchers()
+})
 
-afterEach(function() {
-  releaseCharts();
-});
+afterEach(function () {
+  releaseCharts()
+})

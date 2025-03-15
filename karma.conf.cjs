@@ -1,23 +1,13 @@
-const istanbul = require('rollup-plugin-istanbul');
-const resolve = require('@rollup/plugin-node-resolve').nodeResolve;
-const json = require('@rollup/plugin-json');
-const env = process.env.NODE_ENV;
+const istanbul = require('rollup-plugin-istanbul')
+const env = process.env.NODE_ENV
 
-module.exports = async function(karma) {
-  const builds = (await import('./rollup.config.js')).default;
-  const regex = karma.autoWatch ? /chartjs-chart-matrix\.cjs$/ : /chartjs-chart-matrix\.min\.js$/;
-  const build = builds.filter(v => v.output.file && v.output.file.match(regex))[0];
-
-  if (!build) {
-    throw new Error('could not find build for output matching ' + regex);
-  }
+module.exports = async function (karma) {
+  const builds = (await import('./rollup.config.js')).default
+  const build = builds[0]
+  const buildPlugins = [...build.plugins]
 
   if (env === 'test') {
-    build.plugins = [
-      resolve(),
-      json(),
-      istanbul({exclude: ['node_modules/**/*.js', 'package.json']})
-    ];
+    build.plugins.push(istanbul({ exclude: ['node_modules/**/*.js', 'package.json'] }))
   }
 
   karma.set({
@@ -27,13 +17,13 @@ module.exports = async function(karma) {
     logLevel: karma.LOG_WARN,
 
     files: [
-      {pattern: './test/fixtures/**/*.js', included: false},
-      {pattern: './test/fixtures/**/*.png', included: false},
+      { pattern: './test/fixtures/**/*.js', included: false },
+      { pattern: './test/fixtures/**/*.png', included: false },
       'node_modules/chart.js/dist/chart.umd.js',
       'node_modules/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.js',
-      {pattern: 'src/index.js', type: 'js'},
       'test/index.js',
-      'test/specs/**/*.js'
+      { pattern: 'src/index.ts', type: 'js' },
+      { pattern: 'test/specs/**/*.js', type: 'js' },
     ],
 
     customLaunchers: {
@@ -42,31 +32,35 @@ module.exports = async function(karma) {
         flags: [
           '--disable-background-timer-throttling',
           '--disable-backgrounding-occluded-windows',
-          '--disable-renderer-backgrounding'
-        ]
+          '--disable-renderer-backgrounding',
+        ],
       },
       firefox: {
         base: 'Firefox',
         prefs: {
-          'layers.acceleration.disabled': true
-        }
-      }
+          'layers.acceleration.disabled': true,
+        },
+      },
     },
 
     preprocessors: {
+      'test/fixtures/**/*.js': ['fixtures'],
+      'test/specs/**/*.js': ['rollup'],
       'test/index.js': ['rollup'],
-      'src/index.js': ['sources']
+      'src/index.ts': ['sources'],
     },
 
     rollupPreprocessor: {
-      plugins: [
-        resolve()
-      ],
+      plugins: buildPlugins,
+      external: ['chart.js'],
       output: {
         name: 'test',
         format: 'umd',
-        sourcemap: karma.autoWatch ? 'inline' : false
-      }
+        sourcemap: karma.autoWatch ? 'inline' : false,
+        globals: {
+          'chart.js': 'Chart',
+        },
+      },
     },
 
     customPreprocessors: {
@@ -76,24 +70,24 @@ module.exports = async function(karma) {
           output: {
             format: 'iife',
             name: 'fixture',
-          }
-        }
+          },
+        },
       },
       sources: {
         base: 'rollup',
-        options: build
-      }
-    }
-  });
+        options: build,
+      },
+    },
+  })
 
   if (env === 'test') {
-    karma.reporters.push('coverage');
+    karma.reporters.push('coverage')
     karma.coverageReporter = {
       dir: 'coverage/',
       reporters: [
-        {type: 'html', subdir: 'html'},
-        {type: 'lcovonly', subdir: (browser) => browser.toLowerCase().split(/[ /-]/)[0]}
-      ]
-    };
+        { type: 'html', subdir: 'html' },
+        { type: 'lcovonly', subdir: (browser) => browser.toLowerCase().split(/[ /-]/)[0] },
+      ],
+    }
   }
-};
+}
