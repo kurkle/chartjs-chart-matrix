@@ -1,4 +1,4 @@
-name: Publish Pending Draft Rlease
+name: Publish Pending Draft Release
 
 on:
   schedule:
