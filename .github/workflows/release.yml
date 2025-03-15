@@ -30,6 +30,13 @@ jobs:
       - name: Install dependencies
         run: npm clean-install
 
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: xvfb-run --auto-servernum npm test
+        shell: bash
+
       - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
         run: npm audit signatures
 
