@@ -77,19 +77,10 @@ jobs:
           key: coverage
           restore-keys: coverage
 
-      - name: Get Latest Release
-        id: get_latest_release
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const latestRelease = await github.repos.getLatestRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            });
-            return latestRelease.data.tag_name;
-
       - name: Set version
-        run: echo -e "\nsonar.projectVersion=${{ steps.get_latest_release.outputs.result }}" >> sonar-project.properties
+        run: |
+          VERSION=$(gh release view --json tagName -q .tagName)
+          echo -e "\nsonar.projectVersion=$VERSION" >> sonar-project.properties
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
