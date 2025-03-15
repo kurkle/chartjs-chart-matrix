@@ -11,10 +11,10 @@ export default class MatrixController extends DatasetController<
   MatrixElement,
   MatrixDataPoint
 > {
-  static id = 'matrix'
-  static version = version
+  static readonly id = 'matrix'
+  static readonly version = version
 
-  static defaults = {
+  static readonly defaults = {
     dataElementType: 'matrix',
 
     animations: {
@@ -25,7 +25,7 @@ export default class MatrixController extends DatasetController<
     },
   }
 
-  static overrides = {
+  static readonly overrides = {
     interaction: {
       mode: 'nearest',
       intersect: true,

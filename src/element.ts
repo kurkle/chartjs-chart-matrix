@@ -5,9 +5,9 @@ import { MatrixOptions, MatrixProps } from 'types/index.esm'
 import { boundingRects, inRange } from './helpers'
 
 export default class MatrixElement extends Element<MatrixProps, MatrixOptions> {
-  static id = 'matrix'
+  static readonly id = 'matrix'
 
-  static override defaults = {
+  static override readonly defaults = {
     backgroundColor: undefined,
     borderColor: undefined,
     borderWidth: undefined,
