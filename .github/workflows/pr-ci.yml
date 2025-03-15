@@ -1,0 +1,32 @@
+name: PR CI
+
+on:
+  push:
+    branches: [ main, 2.x ]
+  pull_request:
+    branches: [ main, 2.x ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          cache: npm
+
+      - name: Install dependencies
+        run: npm clean-install
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: xvfb-run --auto-servernum npm test
+        shell: bash
+
+      - name: Compressed size
+        uses: preactjs/compressed-size-action@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: "./dist/*.{js,cjs}"
