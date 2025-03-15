@@ -4,9 +4,16 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read # for checkout
+
 jobs:
   ci:
     runs-on: ubuntu-latest
+
+    permissions:
+      actions: write  # Needed for actions/cache/save
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,8 +30,53 @@ jobs:
         run: xvfb-run --auto-servernum npm test
         shell: bash
 
+      - name: Store coverage reports
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            coverage/chrome/lcov.info
+            coverage/firefox/lcov.info
+          key: coverage
+
       - name: Compressed size
         uses: preactjs/compressed-size-action@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           pattern: "./dist/*.{js,cjs}"
+
+  sonar:
+    runs-on: ubuntu-latest
+    needs: [ci]
+
+    permissions:
+      actions: read  # Needed for actions/cache/restore
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis (SonarCloud)
+
+      - uses: actions/setup-node@v4
+        with:
+          cache: npm
+
+      - name: Restore coverage from cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            coverage/chrome/lcov.info
+            coverage/firefox/lcov.info
+          key: coverage
+          restore-keys: coverage
+
+      - name: Set version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(gh release view --json tagName -q .tagName)
+          echo -e "\nsonar.projectVersion=$VERSION" >> sonar-project.properties
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
