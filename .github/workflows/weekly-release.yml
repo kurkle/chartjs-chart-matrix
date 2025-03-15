@@ -1,0 +1,23 @@
+name: Publish Pending Draft Rlease
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Minute Hour Day Month Weekday => midnight on sundays (UTC)
+  workflow_dispatch:    # Allows for manual triggering
+
+jobs:
+  publish-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find and publish latest draft release
+        run: |
+          tag_name=$(gh release list --json name,tagName,isDraft | jq -r 'map(select(.isDraft == true)) | .[0].tagName')
+          if [ -n "$tag_name" ]; then
+            gh release edit "$tag_name" --draft=false
+            echo "Published draft release: $tag_name"
+          else
+            echo "No pending draft releases."
+          fi
