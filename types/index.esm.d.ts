@@ -27,7 +27,8 @@ export interface MatrixOptions extends Omit<CommonElementOptions, 'borderWidth'>
   height: number
 }
 export interface MatrixControllerDatasetOptions
-  extends ControllerDatasetOptions,
+  extends
+    ControllerDatasetOptions,
     ScriptableAndArrayOptions<MatrixOptions, ScriptableContext<'matrix'>>,
     ScriptableAndArrayOptions<CommonHoverOptions, ScriptableContext<'matrix'>> {}
 
@@ -64,8 +65,7 @@ export const MatrixController: ChartComponent & {
 }
 
 export interface MatrixElement<T extends MatrixProps = MatrixProps, O extends MatrixOptions = MatrixOptions>
-  extends Element<T, O>,
-    VisualElement {}
+  extends Element<T, O>, VisualElement {}
 
 export const MatrixElement: ChartComponent & {
   prototype: MatrixElement

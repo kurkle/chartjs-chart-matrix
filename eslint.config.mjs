@@ -1,6 +1,5 @@
 import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
-import markdown from '@eslint/markdown'
 import tsParser from '@typescript-eslint/parser'
 import prettier from 'eslint-plugin-prettier'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
@@ -94,16 +93,6 @@ export default [
   },
   {
     files: ['src/**/*.ts', '**/*.js', '**/*.mjs'],
-  },
-  {
-    files: ['**/*.md'],
-    language: 'markdown/commonmark',
-    plugins: {
-      markdown,
-    },
-    rules: {
-      'no-irregular-whitespace': 'off',
-    },
   },
   {
     files: ['types/**/*.ts'],
