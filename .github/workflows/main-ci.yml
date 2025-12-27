@@ -14,10 +14,6 @@ jobs:
 
     permissions:
       actions: write  # Needed for actions/cache/save
-      contents: write # to be able to publish a GitHub release
-      id-token: write # to enable use of OIDC for npm provenance
-      issues: write # to be able to comment on released issues
-      pull-requests: write # to be able to comment on released pull requests
 
     steps:
       - name: Checkout
@@ -58,12 +54,6 @@ jobs:
       - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
         run: npm audit signatures
 
-      #- name: Release
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #    NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      #  run: npx semantic-release
-
   sonar:
     runs-on: ubuntu-latest
     needs: [ci]
@@ -101,3 +91,27 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v7.0.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [ci, sonar]
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      id-token: write # to enable use of OIDC for npm provenance
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: npm
+      - name: Install dependencies
+        run: npm clean-install
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release@25.0.2
