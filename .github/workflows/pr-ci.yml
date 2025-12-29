@@ -37,7 +37,7 @@ jobs:
         shell: bash
 
       - name: Store coverage reports
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: |
             coverage/chrome/lcov.info
@@ -68,7 +68,7 @@ jobs:
           cache: npm
 
       - name: Restore coverage from cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: |
             coverage/chrome/lcov.info
