@@ -88,7 +88,7 @@ jobs:
           echo -e "\nsonar.projectVersion=$VERSION" >> sonar-project.properties
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@v7.0.0
+        uses: SonarSource/sonarqube-scan-action@v7
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
