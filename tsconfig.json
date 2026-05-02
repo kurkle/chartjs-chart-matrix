@@ -23,6 +23,6 @@
     "target": "ES6",
     "types": ["jasmine"]
   },
-  "exclude": ["./dist/**", "./src/env.d.ts"],
+  "exclude": ["./dist/**", "./src/env.d.ts", "./src/content.config.ts", "./src/content/**"],
   "include": ["./src/**/*", "./types/index.esm.d.ts"]
 }
