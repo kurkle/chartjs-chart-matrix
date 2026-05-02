@@ -1,0 +1,119 @@
+---
+interface Props {
+  title: string
+  source: string
+}
+---
+
+<div class="sample-chart" data-sample-source={Astro.props.source}>
+  <div class="sample-chart__header">
+    <strong>{Astro.props.title}</strong>
+  </div>
+  <canvas width="800" height="420" aria-label={Astro.props.title} role="img"></canvas>
+  <div class="sample-chart__actions"></div>
+</div>
+
+<style>
+  .sample-chart {
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    background: var(--sl-color-bg);
+  }
+
+  .sample-chart__header {
+    margin-bottom: 0.75rem;
+  }
+
+  .sample-chart canvas {
+    display: block;
+    inline-size: 100%;
+    max-inline-size: 100%;
+    block-size: auto;
+    background: white;
+    border-radius: 0.5rem;
+  }
+
+  .sample-chart__actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+  }
+
+  .sample-chart__actions button {
+    border: 1px solid var(--sl-color-gray-4);
+    border-radius: 999px;
+    padding: 0.4rem 0.8rem;
+    background: var(--sl-color-bg-nav);
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  import Chart from 'chart.js/auto'
+  import 'chartjs-adapter-date-fns'
+  import { docsVersion } from '../generated/version.js'
+  import { MatrixController, MatrixElement } from '../../../dist/chartjs-chart-matrix.esm.js'
+  import * as Utils from '../../scripts/utils.js'
+  import * as helpers from '../../scripts/helpers.js'
+
+  Chart.register(MatrixController, MatrixElement)
+  Chart.register({
+    id: 'version',
+    afterDraw(chart) {
+      const ctx = chart.ctx
+      ctx.save()
+      ctx.font = '9px monospace'
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
+      ctx.textAlign = 'right'
+      ctx.textBaseline = 'top'
+      ctx.fillText(`Chart.js v${Chart.version} + chartjs-chart-matrix v${docsVersion}`, chart.chartArea.right, 0)
+      ctx.restore()
+    },
+  })
+
+  const modules = import.meta.glob('../../samples/*.md', { query: '?raw', import: 'default', eager: true })
+
+  function parseSample(raw) {
+    const fence = raw.match(/```js chart-editor\n([\s\S]*?)\n```/)
+    if (!fence) {
+      throw new Error('Missing chart-editor code block')
+    }
+    return fence[1]
+  }
+
+  function loadSample(source) {
+    const key = `../../samples/${source}.md`
+    const raw = modules[key]
+    if (!raw) {
+      throw new Error(`Unknown sample: ${source}`)
+    }
+    const code = parseSample(raw)
+    const module = { exports: {} }
+    const fn = new Function('module', 'exports', 'Chart', 'Utils', 'helpers', `${code}\nreturn module.exports;`)
+    return fn(module, module.exports, Chart, Utils, helpers)
+  }
+
+  function mount(container) {
+    if (container.dataset.mounted === 'true') return
+    container.dataset.mounted = 'true'
+    const source = container.dataset.sampleSource
+    const canvas = container.querySelector('canvas')
+    const actionsNode = container.querySelector('.sample-chart__actions')
+    const { config, actions = [] } = loadSample(source)
+    const chart = new Chart(canvas, config)
+    for (const action of actions) {
+      const button = document.createElement('button')
+      button.type = 'button'
+      button.textContent = action.name
+      button.addEventListener('click', () => action.handler(chart))
+      actionsNode.append(button)
+    }
+  }
+
+  for (const container of document.querySelectorAll('.sample-chart')) {
+    mount(container)
+  }
+</script>
