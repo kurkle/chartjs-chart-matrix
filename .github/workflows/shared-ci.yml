@@ -1,0 +1,92 @@
+name: Shared CI
+
+on:
+  workflow_call:
+    inputs:
+      fetch-depth:
+        required: false
+        type: number
+        default: 0
+      run-audit-signatures:
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: ${{ inputs.fetch-depth }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: npm
+
+      - name: Install dependencies
+        run: npm clean-install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: xvfb-run --auto-servernum npm test
+        shell: bash
+
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-reports
+          path: |
+            coverage/chrome/lcov.info
+            coverage/firefox/lcov.info
+            coverage/unit/lcov.info
+
+      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
+        if: ${{ inputs.run-audit-signatures }}
+        run: npm audit signatures
+
+  sonar:
+    runs-on: ubuntu-latest
+    needs: [ci]
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          cache: npm
+
+      - name: Download coverage reports
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-reports
+          path: coverage
+
+      - name: Set version
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(gh release view --json tagName -q .tagName)
+          echo -e "\nsonar.projectVersion=$VERSION" >> sonar-project.properties
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v7
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
