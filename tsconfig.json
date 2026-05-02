@@ -1,21 +1,15 @@
 {
   "compilerOptions": {
-    /* JavaScript Support */
     "allowJs": true,
-    /* Interop Constraints */
     "allowSyntheticDefaultImports": true,
-    /* Type Checking */
     "alwaysStrict": true,
-    /* Modules */
     "baseUrl": ".",
     "checkJs": true,
-    /* Emit */
     "declaration": true,
     "inlineSourceMap": true,
     "lib": ["es2022", "DOM"],
     "module": "ES2022",
     "moduleResolution": "Node",
-    /* todo: uncomment after transition to TS */
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
@@ -26,7 +20,6 @@
     "rootDir": "src",
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
-    /* Language and Environment */
     "target": "ES6",
     "types": ["jasmine"]
   },
