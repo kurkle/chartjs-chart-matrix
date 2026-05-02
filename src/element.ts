@@ -1,6 +1,7 @@
+import type { MatrixOptions, MatrixProps } from 'types/index.esm'
+
 import { Element } from 'chart.js'
 import { addRoundedRectPath, toTRBLCorners } from 'chart.js/helpers'
-import { MatrixOptions, MatrixProps } from 'types/index.esm'
 
 import { boundingRects, inRange } from './helpers'
 
@@ -8,14 +9,14 @@ export default class MatrixElement extends Element<MatrixProps, MatrixOptions> {
   static readonly id = 'matrix'
 
   static override readonly defaults = {
-    backgroundColor: undefined,
-    borderColor: undefined,
-    borderWidth: undefined,
-    borderRadius: 0,
     anchorX: 'center',
     anchorY: 'center',
-    width: 20,
+    backgroundColor: undefined,
+    borderColor: undefined,
+    borderRadius: 0,
+    borderWidth: undefined,
     height: 20,
+    width: 20,
   }
 
   width: number
@@ -38,15 +39,15 @@ export default class MatrixElement extends Element<MatrixProps, MatrixOptions> {
 
     if (outer.w !== inner.w || outer.h !== inner.h) {
       ctx.beginPath()
-      addRoundedRectPath(ctx, { x: outer.x, y: outer.y, w: outer.w, h: outer.h, radius })
-      addRoundedRectPath(ctx, { x: inner.x, y: inner.y, w: inner.w, h: inner.h, radius })
+      addRoundedRectPath(ctx, { h: outer.h, radius, w: outer.w, x: outer.x, y: outer.y })
+      addRoundedRectPath(ctx, { h: inner.h, radius, w: inner.w, x: inner.x, y: inner.y })
       ctx.fillStyle = options.backgroundColor
       ctx.fill()
       ctx.fillStyle = options.borderColor
       ctx.fill('evenodd')
     } else {
       ctx.beginPath()
-      addRoundedRectPath(ctx, { x: inner.x, y: inner.y, w: inner.w, h: inner.h, radius })
+      addRoundedRectPath(ctx, { h: inner.h, radius, w: inner.w, x: inner.x, y: inner.y })
       ctx.fillStyle = options.backgroundColor
       ctx.fill()
     }

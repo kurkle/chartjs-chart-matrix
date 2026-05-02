@@ -5,64 +5,61 @@ import prettier from 'eslint-plugin-prettier'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import unusedImports from 'eslint-plugin-unused-imports'
 import globals from 'globals'
+
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const compat = new FlatCompat({
+  allConfig: js.configs.all,
   baseDirectory: __dirname,
   recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
 })
 
 export default [
   {
     ignores: ['**/*\\{.,-}min.js', 'build/**/*', 'dist/**/*'],
   },
-  ...compat.extends('chartjs', 'eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'),
+  ...compat.extends(
+    'chartjs',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier'
+  ),
   {
-    plugins: {
-      'unused-imports': unusedImports,
-      'simple-import-sort': simpleImportSort,
-      prettier,
-    },
-
     languageOptions: {
+      ecmaVersion: 'latest',
       globals: {
         ...globals.browser,
         ...globals.node,
         ...globals.jasmine,
       },
 
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-
       parser: tsParser,
+      sourceType: 'module',
+    },
+    plugins: {
+      prettier,
+      'simple-import-sort': simpleImportSort,
+      'unused-imports': unusedImports,
     },
 
     rules: {
-      'prettier/prettier': 'error',
+      '@typescript-eslint/indent': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
       'class-methods-use-this': 'off',
-      complexity: ['warn', 10],
-      'max-statements': ['warn', 30],
-      'no-empty-function': 'off',
-      semi: ['error', 'never'],
-      quotes: [
-        'error',
-        'single',
-        {
-          avoidEscape: true,
-          allowTemplateLiterals: true,
-        },
-      ],
       'comma-spacing': [
         'error',
         {
-          before: false,
           after: true,
+          before: false,
         },
       ],
+      complexity: ['warn', 10],
+      'max-statements': ['warn', 30],
+      'no-empty-function': 'off',
 
       'no-use-before-define': [
         'error',
@@ -70,9 +67,16 @@ export default [
           functions: false,
         },
       ],
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
-      '@typescript-eslint/indent': 'off',
+      'prettier/prettier': 'error',
+      quotes: [
+        'error',
+        'single',
+        {
+          allowTemplateLiterals: true,
+          avoidEscape: true,
+        },
+      ],
+      semi: ['error', 'never'],
       'simple-import-sort/imports': [
         'error',
         {

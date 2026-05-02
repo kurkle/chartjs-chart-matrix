@@ -22,7 +22,7 @@ export function numbers(config) {
   var count = valueOrDefault(cfg.count, 8)
   var decimals = valueOrDefault(cfg.decimals, 8)
   var continuity = valueOrDefault(cfg.continuity, 1)
-  var dfactor = Math.pow(10, decimals) || 0
+  var dfactor = 10 ** decimals || 0
   var data = []
   var i, value
 
@@ -41,7 +41,7 @@ export function numbers(config) {
 export function isoDayOfWeek(dt) {
   let wd = dt.getDay() // 0..6, from sunday
   wd = ((wd + 6) % 7) + 1 // 1..7 from monday
-  return '' + wd // string so it gets parsed
+  return `${wd}` // string so it gets parsed
 }
 
 export function startOfToday() {

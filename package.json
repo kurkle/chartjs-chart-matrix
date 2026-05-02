@@ -1,61 +1,12 @@
 {
-  "name": "chartjs-chart-matrix",
-  "version": "0.0.0-development",
-  "description": "Chart.js module for creating matrix charts",
-  "type": "module",
-  "main": "dist/chartjs-chart-matrix.cjs",
-  "module": "dist/chartjs-chart-matrix.esm.js",
-  "types": "types/index.esm.d.ts",
-  "jsdelivr": "dist/chartjs-chart-matrix.min.js",
-  "unpkg": "dist/chartjs-chart-matrix.min.js",
-  "exports": {
-    "types": "./types/index.esm.d.ts",
-    "import": "./dist/chartjs-chart-matrix.esm.js",
-    "require": "./dist/chartjs-chart-matrix.cjs",
-    "script": "./dist/chartjs-chart-matrix.min.js"
-  },
-  "sideEffects": [
-    "dist/chartjs-chart-matrix.cjs",
-    "dist/chartjs-chart-matrix-min.js"
-  ],
-  "scripts": {
-    "autobuild": "rollup -c -w",
-    "build": "rollup -c",
-    "dev": "karma start ./karma.conf.cjs --no-single-run --auto-watch --browsers chrome",
-    "dev:ff": "karma start ./karma.conf.cjs --auto-watch --no-single-run --browsers firefox",
-    "docs": "npm run build && vuepress build docs --no-cache",
-    "docs:dev": "npm run build && vuepress dev docs --no-cache",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit && tsc --noEmit -p types/tests/",
-    "test": "cross-env NODE_ENV=test concurrently \"npm:test-*\"",
-    "pretest-unit": "swc --config-file .swcrc-spec src -d build",
-    "test-unit": "cross-env JASMINE_CONFIG_PATH=jasmine.json c8 --src=src --reporter=text --reporter=lcov -o=coverage/unit jasmine",
-    "test-karma": "karma start ./karma.conf.cjs --no-auto-watch --single-run",
-    "test-integration:node-commonjs": "npm run test --prefix test/integration/node-commonjs",
-    "test-integration:node-module": "npm run test --prefix test/integration/node-module"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kurkle/chartjs-chart-matrix.git"
-  },
-  "keywords": [
-    "chart.js",
-    "chart",
-    "matrix"
-  ],
-  "files": [
-    "dist/*",
-    "!dist/docs/**",
-    "types/index.esm.d.ts"
-  ],
   "author": "Jukka Kurkela",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/kurkle/chartjs-chart-matrix/issues"
   },
-  "homepage": "https://chartjs-chart-matrix.pages.dev/",
+  "description": "Chart.js module for creating matrix charts",
   "devDependencies": {
-    "@eslint/js": "^9.22.0",
+    "@biomejs/biome": "^2.4.14",
+    "@kurkle/configs": "^1.0.1",
     "@napi-rs/canvas": "^0.1.30",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-json": "^6.0.0",
@@ -75,12 +26,7 @@
     "concurrently": "^9.0.1",
     "cross-env": "^10.1.0",
     "date-fns": "^2.19.0",
-    "eslint": "^9.22.0",
-    "eslint-config-chartjs": "^0.3.0",
-    "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-prettier": "^5.2.3",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
-    "eslint-plugin-unused-imports": "^4.1.4",
     "globals": "^17.0.0",
     "jasmine": "^5.6.0",
     "jasmine-core": "^5.1.2",
@@ -103,7 +49,57 @@
     "vuepress-plugin-redirect": "^1.2.5",
     "vuepress-theme-chartjs": "^0.2.0"
   },
+  "exports": {
+    "import": "./dist/chartjs-chart-matrix.esm.js",
+    "require": "./dist/chartjs-chart-matrix.cjs",
+    "script": "./dist/chartjs-chart-matrix.min.js",
+    "types": "./types/index.esm.d.ts"
+  },
+  "files": [
+    "dist/*",
+    "!dist/docs/**",
+    "types/index.esm.d.ts"
+  ],
+  "homepage": "https://chartjs-chart-matrix.pages.dev/",
+  "jsdelivr": "dist/chartjs-chart-matrix.min.js",
+  "keywords": [
+    "chart.js",
+    "chart",
+    "matrix"
+  ],
+  "license": "MIT",
+  "main": "dist/chartjs-chart-matrix.cjs",
+  "module": "dist/chartjs-chart-matrix.esm.js",
+  "name": "chartjs-chart-matrix",
   "peerDependencies": {
     "chart.js": ">=3.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kurkle/chartjs-chart-matrix.git"
+  },
+  "scripts": {
+    "autobuild": "rollup -c -w",
+    "build": "rollup -c",
+    "dev": "karma start ./karma.conf.cjs --no-single-run --auto-watch --browsers chrome",
+    "dev:ff": "karma start ./karma.conf.cjs --auto-watch --no-single-run --browsers firefox",
+    "docs": "npm run build && vuepress build docs --no-cache",
+    "docs:dev": "npm run build && vuepress dev docs --no-cache",
+    "lint": "biome check",
+    "pretest-unit": "swc --config-file .swcrc-spec src -d build",
+    "test": "cross-env NODE_ENV=test concurrently \"npm:test-*\"",
+    "test-integration:node-commonjs": "npm run test --prefix test/integration/node-commonjs",
+    "test-integration:node-module": "npm run test --prefix test/integration/node-module",
+    "test-karma": "karma start ./karma.conf.cjs --no-auto-watch --single-run",
+    "test-unit": "cross-env JASMINE_CONFIG_PATH=jasmine.json c8 --src=src --reporter=text --reporter=lcov -o=coverage/unit jasmine",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p types/tests/"
+  },
+  "sideEffects": [
+    "dist/chartjs-chart-matrix.cjs",
+    "dist/chartjs-chart-matrix-min.js"
+  ],
+  "type": "module",
+  "types": "types/index.esm.d.ts",
+  "unpkg": "dist/chartjs-chart-matrix.min.js",
+  "version": "0.0.0-development"
 }

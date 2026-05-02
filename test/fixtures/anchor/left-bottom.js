@@ -1,17 +1,16 @@
 module.exports = {
   config: {
-    type: 'matrix',
     data: {
       datasets: [
         {
           anchorX: 'left',
           anchorY: 'bottom',
-          data: [{ x: 1, y: 1, v: 1 }],
           backgroundColor: 'red',
           borderColor: 'black',
           borderWidth: 2,
-          width: 50,
+          data: [{ v: 1, x: 1, y: 1 }],
           height: 50,
+          width: 50,
         },
       ],
     },
@@ -21,15 +20,16 @@ module.exports = {
       },
       scales: {
         x: {
-          type: 'linear',
           display: false,
+          type: 'linear',
         },
         y: {
-          type: 'linear',
           display: false,
+          type: 'linear',
         },
       },
     },
+    type: 'matrix',
   },
   options: {
     canvas: {

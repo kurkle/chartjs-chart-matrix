@@ -1,25 +1,10 @@
-import path from 'path'
-import { DefaultThemeConfig, defineConfig, PluginTuple } from 'vuepress/config'
+import type { DefaultThemeConfig, PluginTuple } from 'vuepress/config'
+
+import { defineConfig } from 'vuepress/config'
+
+import path from 'node:path'
 
 export default defineConfig({
-  title: 'chartjs-chart-matrix',
-  description: 'Chart.js module for creating matrix charts',
-  theme: 'chartjs',
-  // base: '',
-  dest: path.resolve(__dirname, '../../dist/docs'),
-  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
-  plugins: [
-    ['flexsearch'],
-    [
-      'redirect',
-      {
-        redirectors: [
-          // Default sample page when accessing /samples.
-          { base: '/samples', alternative: ['basic'] },
-        ],
-      },
-    ],
-  ] as PluginTuple[],
   chainWebpack(config) {
     config.module
       .rule('chart.js')
@@ -32,13 +17,24 @@ export default defineConfig({
       })
       .end()
   },
+  description: 'Chart.js module for creating matrix charts',
+  // base: '',
+  dest: path.resolve(__dirname, '../../dist/docs'),
+  head: [['link', { href: '/favicon.ico', rel: 'icon' }]],
+  plugins: [
+    ['flexsearch'],
+    [
+      'redirect',
+      {
+        redirectors: [
+          // Default sample page when accessing /samples.
+          { alternative: ['basic'], base: '/samples' },
+        ],
+      },
+    ],
+  ] as PluginTuple[],
+  theme: 'chartjs',
   themeConfig: {
-    repo: 'kurkle/chartjs-chart-matrix',
-    logo: '/favicon.ico',
-    lastUpdated: 'Last Updated',
-    searchPlaceholder: 'Search...',
-    editLinks: false,
-    docsDir: 'docs',
     chart: {
       imports: [
         ['scripts/register.js', 'Register'],
@@ -46,18 +42,25 @@ export default defineConfig({
         ['scripts/helpers.js', 'helpers'],
       ],
     },
+    docsDir: 'docs',
+    editLinks: false,
+    lastUpdated: 'Last Updated',
+    logo: '/favicon.ico',
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Samples', link: `/samples/` },
+      { link: '/', text: 'Home' },
+      { link: `/samples/`, text: 'Samples' },
       {
-        text: 'Ecosystem',
         ariaLabel: 'Community Menu',
-        items: [{ text: 'Awesome', link: 'https://github.com/chartjs/awesome' }],
+        items: [{ link: 'https://github.com/chartjs/awesome', text: 'Awesome' }],
+        text: 'Ecosystem',
       },
     ],
+    repo: 'kurkle/chartjs-chart-matrix',
+    searchPlaceholder: 'Search...',
     sidebar: {
-      '/samples/': ['basic', 'calendar', 'category', 'time', 'yearweek', 'utils'],
       '/': ['', 'integration', 'usage'],
+      '/samples/': ['basic', 'calendar', 'category', 'time', 'yearweek', 'utils'],
     },
   } as DefaultThemeConfig,
+  title: 'chartjs-chart-matrix',
 })

@@ -1,9 +1,15 @@
-import { DatasetController, UpdateMode } from 'chart.js'
-import { AnchorX, AnchorY, MatrixControllerDatasetOptions, MatrixDataPoint } from 'types/index.esm'
+import type { UpdateMode } from 'chart.js'
+import type {
+  AnchorX,
+  AnchorY,
+  MatrixControllerDatasetOptions,
+  MatrixDataPoint,
+} from 'types/index.esm'
+import type MatrixElement from './element'
+
+import { DatasetController } from 'chart.js'
 
 import { version } from '../package.json'
-
-import MatrixElement from './element'
 
 export default class MatrixController extends DatasetController<
   'matrix',
@@ -15,29 +21,28 @@ export default class MatrixController extends DatasetController<
   static readonly version = version
 
   static readonly defaults = {
-    dataElementType: 'matrix',
-
     animations: {
       numbers: {
-        type: 'number',
         properties: ['x', 'y', 'width', 'height'],
+        type: 'number',
       },
     },
+    dataElementType: 'matrix',
   }
 
   static readonly overrides = {
     interaction: {
-      mode: 'nearest',
       intersect: true,
+      mode: 'nearest',
     },
     scales: {
       x: {
-        type: 'linear',
         offset: true,
+        type: 'linear',
       },
       y: {
-        type: 'linear',
         reverse: true,
+        type: 'linear',
       },
     },
   }
@@ -68,11 +73,11 @@ export default class MatrixController extends DatasetController<
       const options = this.resolveDataElementOptions(i, mode)
       const { width, height, anchorX, anchorY } = options
       const properties = {
-        x: resolveX(anchorX, x, width),
-        y: resolveY(anchorY, y, height),
-        width,
         height,
         options,
+        width,
+        x: resolveX(anchorX, x, width),
+        y: resolveY(anchorY, y, height),
       }
       this.updateElement(rects[i], i, properties, mode)
     }
