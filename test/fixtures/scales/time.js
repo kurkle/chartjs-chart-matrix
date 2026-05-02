@@ -6,13 +6,11 @@ module.exports = {
           backgroundColor(ctx) {
             const value = ctx.dataset.data[ctx.dataIndex].v
             const alpha = (value - 5) / 40
-            // eslint-disable-next-line no-undef
             return Chart.helpers.color('green').alpha(alpha).rgbString()
           },
           borderColor(ctx) {
             const value = ctx.dataset.data[ctx.dataIndex].v
             const alpha = (value - 5) / 40
-            // eslint-disable-next-line no-undef
             return Chart.helpers.color('green').alpha(alpha).darken(0.4).rgbString()
           },
           borderWidth: { left: 3, right: 3 },

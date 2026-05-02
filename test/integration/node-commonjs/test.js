@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 const { Chart } = require('chart.js')
 
 // side-effects

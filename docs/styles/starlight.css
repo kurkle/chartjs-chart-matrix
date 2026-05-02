@@ -1,0 +1,31 @@
+@layer starlight.overrides {
+  [data-has-sidebar] nav a[target="_blank"] {
+    position: relative;
+    padding-inline-end: 1.2em;
+  }
+
+  [data-has-sidebar] nav a[target="_blank"]::after {
+    position: absolute;
+    inset-inline-end: 0.3em;
+    top: 50%;
+    inline-size: 0.8em;
+    block-size: 0.8em;
+    content: "";
+    background-color: currentColor;
+    opacity: 0.65;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='black' d='M10 1h5v5h-2V4.41l-5.29 5.3-1.42-1.42 5.3-5.29H10V1ZM3 3h4v2H5v6h6V9h2v4H3V3Z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='black' d='M10 1h5v5h-2V4.41l-5.29 5.3-1.42-1.42 5.3-5.29H10V1ZM3 3h4v2H5v6h6V9h2v4H3V3Z'/%3E%3C/svg%3E");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    transform: translateY(-45%);
+  }
+
+  [data-has-sidebar] nav a[target="_blank"]:hover::after,
+  [data-has-sidebar] nav a[target="_blank"]:focus::after {
+    opacity: 0.9;
+  }
+}
