@@ -1,4 +1,21 @@
 @layer starlight.overrides {
+  .site-title {
+    display: inline-flex;
+    gap: 0.65rem;
+    align-items: center;
+  }
+
+  .site-title::before {
+    flex: 0 0 2.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    content: "";
+    background-image: url("/logo.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+
   [data-has-sidebar] nav a[target="_blank"] {
     position: relative;
     padding-inline-end: 1.2em;

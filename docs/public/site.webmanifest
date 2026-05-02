@@ -1,0 +1,21 @@
+{
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "icons": [
+    {
+      "purpose": "maskable",
+      "sizes": "192x192",
+      "src": "/web-app-manifest-192x192.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "/web-app-manifest-512x512.png",
+      "type": "image/png"
+    }
+  ],
+  "name": "chartjs-chart-matrix",
+  "short_name": "matrix",
+  "theme_color": "#ffffff"
+}
