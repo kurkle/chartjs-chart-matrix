@@ -7,7 +7,6 @@ import { MatrixController, MatrixElement } from '../../dist/chartjs-chart-matrix
 Chart.register(MatrixController, MatrixElement)
 
 Chart.register({
-  id: 'version',
   afterDraw(chart) {
     const ctx = chart.ctx
     ctx.save()
@@ -16,10 +15,11 @@ Chart.register({
     ctx.textAlign = 'right'
     ctx.textBaseline = 'top'
     ctx.fillText(
-      'Chart.js v' + Chart.version + ' + chartjs-chart-matrix v' + MatrixController.version,
+      `Chart.js v${Chart.version} + chartjs-chart-matrix v${MatrixController.version}`,
       chart.chartArea.right,
       0
     )
     ctx.restore()
   },
+  id: 'version',
 })

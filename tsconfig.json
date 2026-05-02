@@ -1,40 +1,35 @@
 {
   "compilerOptions": {
+    /* JavaScript Support */
+    "allowJs": true,
+    /* Interop Constraints */
+    "allowSyntheticDefaultImports": true,
     /* Type Checking */
     "alwaysStrict": true,
-    "strictBindCallApply": true,
-    "strictFunctionTypes": true,
+    /* Modules */
+    "baseUrl": ".",
+    "checkJs": true,
+    /* Emit */
+    "declaration": true,
+    "inlineSourceMap": true,
+    "lib": ["es2022", "DOM"],
+    "module": "ES2022",
+    "moduleResolution": "Node",
     /* todo: uncomment after transition to TS */
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    /* Modules */
-    "baseUrl": ".",
-    "module": "ES2022",
-    "moduleResolution": "Node",
+    "outDir": "dist",
     "resolveJsonModule": true,
     "rootDir": "src",
-    "types": ["jasmine"],
-    /* Emit */
-    "declaration": true,
-    "inlineSourceMap": true,
-    "outDir": "dist",
-    /* JavaScript Support */
-    "allowJs": true,
-    "checkJs": true,
-    /* Interop Constraints */
-    "allowSyntheticDefaultImports": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
     /* Language and Environment */
     "target": "ES6",
-    "lib": ["es2022", "DOM"]
+    "types": ["jasmine"]
   },
-  "include": [
-    "./src/**/*",
-    "./types/index.esm.d.ts",
-  ],
-  "exclude": [
-    "./dist/**"
-  ]
+  "exclude": ["./dist/**"],
+  "include": ["./src/**/*", "./types/index.esm.d.ts"]
 }

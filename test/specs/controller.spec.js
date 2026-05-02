@@ -1,7 +1,7 @@
 import { Chart } from 'chart.js'
 
-describe('controller', function () {
-  it('should be registered', function () {
+describe('controller', () => {
+  it('should be registered', () => {
     expect(Chart.controllers.matrix).toBeDefined()
     expect(Chart.registry.getElement('matrix')).toBeDefined()
   })

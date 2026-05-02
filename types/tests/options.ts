@@ -4,19 +4,18 @@ import { MatrixController, MatrixElement } from '../index.esm'
 
 Chart.register(MatrixController, MatrixElement)
 
-const chart = new Chart('test', {
-  type: 'matrix',
+new Chart('test', {
   data: {
     datasets: [
       {
-        label: 'Matrix',
-        data: [{ x: 1, y: 1, v: 10 }],
         anchorX: 'center',
         anchorY: 'top',
-        width: 10,
-        height: 10,
         borderWidth: 1,
+        data: [{ v: 10, x: 1, y: 1 }],
+        height: 10,
         hoverBorderWidth: () => 2,
+        label: 'Matrix',
+        width: 10,
       },
     ],
   },
@@ -27,4 +26,5 @@ const chart = new Chart('test', {
       },
     },
   },
+  type: 'matrix',
 })

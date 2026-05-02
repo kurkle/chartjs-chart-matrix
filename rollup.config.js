@@ -2,15 +2,18 @@ import json from '@rollup/plugin-json'
 import resolve from '@rollup/plugin-node-resolve'
 import { default as swc } from '@rollup/plugin-swc'
 import terser from '@rollup/plugin-terser'
-import { readFileSync } from 'fs'
 import cleanup from 'rollup-plugin-cleanup'
 
-const { author, homepage, license, main, module, name, version } = JSON.parse(readFileSync('./package.json'))
+import { readFileSync } from 'node:fs'
+
+const { author, homepage, license, main, module, name, version } = JSON.parse(
+  readFileSync('./package.json')
+)
 
 const banner = `/*!
  * ${name} v${version}
  * ${homepage}
- * (c) ${new Date(process.env.SOURCE_DATE_EPOCH ? process.env.SOURCE_DATE_EPOCH * 1000 : new Date().getTime()).getFullYear()} ${author}
+ * (c) ${new Date(process.env.SOURCE_DATE_EPOCH ? process.env.SOURCE_DATE_EPOCH * 1000 : Date.now()).getFullYear()} ${author}
  * Released under the ${license} license
  */`
 
@@ -46,41 +49,41 @@ const plugins = (minify) => [
 
 export default [
   {
+    external,
     input,
     output: {
-      name,
-      file: main,
       banner,
+      file: main,
       format: 'umd',
-      indent: false,
       globals,
+      indent: false,
+      name,
     },
     plugins: plugins(),
-    external,
   },
   {
+    external,
     input,
     output: {
-      name,
       file: main.replace('.cjs', '.min.js'),
       format: 'umd',
-      sourcemap: true,
-      indent: false,
       globals,
+      indent: false,
+      name,
+      sourcemap: true,
     },
     plugins: plugins(true),
-    external,
   },
   {
+    external,
     input: inputESM,
     output: {
-      name,
-      file: module,
       banner,
+      file: module,
       format: 'esm',
       indent: false,
+      name,
     },
     plugins: plugins(),
-    external,
   },
 ]

@@ -1,20 +1,24 @@
-import { isObject } from 'chart.js/helpers'
-import { MatrixOptions } from 'types/index.esm'
+import type { MatrixOptions } from 'types/index.esm'
+import type MatrixElement from './element'
 
-import MatrixElement from './element'
+import { isObject } from 'chart.js/helpers'
 
 type Bounds = { left: number; top: number; right: number; bottom: number }
 
 function getBounds(element: MatrixElement, useFinalPosition: boolean): Bounds {
   const { x, y, width, height } = element.getProps(['x', 'y', 'width', 'height'], useFinalPosition)
-  return { left: x, top: y, right: x + width, bottom: y + height }
+  return { bottom: y + height, left: x, right: x + width, top: y }
 }
 
 function limit(value: number, min: number, max: number) {
   return Math.max(Math.min(value, max), min)
 }
 
-export function parseBorderWidth(options: Pick<MatrixOptions, 'borderWidth'>, maxW: number, maxH: number) {
+export function parseBorderWidth(
+  options: Pick<MatrixOptions, 'borderWidth'>,
+  maxW: number,
+  maxH: number
+) {
   const value = options.borderWidth
   let t: number, r: number, b: number, l: number
 
@@ -28,10 +32,10 @@ export function parseBorderWidth(options: Pick<MatrixOptions, 'borderWidth'>, ma
   }
 
   return {
-    t: limit(t, 0, maxH),
-    r: limit(r, 0, maxW),
     b: limit(b, 0, maxH),
     l: limit(l, 0, maxW),
+    r: limit(r, 0, maxW),
+    t: limit(t, 0, maxH),
   }
 }
 
@@ -42,17 +46,17 @@ export function boundingRects(element: MatrixElement) {
   const border = parseBorderWidth(element.options, width / 2, height / 2)
 
   return {
-    outer: {
-      x: bounds.left,
-      y: bounds.top,
-      w: width,
-      h: height,
-    },
     inner: {
+      h: height - border.t - border.b,
+      w: width - border.l - border.r,
       x: bounds.left + border.l,
       y: bounds.top + border.t,
-      w: width - border.l - border.r,
-      h: height - border.t - border.b,
+    },
+    outer: {
+      h: height,
+      w: width,
+      x: bounds.left,
+      y: bounds.top,
     },
   }
 }
@@ -63,6 +67,8 @@ export function inRange(element: MatrixElement, x: number, y: number, useFinalPo
   const bounds = !element || (skipX && skipY) ? false : getBounds(element, useFinalPosition)
 
   return (
-    bounds && (skipX || (x >= bounds.left && x <= bounds.right)) && (skipY || (y >= bounds.top && y <= bounds.bottom))
+    bounds &&
+    (skipX || (x >= bounds.left && x <= bounds.right)) &&
+    (skipY || (y >= bounds.top && y <= bounds.bottom))
   )
 }

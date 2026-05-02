@@ -1,7 +1,7 @@
 const istanbul = require('rollup-plugin-istanbul')
 const env = process.env.NODE_ENV
 
-module.exports = async function (karma) {
+module.exports = async (karma) => {
   const builds = (await import('./rollup.config.js')).default
   const build = builds[0]
   const buildPlugins = [...build.plugins]
@@ -12,19 +12,6 @@ module.exports = async function (karma) {
 
   karma.set({
     browsers: ['chrome', 'firefox'],
-    frameworks: ['jasmine'],
-    reporters: ['spec', 'kjhtml'],
-    logLevel: karma.LOG_WARN,
-
-    files: [
-      { pattern: './test/fixtures/**/*.js', included: false },
-      { pattern: './test/fixtures/**/*.png', included: false },
-      'node_modules/chart.js/dist/chart.umd.js',
-      'node_modules/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.js',
-      'test/index.js',
-      { pattern: 'src/index.ts', type: 'js' },
-      { pattern: 'test/specs/**/*.js', type: 'js' },
-    ],
 
     customLaunchers: {
       chrome: {
@@ -39,26 +26,6 @@ module.exports = async function (karma) {
         base: 'Firefox',
         prefs: {
           'layers.acceleration.disabled': true,
-        },
-      },
-    },
-
-    preprocessors: {
-      'test/fixtures/**/*.js': ['fixtures'],
-      'test/specs/**/*.js': ['rollup'],
-      'test/index.js': ['rollup'],
-      'src/index.ts': ['sources'],
-    },
-
-    rollupPreprocessor: {
-      plugins: buildPlugins,
-      external: ['chart.js'],
-      output: {
-        name: 'test',
-        format: 'umd',
-        sourcemap: karma.autoWatch ? 'inline' : false,
-        globals: {
-          'chart.js': 'Chart',
         },
       },
     },
@@ -78,6 +45,39 @@ module.exports = async function (karma) {
         options: build,
       },
     },
+
+    files: [
+      { included: false, pattern: './test/fixtures/**/*.js' },
+      { included: false, pattern: './test/fixtures/**/*.png' },
+      'node_modules/chart.js/dist/chart.umd.js',
+      'node_modules/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.js',
+      'test/index.js',
+      { pattern: 'src/index.ts', type: 'js' },
+      { pattern: 'test/specs/**/*.js', type: 'js' },
+    ],
+    frameworks: ['jasmine'],
+    logLevel: karma.LOG_WARN,
+
+    preprocessors: {
+      'src/index.ts': ['sources'],
+      'test/fixtures/**/*.js': ['fixtures'],
+      'test/index.js': ['rollup'],
+      'test/specs/**/*.js': ['rollup'],
+    },
+    reporters: ['spec', 'kjhtml'],
+
+    rollupPreprocessor: {
+      external: ['chart.js'],
+      output: {
+        format: 'umd',
+        globals: {
+          'chart.js': 'Chart',
+        },
+        name: 'test',
+        sourcemap: karma.autoWatch ? 'inline' : false,
+      },
+      plugins: buildPlugins,
+    },
   })
 
   if (env === 'test') {
@@ -85,8 +85,8 @@ module.exports = async function (karma) {
     karma.coverageReporter = {
       dir: 'coverage/',
       reporters: [
-        { type: 'html', subdir: 'html' },
-        { type: 'lcovonly', subdir: (browser) => browser.toLowerCase().split(/[ /-]/)[0] },
+        { subdir: 'html', type: 'html' },
+        { subdir: (browser) => browser.toLowerCase().split(/[ /-]/)[0], type: 'lcovonly' },
       ],
     }
   }

@@ -1,16 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "moduleResolution": "Node",
-    "alwaysStrict": true,
-    "strict": true,
-    "noEmit": true,
     "allowJs": true,
+    "alwaysStrict": true,
     "checkJs": false,
-    "skipLibCheck": true
+    "moduleResolution": "Node",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES6"
   },
-  "include": [
-    "../index.esm.d.ts",
-    "./**/*.ts",
-  ]
+  "include": ["../index.esm.d.ts", "./**/*.ts"]
 }

@@ -14,10 +14,10 @@ window.triggerMouseEvent = triggerMouseEvent
 
 jasmine.fixtures = specsFromFixtures
 
-beforeEach(function () {
+beforeEach(() => {
   addMatchers()
 })
 
-afterEach(function () {
+afterEach(() => {
   releaseCharts()
 })
