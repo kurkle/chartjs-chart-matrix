@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" x="0px" y="0px" width="192px" height="192px" viewBox="0 0 192 192" enable-background="new 0 0 192 192" xml:space="preserve"><defs>
+	<clipPath id="matrix-inner">
+		<path d="M96,159.3l-57.2-33V65.7L96,32.7l57.2,33v60.6L96,159.3z"></path>
+	</clipPath>
+</defs><g clip-path="url(#matrix-inner)">
+	<rect x="38.8" y="32.7" width="114.4" height="126.6" fill="#081208"></rect>
+	<rect x="38.8" y="32.7" width="19.0667" height="21.1" fill="#0a430a"></rect>
+	<rect x="57.8667" y="32.7" width="19.0667" height="21.1" fill="#0b4d0b"></rect>
+	<rect x="76.9334" y="32.7" width="19.0667" height="21.1" fill="#0d5f0d"></rect>
+	<rect x="96.0001" y="32.7" width="19.0667" height="21.1" fill="#108010"></rect>
+	<rect x="115.0668" y="32.7" width="19.0667" height="21.1" fill="#139a13"></rect>
+	<rect x="134.1335" y="32.7" width="19.0667" height="21.1" fill="#16c016"></rect>
+
+	<rect x="38.8" y="53.8" width="19.0667" height="21.1" fill="#0b4d0b"></rect>
+	<rect x="57.8667" y="53.8" width="19.0667" height="21.1" fill="#0d5f0d"></rect>
+	<rect x="76.9334" y="53.8" width="19.0667" height="21.1" fill="#0f7410"></rect>
+	<rect x="96.0001" y="53.8" width="19.0667" height="21.1" fill="#129212"></rect>
+	<rect x="115.0668" y="53.8" width="19.0667" height="21.1" fill="#14a414"></rect>
+	<rect x="134.1335" y="53.8" width="19.0667" height="21.1" fill="#17b717"></rect>
+
+	<rect x="38.8" y="74.9" width="19.0667" height="21.1" fill="#0c560c"></rect>
+	<rect x="57.8667" y="74.9" width="19.0667" height="21.1" fill="#0e690e"></rect>
+	<rect x="76.9334" y="74.9" width="19.0667" height="21.1" fill="#108010"></rect>
+	<rect x="96.0001" y="74.9" width="19.0667" height="21.1" fill="#13a313"></rect>
+	<rect x="115.0668" y="74.9" width="19.0667" height="21.1" fill="#15b515"></rect>
+	<rect x="134.1335" y="74.9" width="19.0667" height="21.1" fill="#18bc18"></rect>
+
+	<rect x="38.8" y="96" width="19.0667" height="21.1" fill="#0d5f0d"></rect>
+	<rect x="57.8667" y="96" width="19.0667" height="21.1" fill="#0f7410"></rect>
+	<rect x="76.9334" y="96" width="19.0667" height="21.1" fill="#108010"></rect>
+	<rect x="96.0001" y="96" width="19.0667" height="21.1" fill="#14a414"></rect>
+	<rect x="115.0668" y="96" width="19.0667" height="21.1" fill="#17b717"></rect>
+	<rect x="134.1335" y="96" width="19.0667" height="21.1" fill="#20d020"></rect>
+
+	<rect x="38.8" y="117.1" width="19.0667" height="21.1" fill="#0b4d0b"></rect>
+	<rect x="57.8667" y="117.1" width="19.0667" height="21.1" fill="#0d5f0d"></rect>
+	<rect x="76.9334" y="117.1" width="19.0667" height="21.1" fill="#0f7410"></rect>
+	<rect x="96.0001" y="117.1" width="19.0667" height="21.1" fill="#129212"></rect>
+	<rect x="115.0668" y="117.1" width="19.0667" height="21.1" fill="#15b515"></rect>
+	<rect x="134.1335" y="117.1" width="19.0667" height="21.1" fill="#18bc18"></rect>
+
+	<rect x="38.8" y="138.2" width="19.0667" height="21.1" fill="#0a430a"></rect>
+	<rect x="57.8667" y="138.2" width="19.0667" height="21.1" fill="#0c560c"></rect>
+	<rect x="76.9334" y="138.2" width="19.0667" height="21.1" fill="#0e690e"></rect>
+	<rect x="96.0001" y="138.2" width="19.0667" height="21.1" fill="#108010"></rect>
+	<rect x="115.0668" y="138.2" width="19.0667" height="21.1" fill="#13a313"></rect>
+	<rect x="134.1335" y="138.2" width="19.0667" height="21.1" fill="#16c016"></rect>
+
+	<path d="M57.8667 32.7V159.3M76.9334 32.7V159.3M96.0001 32.7V159.3M115.0668 32.7V159.3M134.1335 32.7V159.3" stroke="#081208" stroke-width="2"></path>
+	<path d="M38.8 53.8H153.2M38.8 74.9H153.2M38.8 96H153.2M38.8 117.1H153.2M38.8 138.2H153.2" stroke="#081208" stroke-width="2"></path>
+</g><path fill="#E7E9ED" d="M96,176l-69.292-39.999V56L96,16l69.292,40v80L96,176z M34.849,131.301L96,166.602l61.151-35.301V60.7
+	L96,25.399L34.849,60.7V131.301z"></path><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style></svg>
