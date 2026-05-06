@@ -13,7 +13,8 @@ jobs:
     with:
       fetch-depth: 0
       run-audit-signatures: true
-    secrets: inherit
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   release:
     runs-on: ubuntu-latest

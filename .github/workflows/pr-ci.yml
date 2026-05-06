@@ -13,7 +13,8 @@ jobs:
     with:
       fetch-depth: 1
       run-audit-signatures: false
-    secrets: inherit
+    secrets:
+      SONAR_TOKEN: ${{ github.event.pull_request.head.repo.fork && '' || secrets.SONAR_TOKEN }}
 
   compressed-size:
     runs-on: ubuntu-latest
