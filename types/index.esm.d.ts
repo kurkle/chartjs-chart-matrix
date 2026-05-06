@@ -1,4 +1,4 @@
-import {
+import type {
   BorderRadius,
   CartesianScaleTypeRegistry,
   Chart,
@@ -32,6 +32,12 @@ export interface MatrixControllerDatasetOptions
     ScriptableAndArrayOptions<CommonHoverOptions, ScriptableContext<'matrix'>> {}
 
 export interface MatrixDataPoint {
+  x: number | string
+  y: number | string
+  v?: number
+}
+
+export interface MatrixParsedDataPoint {
   x: number
   y: number
 }
@@ -42,7 +48,7 @@ declare module 'chart.js' {
       chartOptions: CoreChartOptions<'matrix'>
       datasetOptions: MatrixControllerDatasetOptions
       defaultDataPoint: MatrixDataPoint
-      parsedDataType: MatrixDataPoint
+      parsedDataType: MatrixParsedDataPoint
       metaExtensions: AnyObject
       scales: keyof CartesianScaleTypeRegistry
     }
@@ -58,7 +64,7 @@ export interface MatrixProps {
 }
 
 export type MatrixController = DatasetController
-export const MatrixController: ChartComponent & {
+export declare const MatrixController: ChartComponent & {
   prototype: MatrixController
   new (chart: Chart, datasetIndex: number): MatrixController
 }
@@ -69,7 +75,7 @@ export interface MatrixElement<
 > extends Element<T, O>,
     VisualElement {}
 
-export const MatrixElement: ChartComponent & {
+export declare const MatrixElement: ChartComponent & {
   prototype: MatrixElement
   new (cfg: AnyObject): MatrixElement
 }

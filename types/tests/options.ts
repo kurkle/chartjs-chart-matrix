@@ -10,16 +10,33 @@ new Chart('test', {
       {
         anchorX: 'center',
         anchorY: 'top',
+        backgroundColor(context) {
+          return context.dataIndex > -1 ? '#000' : '#fff'
+        },
         borderWidth: 1,
         data: [{ v: 10, x: 1, y: 1 }],
-        height: 10,
+        height(context) {
+          return context.dataIndex > -1 ? 10 : 0
+        },
         hoverBorderWidth: () => 2,
         label: 'Matrix',
-        width: 10,
+        width(context) {
+          return context.dataIndex > -1 ? 10 : 0
+        },
       },
     ],
   },
   options: {
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label(context) {
+            const v = context.dataset.data[context.dataIndex]
+            return [`x: ${v.x}`, `y: ${v.y}`, `v: ${v.v}`]
+          },
+        },
+      },
+    },
     scales: {
       x: {
         type: 'linear',

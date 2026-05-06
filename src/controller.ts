@@ -3,7 +3,7 @@ import type {
   AnchorX,
   AnchorY,
   MatrixControllerDatasetOptions,
-  MatrixDataPoint,
+  MatrixParsedDataPoint,
 } from 'types/index.esm'
 import type MatrixElement from './element'
 
@@ -15,7 +15,7 @@ export default class MatrixController extends DatasetController<
   'matrix',
   MatrixElement,
   MatrixElement,
-  MatrixDataPoint
+  MatrixParsedDataPoint
 > {
   static readonly id = 'matrix'
   static readonly version = version
