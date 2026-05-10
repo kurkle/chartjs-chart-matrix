@@ -64,12 +64,15 @@ interface Props {
     id: 'version',
     afterDraw(chart) {
       const ctx = chart.ctx
+      const versionLabel = docsVersion
+        ? `Chart.js v${Chart.version} + chartjs-chart-matrix v${docsVersion}`
+        : `Chart.js v${Chart.version}`
       ctx.save()
       ctx.font = '9px monospace'
       ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
       ctx.textAlign = 'right'
       ctx.textBaseline = 'top'
-      ctx.fillText(`Chart.js v${Chart.version} + chartjs-chart-matrix v${docsVersion}`, chart.chartArea.right, 0)
+      ctx.fillText(versionLabel, chart.chartArea.right, 0)
       ctx.restore()
     },
   })

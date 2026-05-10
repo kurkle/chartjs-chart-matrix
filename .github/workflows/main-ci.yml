@@ -41,5 +41,47 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx --no-install semantic-release
-      - name: Build docs with released version
-        run: npm run docs
+      - name: Resolve released version
+        id: release-version
+        run: |
+          VERSION=$(git describe --tags --exact-match HEAD 2>/dev/null | sed 's/^v//')
+          if [ -z "$VERSION" ]; then
+            echo "released=false" >> "$GITHUB_OUTPUT"
+            echo "No release tag on HEAD, skipping Cloudflare Pages version update"
+            exit 0
+          fi
+          echo "released=true" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Resolved released version: $VERSION"
+      - name: Update Cloudflare Pages production docs version
+        if: steps.release-version.outputs.released == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_PAGES_PROJECT: ${{ secrets.CLOUDFLARE_PAGES_PROJECT }}
+          DOCS_VERSION: ${{ steps.release-version.outputs.version }}
+        run: |
+          curl --fail --silent --show-error \
+            --request PATCH \
+            --url "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/${CLOUDFLARE_PAGES_PROJECT}" \
+            --header "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            --header 'Content-Type: application/json' \
+            --data @- <<EOF
+          {
+            "deployment_configs": {
+              "production": {
+                "env_vars": {
+                  "DOCS_VERSION": {
+                    "type": "plain_text",
+                    "value": "${DOCS_VERSION}"
+                  }
+                }
+              }
+            }
+          }
+          EOF
+      - name: Trigger Cloudflare Pages production deploy
+        if: steps.release-version.outputs.released == 'true'
+        env:
+          CLOUDFLARE_PAGES_DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
+        run: curl --fail --silent --show-error --request POST "$CLOUDFLARE_PAGES_DEPLOY_HOOK"
