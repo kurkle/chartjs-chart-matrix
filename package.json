@@ -91,7 +91,7 @@
     "test-integration:node-module": "npm run test --prefix test/integration/node-module",
     "test-karma": "karma start ./karma.conf.cjs --no-auto-watch --single-run",
     "test-unit": "cross-env JASMINE_CONFIG_PATH=jasmine.json c8 --src=src --reporter=text --reporter=lcov -o=coverage/unit jasmine",
-    "typecheck": "tsc --noEmit && tsc -p tsconfig.json --emitDeclarationOnly && tsc --noEmit -p types/tests/",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.json --emitDeclarationOnly && tsc --noEmit -p test/types/",
     "typecheck:docs": "astro check"
   },
   "sideEffects": [
