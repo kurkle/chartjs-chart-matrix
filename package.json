@@ -87,6 +87,7 @@
     "predocs:dev": "npm run docs:version",
     "pretest-unit": "swc --config-file .swcrc-spec src -d build",
     "test": "cross-env NODE_ENV=test concurrently \"npm:test-*\"",
+    "test-integration:browser-module": "karma start ./karma.integration.cjs --single-run",
     "test-integration:node-commonjs": "npm run test --prefix test/integration/node-commonjs",
     "test-integration:node-module": "npm run test --prefix test/integration/node-module",
     "test-karma": "karma start ./karma.conf.cjs --no-auto-watch --single-run",
