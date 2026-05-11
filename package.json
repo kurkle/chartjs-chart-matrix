@@ -44,18 +44,17 @@
     "rollup-plugin-cleanup": "^3.2.1",
     "rollup-plugin-istanbul": "^5.0.0",
     "semantic-release": "^25.0.3",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "exports": {
     "import": "./dist/chartjs-chart-matrix.esm.js",
     "require": "./dist/chartjs-chart-matrix.cjs",
     "script": "./dist/chartjs-chart-matrix.min.js",
-    "types": "./types/index.esm.d.ts"
+    "types": "./dist/index.esm.d.ts"
   },
   "files": [
     "dist/*",
-    "!dist/docs/**",
-    "types/index.esm.d.ts"
+    "!dist/docs/**"
   ],
   "homepage": "https://chartjs-chart-matrix.pages.dev/",
   "jsdelivr": "dist/chartjs-chart-matrix.min.js",
@@ -77,7 +76,7 @@
   },
   "scripts": {
     "autobuild": "rollup -c -w",
-    "build": "rollup -c",
+    "build": "rollup -c && tsc -p tsconfig.json --emitDeclarationOnly",
     "dev": "karma start ./karma.conf.cjs --no-single-run --auto-watch --browsers chrome",
     "dev:ff": "karma start ./karma.conf.cjs --auto-watch --no-single-run --browsers firefox",
     "docs": "npm run build && astro build",
@@ -92,7 +91,7 @@
     "test-integration:node-module": "npm run test --prefix test/integration/node-module",
     "test-karma": "karma start ./karma.conf.cjs --no-auto-watch --single-run",
     "test-unit": "cross-env JASMINE_CONFIG_PATH=jasmine.json c8 --src=src --reporter=text --reporter=lcov -o=coverage/unit jasmine",
-    "typecheck": "tsc --noEmit && tsc --noEmit -p types/tests/",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.json --emitDeclarationOnly && tsc --noEmit -p types/tests/",
     "typecheck:docs": "astro check"
   },
   "sideEffects": [
@@ -100,7 +99,7 @@
     "dist/chartjs-chart-matrix-min.js"
   ],
   "type": "module",
-  "types": "types/index.esm.d.ts",
+  "types": "dist/index.esm.d.ts",
   "unpkg": "dist/chartjs-chart-matrix.min.js",
   "version": "0.0.0-development"
 }

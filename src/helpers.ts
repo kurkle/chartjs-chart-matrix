@@ -1,5 +1,5 @@
-import type { MatrixOptions } from 'types/index.esm'
-import type MatrixElement from './element'
+import type MatrixElement from './element.js'
+import type { MatrixOptions } from './types.js'
 
 import { isObject } from 'chart.js/helpers'
 
@@ -23,10 +23,10 @@ export function parseBorderWidth(
   let t: number, r: number, b: number, l: number
 
   if (isObject(value)) {
-    t = +value.top || 0
-    r = +value.right || 0
-    b = +value.bottom || 0
-    l = +value.left || 0
+    t = +(value.top ?? 0) || 0
+    r = +(value.right ?? 0) || 0
+    b = +(value.bottom ?? 0) || 0
+    l = +(value.left ?? 0) || 0
   } else {
     t = r = b = l = +value || 0
   }
@@ -61,10 +61,15 @@ export function boundingRects(element: MatrixElement) {
   }
 }
 
-export function inRange(element: MatrixElement, x: number, y: number, useFinalPosition: boolean) {
+export function inRange(
+  element: MatrixElement | null,
+  x: number | null,
+  y: number | null,
+  useFinalPosition?: boolean
+) {
   const skipX = x === null
   const skipY = y === null
-  const bounds = !element || (skipX && skipY) ? false : getBounds(element, useFinalPosition)
+  const bounds = !element || (skipX && skipY) ? false : getBounds(element, !!useFinalPosition)
 
   return (
     bounds &&

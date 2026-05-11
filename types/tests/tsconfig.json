@@ -3,11 +3,15 @@
     "allowJs": true,
     "alwaysStrict": true,
     "checkJs": false,
-    "moduleResolution": "Node",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "noEmit": true,
+    "paths": {
+      "chartjs-chart-matrix": ["../../dist/index.esm.d.ts"]
+    },
     "skipLibCheck": true,
     "strict": true,
     "target": "ES6"
   },
-  "include": ["../index.esm.d.ts", "./**/*.ts"]
+  "include": ["./**/*.ts"]
 }

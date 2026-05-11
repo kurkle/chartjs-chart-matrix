@@ -1,23 +1,19 @@
 import type {
   BorderRadius,
   CartesianScaleTypeRegistry,
-  Chart,
-  ChartComponent,
   CommonElementOptions,
   CommonHoverOptions,
   ControllerDatasetOptions,
   CoreChartOptions,
-  DatasetController,
-  Element,
   ScriptableAndArrayOptions,
   ScriptableContext,
-  VisualElement,
 } from 'chart.js'
 
 type AnyObject = Record<string, unknown>
 
 export type AnchorX = 'left' | 'center' | 'right' | 'start' | 'end'
 export type AnchorY = 'top' | 'center' | 'bottom' | 'start' | 'end'
+
 export interface MatrixOptions extends Omit<CommonElementOptions, 'borderWidth'> {
   borderRadius: number | BorderRadius
   borderWidth: number | { top?: number; right?: number; bottom?: number; left?: number }
@@ -26,6 +22,7 @@ export interface MatrixOptions extends Omit<CommonElementOptions, 'borderWidth'>
   width: number
   height: number
 }
+
 export interface MatrixControllerDatasetOptions
   extends ControllerDatasetOptions,
     ScriptableAndArrayOptions<MatrixOptions, ScriptableContext<'matrix'>>,
@@ -42,6 +39,14 @@ export interface MatrixParsedDataPoint {
   y: number
 }
 
+export interface MatrixProps {
+  x: number
+  y: number
+  width: number
+  height: number
+  options?: Partial<MatrixOptions>
+}
+
 declare module 'chart.js' {
   export interface ChartTypeRegistry {
     matrix: {
@@ -53,29 +58,4 @@ declare module 'chart.js' {
       scales: keyof CartesianScaleTypeRegistry
     }
   }
-}
-
-export interface MatrixProps {
-  x: number
-  y: number
-  width: number
-  height: number
-  options?: Partial<MatrixOptions>
-}
-
-export type MatrixController = DatasetController
-export declare const MatrixController: ChartComponent & {
-  prototype: MatrixController
-  new (chart: Chart, datasetIndex: number): MatrixController
-}
-
-export interface MatrixElement<
-  T extends MatrixProps = MatrixProps,
-  O extends MatrixOptions = MatrixOptions,
-> extends Element<T, O>,
-    VisualElement {}
-
-export declare const MatrixElement: ChartComponent & {
-  prototype: MatrixElement
-  new (cfg: AnyObject): MatrixElement
 }
