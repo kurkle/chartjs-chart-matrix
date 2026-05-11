@@ -1,11 +1,23 @@
-import type { MatrixOptions, MatrixProps } from 'types/index.esm'
+import type {
+  AnchorX,
+  AnchorY,
+  MatrixOptions,
+  MatrixProps,
+} from './types.js'
 
 import { Element } from 'chart.js'
 import { addRoundedRectPath, toTRBLCorners } from 'chart.js/helpers'
 
-import { boundingRects, inRange } from './helpers'
+import { boundingRects, inRange } from './helpers.js'
 
-export default class MatrixElement extends Element<MatrixProps, MatrixOptions> {
+export interface MatrixElementOptions extends MatrixOptions {
+  anchorX: AnchorX
+  anchorY: AnchorY
+}
+
+export default class MatrixElement
+  extends Element<MatrixProps, MatrixOptions>
+{
   static readonly id = 'matrix'
 
   static override readonly defaults = {
@@ -19,8 +31,8 @@ export default class MatrixElement extends Element<MatrixProps, MatrixOptions> {
     width: 20,
   }
 
-  width: number
-  height: number
+  declare width: number
+  declare height: number
 
   constructor(cfg: MatrixProps) {
     super()

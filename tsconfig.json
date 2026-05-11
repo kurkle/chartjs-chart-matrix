@@ -3,13 +3,12 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,
-    "baseUrl": ".",
     "checkJs": true,
     "declaration": true,
     "inlineSourceMap": true,
     "lib": ["es2022", "DOM"],
-    "module": "ES2022",
-    "moduleResolution": "Node",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
@@ -24,5 +23,5 @@
     "types": ["jasmine"]
   },
   "exclude": ["./dist/**", "./src/env.d.ts", "./src/content.config.ts", "./src/content/**"],
-  "include": ["./src/**/*", "./types/index.esm.d.ts"]
+  "include": ["./src/**/*"]
 }

@@ -1,15 +1,17 @@
-import type { UpdateMode } from 'chart.js'
+import type {
+  UpdateMode,
+} from 'chart.js'
+import type MatrixElement from './element.js'
 import type {
   AnchorX,
   AnchorY,
   MatrixControllerDatasetOptions,
   MatrixParsedDataPoint,
-} from 'types/index.esm'
-import type MatrixElement from './element'
+} from './types.js'
 
 import { DatasetController } from 'chart.js'
 
-import { version } from '../package.json'
+import pkg from '../package.json' with { type: "json" }
 
 export default class MatrixController extends DatasetController<
   'matrix',
@@ -18,7 +20,7 @@ export default class MatrixController extends DatasetController<
   MatrixParsedDataPoint
 > {
   static readonly id = 'matrix'
-  static readonly version = version
+  static readonly version = pkg.version
 
   static readonly defaults = {
     animations: {
@@ -47,7 +49,7 @@ export default class MatrixController extends DatasetController<
     },
   }
 
-  options: MatrixControllerDatasetOptions
+  declare options: MatrixControllerDatasetOptions
 
   override initialize() {
     this.enableOptionSharing = true
@@ -66,8 +68,12 @@ export default class MatrixController extends DatasetController<
     const firstOpts = this.resolveDataElementOptions(start, mode)
     const sharedOptions = this.getSharedOptions(firstOpts)
 
+    if (!xScale || !yScale) {
+      return
+    }
+
     for (let i = start; i < start + count; i++) {
-      const parsed = !reset && this.getParsed(i)
+      const parsed = this.getParsed(i) as MatrixParsedDataPoint
       const x = reset ? xScale.getBasePixel() : xScale.getPixelForValue(parsed.x)
       const y = reset ? yScale.getBasePixel() : yScale.getPixelForValue(parsed.y)
       const options = this.resolveDataElementOptions(i, mode)
@@ -82,7 +88,9 @@ export default class MatrixController extends DatasetController<
       this.updateElement(rects[i], i, properties, mode)
     }
 
-    this.updateSharedOptions(sharedOptions, mode, firstOpts)
+    if (sharedOptions) {
+      this.updateSharedOptions(sharedOptions, mode, firstOpts)
+    }
   }
 
   override draw() {

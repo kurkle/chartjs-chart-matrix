@@ -1,5 +1,5 @@
-import MatrixElement from './element'
-import { boundingRects, inRange, parseBorderWidth } from './helpers'
+import MatrixElement from './element.js'
+import { boundingRects, inRange, parseBorderWidth } from './helpers.js'
 
 describe('parseBorderWidth', () => {
   it('should return uniform border width when given a number', () => {
@@ -20,18 +20,18 @@ describe('parseBorderWidth', () => {
   })
 
   it('should handle missing object properties as zero', () => {
-    const borderWidth = { bottom: null, left: 7, right: undefined, top: 3 }
+    const borderWidth = { bottom: null, left: 7, right: undefined, top: 3 } as never
     const result = parseBorderWidth({ borderWidth }, 10, 10)
     expect(result).toEqual({ b: 0, l: 7, r: 0, t: 3 })
   })
 
   it('should return zero when borderWidth is undefined', () => {
-    const result = parseBorderWidth({ borderWidth: undefined }, 10, 10)
+    const result = parseBorderWidth({ borderWidth: undefined as never }, 10, 10)
     expect(result).toEqual({ b: 0, l: 0, r: 0, t: 0 })
   })
 
   it('should return zero when borderWidth is null', () => {
-    const result = parseBorderWidth({ borderWidth: null }, 10, 10)
+    const result = parseBorderWidth({ borderWidth: null as never }, 10, 10)
     expect(result).toEqual({ b: 0, l: 0, r: 0, t: 0 })
   })
 
@@ -41,8 +41,7 @@ describe('parseBorderWidth', () => {
   })
 
   it('should coerce string numbers to actual numbers', () => {
-    const borderWidth = { bottom: '6', left: '8', right: '4', top: '2' }
-    // @ts-expect-error types don't allow strings in borderwidth
+    const borderWidth = { bottom: '6', left: '8', right: '4', top: '2' } as never
     const result = parseBorderWidth({ borderWidth }, 10, 10)
     expect(result).toEqual({ b: 6, l: 8, r: 4, t: 2 })
   })
