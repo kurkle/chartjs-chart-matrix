@@ -20,7 +20,7 @@
     "@swc/core": "^1.11.9",
     "@types/jasmine": "^6.0.0",
     "@types/node": "^25.0.3",
-    "astro": "^6.2.1",
+    "astro": "^7.0.0",
     "c8": "^11.0.0",
     "chart.js": "^4.0.1",
     "chartjs-adapter-date-fns": "^3.0.0",
