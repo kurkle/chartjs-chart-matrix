@@ -19,7 +19,7 @@
     "@swc/cli": "^0.8.1",
     "@swc/core": "^1.11.9",
     "@types/jasmine": "^6.0.0",
-    "@types/node": "^25.0.3",
+    "@types/node": "^26.0.0",
     "astro": "^6.2.1",
     "c8": "^11.0.0",
     "chart.js": "^4.0.1",
