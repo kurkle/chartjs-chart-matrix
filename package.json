@@ -9,6 +9,8 @@
     "@astrojs/mdx": "^7.0.2",
     "@astrojs/starlight": "^0.41.3",
     "@biomejs/biome": "^2.4.14",
+    "@emnapi/core": "^1.11.2",
+    "@emnapi/runtime": "^1.11.2",
     "@kurkle/configs": "^1.0.1",
     "@napi-rs/canvas": "^1.0.0",
     "@rollup/plugin-commonjs": "^29.0.0",
