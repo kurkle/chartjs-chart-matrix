@@ -5,7 +5,7 @@ import { defineConfig } from 'astro/config'
 export default defineConfig({
   integrations: [
     starlight({
-      customCss: ['docs/styles/starlight.css'],
+      customCss: ['./docs/styles/starlight.css'],
       description: 'Chart.js module for creating matrix charts',
       favicon: '/favicon.ico',
       head: [
