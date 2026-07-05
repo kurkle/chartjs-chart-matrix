@@ -1,4 +1,3 @@
-import type { MatrixOptions } from 'types/index.esm'
 import type MatrixElement from './element'
 
 import { isObject } from 'chart.js/helpers'
@@ -14,21 +13,28 @@ function limit(value: number, min: number, max: number) {
   return Math.max(Math.min(value, max), min)
 }
 
-export function parseBorderWidth(
-  options: Pick<MatrixOptions, 'borderWidth'>,
-  maxW: number,
-  maxH: number
-) {
+type BorderWidthObject = {
+  bottom?: number | null
+  left?: number | null
+  right?: number | null
+  top?: number | null
+}
+type BorderWidth = number | BorderWidthObject
+type BorderWidthOptions = { borderWidth?: BorderWidth | null }
+
+const borderValue = (value?: string | number | null): number => +(value ?? 0) || 0
+
+export function parseBorderWidth(options: BorderWidthOptions, maxW: number, maxH: number) {
   const value = options.borderWidth
   let t: number, r: number, b: number, l: number
 
-  if (isObject(value)) {
-    t = +value.top || 0
-    r = +value.right || 0
-    b = +value.bottom || 0
-    l = +value.left || 0
+  if (value != null && isObject(value)) {
+    t = borderValue(value.top)
+    r = borderValue(value.right)
+    b = borderValue(value.bottom)
+    l = borderValue(value.left)
   } else {
-    t = r = b = l = +value || 0
+    t = r = b = l = borderValue(value)
   }
 
   return {
@@ -61,7 +67,12 @@ export function boundingRects(element: MatrixElement) {
   }
 }
 
-export function inRange(element: MatrixElement, x: number, y: number, useFinalPosition: boolean) {
+export function inRange(
+  element: MatrixElement | null,
+  x: number | null,
+  y: number | null,
+  useFinalPosition: boolean
+) {
   const skipX = x === null
   const skipY = y === null
   const bounds = !element || (skipX && skipY) ? false : getBounds(element, useFinalPosition)

@@ -1,4 +1,4 @@
-import type { MatrixOptions, MatrixProps } from 'types/index.esm'
+import type { MatrixOptions, MatrixProps } from '../types/index.esm'
 
 import { Element } from 'chart.js'
 import { addRoundedRectPath, toTRBLCorners } from 'chart.js/helpers'
@@ -19,8 +19,8 @@ export default class MatrixElement extends Element<MatrixProps, MatrixOptions> {
     width: 20,
   }
 
-  width: number
-  height: number
+  width = MatrixElement.defaults.width
+  height = MatrixElement.defaults.height
 
   constructor(cfg: MatrixProps) {
     super()
@@ -56,15 +56,15 @@ export default class MatrixElement extends Element<MatrixProps, MatrixOptions> {
   }
 
   inRange(mouseX: number, mouseY: number, useFinalPosition?: boolean) {
-    return inRange(this, mouseX, mouseY, useFinalPosition)
+    return inRange(this, mouseX, mouseY, useFinalPosition ?? false)
   }
 
   inXRange(mouseX: number, useFinalPosition?: boolean) {
-    return inRange(this, mouseX, null, useFinalPosition)
+    return inRange(this, mouseX, null, useFinalPosition ?? false)
   }
 
   inYRange(mouseY: number, useFinalPosition?: boolean) {
-    return inRange(this, null, mouseY, useFinalPosition)
+    return inRange(this, null, mouseY, useFinalPosition ?? false)
   }
 
   getCenterPoint(useFinalPosition?: boolean) {

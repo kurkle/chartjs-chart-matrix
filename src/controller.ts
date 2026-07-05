@@ -1,10 +1,5 @@
 import type { UpdateMode } from 'chart.js'
-import type {
-  AnchorX,
-  AnchorY,
-  MatrixControllerDatasetOptions,
-  MatrixParsedDataPoint,
-} from 'types/index.esm'
+import type { AnchorX, AnchorY, MatrixParsedDataPoint } from '../types/index.esm'
 import type MatrixElement from './element'
 
 import { DatasetController } from 'chart.js'
@@ -47,8 +42,6 @@ export default class MatrixController extends DatasetController<
     },
   }
 
-  options: MatrixControllerDatasetOptions
-
   override initialize() {
     this.enableOptionSharing = true
     super.initialize()
@@ -63,13 +56,27 @@ export default class MatrixController extends DatasetController<
   override updateElements(rects: MatrixElement[], start: number, count: number, mode: UpdateMode) {
     const reset = mode === 'reset'
     const { xScale, yScale } = this._cachedMeta
+
+    if (!xScale || !yScale) {
+      return
+    }
+
     const firstOpts = this.resolveDataElementOptions(start, mode)
     const sharedOptions = this.getSharedOptions(firstOpts)
 
     for (let i = start; i < start + count; i++) {
-      const parsed = !reset && this.getParsed(i)
-      const x = reset ? xScale.getBasePixel() : xScale.getPixelForValue(parsed.x)
-      const y = reset ? yScale.getBasePixel() : yScale.getPixelForValue(parsed.y)
+      let x: number
+      let y: number
+
+      if (reset) {
+        x = xScale.getBasePixel()
+        y = yScale.getBasePixel()
+      } else {
+        const parsed = this.getParsed(i)
+        x = xScale.getPixelForValue(parsed.x)
+        y = yScale.getPixelForValue(parsed.y)
+      }
+
       const options = this.resolveDataElementOptions(i, mode)
       const { width, height, anchorX, anchorY } = options
       const properties = {
@@ -82,7 +89,9 @@ export default class MatrixController extends DatasetController<
       this.updateElement(rects[i], i, properties, mode)
     }
 
-    this.updateSharedOptions(sharedOptions, mode, firstOpts)
+    if (sharedOptions) {
+      this.updateSharedOptions(sharedOptions, mode, firstOpts)
+    }
   }
 
   override draw() {
