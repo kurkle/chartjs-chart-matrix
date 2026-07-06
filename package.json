@@ -88,6 +88,7 @@
     "lint": "biome check",
     "predocs": "npm run docs:version",
     "predocs:dev": "npm run docs:version",
+    "prepare": "git config core.hooksPath .githooks || true",
     "pretest-unit": "swc --config-file .swcrc-spec src -d build",
     "test": "cross-env NODE_ENV=test concurrently \"npm:test-*\"",
     "test-integration:node-commonjs": "npm run test --prefix test/integration/node-commonjs",
