@@ -47,6 +47,7 @@ export default defineConfig({
             { label: 'Time', link: '/samples/time/' },
             { label: 'Utils', link: '/samples/utils/' },
             { label: 'Year Week', link: '/samples/yearweek/' },
+            { label: 'Zoom', link: '/samples/zoom/' },
           ],
           label: 'Samples',
         },
