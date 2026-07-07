@@ -4,7 +4,7 @@ function normalizeVersion(version) {
   return version?.replace(/^v/, '') || null
 }
 
-const resolvedVersion = normalizeVersion(process.env.DOCS_VERSION) || ''
+const resolvedVersion = normalizeVersion(process.env.DOCS_VERSION) || '0.0.0-development'
 
 const escapedVersion = resolvedVersion.replaceAll('\\', '\\\\').replaceAll("'", "\\'")
 
