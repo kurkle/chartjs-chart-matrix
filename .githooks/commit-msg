@@ -1,0 +1,20 @@
+#!/bin/sh
+set -eu
+
+subject=$(sed -n '1p' "$1")
+
+if printf '%s\n' "$subject" | grep -Eq '^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([[:alnum:]_.-]+\))?(!)?: .+$'; then
+  exit 0
+fi
+
+cat >&2 <<EOF
+Invalid commit message:
+  $subject
+
+Use a semantic commit message, for example:
+  feat: add matrix zoom sample
+  fix(chart): handle hidden scales
+  docs!: update public API docs
+EOF
+
+exit 1
