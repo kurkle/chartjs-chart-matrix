@@ -52,12 +52,11 @@
     "import": "./dist/chartjs-chart-matrix.esm.js",
     "require": "./dist/chartjs-chart-matrix.cjs",
     "script": "./dist/chartjs-chart-matrix.min.js",
-    "types": "./types/index.esm.d.ts"
+    "types": "./dist/index.esm.d.ts"
   },
   "files": [
     "dist/*",
-    "!dist/docs/**",
-    "types/index.esm.d.ts"
+    "!dist/docs/**"
   ],
   "homepage": "https://chartjs-chart-matrix.pages.dev/",
   "jsdelivr": "dist/chartjs-chart-matrix.min.js",
@@ -79,7 +78,7 @@
   },
   "scripts": {
     "autobuild": "rollup -c -w",
-    "build": "rollup -c",
+    "build": "rollup -c && tsc -p tsconfig.json --emitDeclarationOnly",
     "dev": "karma start ./karma.conf.cjs --no-single-run --auto-watch --browsers chrome",
     "dev:ff": "karma start ./karma.conf.cjs --auto-watch --no-single-run --browsers firefox",
     "docs": "npm run build && astro build",
@@ -97,7 +96,7 @@
     "test:integration:node-commonjs": "node test/integration/node-commonjs/test.cjs",
     "test:integration:node-module": "node test/integration/node-module/test.mjs",
     "test:unit": "cross-env JASMINE_CONFIG_PATH=jasmine.json c8 --src=src --reporter=text --reporter=lcov -o=coverage/unit jasmine",
-    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json && tsc --noEmit -p types/tests/",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json && tsc -p tsconfig.json --emitDeclarationOnly && tsc --noEmit -p test/types/",
     "typecheck:docs": "astro check"
   },
   "sideEffects": [
@@ -105,7 +104,7 @@
     "dist/chartjs-chart-matrix.min.js"
   ],
   "type": "module",
-  "types": "types/index.esm.d.ts",
+  "types": "dist/index.esm.d.ts",
   "unpkg": "dist/chartjs-chart-matrix.min.js",
   "version": "0.0.0-development"
 }

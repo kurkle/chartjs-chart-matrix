@@ -30,5 +30,5 @@
     "./src/content.config.ts",
     "./src/content/**"
   ],
-  "include": ["./src/**/*", "./types/index.esm.d.ts"]
+  "include": ["./src/**/*"]
 }

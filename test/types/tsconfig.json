@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "allowJs": true,
     "alwaysStrict": true,
-    "checkJs": false,
     "module": "ES2022",
     "moduleResolution": "Bundler",
     "noEmit": true,
@@ -10,5 +8,5 @@
     "strict": true,
     "target": "ES6"
   },
-  "include": ["../index.esm.d.ts", "./**/*.ts"]
+  "include": ["./**/*.ts"]
 }

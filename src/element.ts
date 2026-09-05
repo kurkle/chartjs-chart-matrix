@@ -1,4 +1,4 @@
-import type { MatrixOptions, MatrixProps } from '../types/index.esm'
+import type { MatrixOptions, MatrixProps } from './types.js'
 
 import { Element } from 'chart.js'
 import { addRoundedRectPath, toTRBLCorners } from 'chart.js/helpers'
