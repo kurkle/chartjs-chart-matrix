@@ -7,6 +7,12 @@ updates:
     groups:
       dev-dependencies:
         dependency-type: "development"
+    ignore:
+      # @astrojs/check requires typescript ^5 || ^6, so TS 7 breaks npm ci
+      # with ERESOLVE and stalls the whole dev-dependencies group.
+      # Remove this once @astrojs/check supports TypeScript 7.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
