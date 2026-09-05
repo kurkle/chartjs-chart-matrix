@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "noEmit": true
+  },
+  "exclude": [],
+  "extends": "./tsconfig.json",
+  "include": ["./src/**/*.test.ts"]
+}
