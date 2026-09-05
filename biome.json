@@ -1,3 +1,31 @@
 {
-  "extends": ["./node_modules/@kurkle/configs/biome.json"]
+  "extends": ["./node_modules/@kurkle/configs/biome.json"],
+  "files": {
+    "includes": [
+      "astro.config.mjs",
+      "biome.json",
+      ".swcrc-spec",
+      "jasmine.json",
+      "karma.conf.cjs",
+      "karma.integration.cjs",
+      "package.json",
+      "rollup.config.js",
+      "docs/scripts/**/*.js",
+      "docs/src/**/*.astro",
+      "docs/src/**/*.js",
+      "docs/styles/**/*.css",
+      "src/**/*.js",
+      "src/**/*.ts",
+      "test/index.js",
+      "test/integration/**/*.js",
+      "test/integration/**/*.cjs",
+      "test/integration/**/*.mjs",
+      "test/specs/**/*.js",
+      "test/types/**/*.ts",
+      "test/types/**/*.json",
+      "tsconfig.test.json",
+      "types/**/*.ts",
+      "types/**/*.json"
+    ]
+  }
 }
