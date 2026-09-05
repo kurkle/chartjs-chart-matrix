@@ -1,6 +1,6 @@
 import type { UpdateMode } from 'chart.js'
-import type { AnchorX, AnchorY, MatrixParsedDataPoint } from '../types/index.esm'
 import type MatrixElement from './element'
+import type { AnchorX, AnchorY, MatrixParsedDataPoint } from './types.js'
 
 import { DatasetController } from 'chart.js'
 
