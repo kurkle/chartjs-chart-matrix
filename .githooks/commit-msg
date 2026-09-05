@@ -7,14 +7,14 @@ if printf '%s\n' "$subject" | grep -Eq '^(build|chore|ci|docs|feat|fix|perf|refa
   exit 0
 fi
 
-cat >&2 <<EOF
+cat >&2 <<MESSAGE
 Invalid commit message:
   $subject
 
 Use a semantic commit message, for example:
-  feat: add matrix zoom sample
-  fix(chart): handle hidden scales
-  docs!: update public API docs
-EOF
+  feat: add support for radial scales
+  fix(scale): handle hidden axes
+  docs!: document the new option shape
+MESSAGE
 
 exit 1
