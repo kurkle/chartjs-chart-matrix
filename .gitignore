@@ -2,10 +2,10 @@
 .astro/
 .vscode/
 bower.json
-build/
 cc-test-reporter
 coverage/
 dist/
-/node_modules
+build/
+node_modules/
 /docs/node_modules
 *.stackdump
