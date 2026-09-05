@@ -101,7 +101,7 @@
   },
   "sideEffects": [
     "dist/chartjs-chart-matrix.cjs",
-    "dist/chartjs-chart-matrix-min.js"
+    "dist/chartjs-chart-matrix.min.js"
   ],
   "type": "module",
   "types": "types/index.esm.d.ts",
