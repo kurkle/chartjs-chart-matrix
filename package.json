@@ -91,12 +91,13 @@
     "predocs:dev": "npm run docs:version",
     "prepare": "git config core.hooksPath .githooks || true",
     "pretest:unit": "swc --config-file .swcrc-spec src -d build",
-    "test": "npm run test:unit && npm run test:fixture && npm run test:integration:node-commonjs && npm run test:integration:node-module",
+    "test": "npm run test:unit && npm run test:fixture && npm run test:integration:browser-module && npm run test:integration:node-commonjs && npm run test:integration:node-module",
     "test:fixture": "cross-env NODE_ENV=test karma start ./karma.conf.cjs --no-auto-watch --single-run",
-    "test:integration:node-commonjs": "npm run test --prefix test/integration/node-commonjs",
-    "test:integration:node-module": "npm run test --prefix test/integration/node-module",
+    "test:integration:browser-module": "karma start ./karma.integration.cjs --single-run",
+    "test:integration:node-commonjs": "node test/integration/node-commonjs/test.cjs",
+    "test:integration:node-module": "node test/integration/node-module/test.mjs",
     "test:unit": "cross-env JASMINE_CONFIG_PATH=jasmine.json c8 --src=src --reporter=text --reporter=lcov -o=coverage/unit jasmine",
-    "typecheck": "tsc --noEmit && tsc --noEmit -p types/tests/",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json && tsc --noEmit -p types/tests/",
     "typecheck:docs": "astro check"
   },
   "sideEffects": [
