@@ -1,7 +1,5 @@
 # chartjs-chart-matrix
 
-[Chart.js](https://www.chartjs.org/) **v3+, v4+** module for creating matrix charts
-
 [![npm](https://img.shields.io/npm/v/chartjs-chart-matrix.svg)](https://www.npmjs.com/package/chartjs-chart-matrix)
 [![release](https://img.shields.io/github/release/kurkle/chartjs-chart-matrix.svg?style=flat-square)](https://github.com/kurkle/chartjs-chart-matrix/releases/latest)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/chartjs-chart-matrix.svg)
@@ -10,13 +8,26 @@
 [![documentation](https://img.shields.io/static/v1?message=Documentation&color=informational)](https://chartjs-chart-matrix.pages.dev)
 ![GitHub](https://img.shields.io/github/license/kurkle/chartjs-chart-matrix.svg)
 
+[Chart.js](https://www.chartjs.org/) **v3+, v4+** module that adds a matrix chart type, plotting data as a grid of colored, sized rectangles — useful for heatmaps, confusion matrices, calendars and other value-by-coordinate data, for anyone already charting with Chart.js.
+
 ## Example
 
 ![Matrix Example Image](matrix.png)
 
-## Documentation
+## Installation
 
-You can find documentation for chartjs-chart-matrix at [https://chartjs-chart-matrix.pages.dev/](https://chartjs-chart-matrix.pages.dev/).
+### npm
+
+```bash
+> npm install chartjs-chart-matrix
+```
+
+### CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@3"></script>
+```
 
 ## Quickstart
 
@@ -64,7 +75,11 @@ You can find documentation for chartjs-chart-matrix at [https://chartjs-chart-ma
 </body>
 ```
 
-This simple example is also available online in the documentation: https://chartjs-chart-matrix.pages.dev/usage.html
+This simple example is also available online in the documentation: https://chartjs-chart-matrix.pages.dev/usage/
+
+## Documentation
+
+You can find documentation for chartjs-chart-matrix at [https://chartjs-chart-matrix.pages.dev/](https://chartjs-chart-matrix.pages.dev/). The full configuration reference lives there, not in this README — this file stays a quickstart.
 
 ## Development
 
