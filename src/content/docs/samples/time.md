@@ -1,6 +1,9 @@
-# On Time Scale
+---
+title: Time
+description: Matrix sample plotting a full year of daily values on a time scale.
+---
 
-```js chart-editor
+```js chart-editor title="On Time Scale"
 // <block:generate:4>
 function generateData() {
   const data = [];

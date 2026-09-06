@@ -1,6 +1,9 @@
-# On Category Scale
+---
+title: Category
+description: Matrix sample using category scales on both axes.
+---
 
-```js chart-editor
+```js chart-editor title="Category Scale"
 // <block:data:1>
 const data = {
   datasets: [{

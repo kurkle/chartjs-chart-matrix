@@ -1,22 +1,39 @@
-# Calendar (Time Scale)
+---
+next: false
+title: Year Week
+description: Year-week heatmap spanning a decade of ISO weeks.
+---
 
-```js chart-editor
+```js chart-editor title="Year Week"
 // <block:generate:4>
 function generateData() {
   const adapter = new helpers._adapters._date();
   const data = [];
-  let dt = adapter.startOf(new Date(), 'month');
-  const end = adapter.endOf(dt, 'month');
-  while (dt <= end) {
-    const iso = adapter.format(dt, 'yyyy-MM-dd');
+  const end = adapter.startOf(new Date(), 'isoWeek', 1);
+  const startY = adapter.startOf(adapter.add(end, -10, 'year'), 'year');
+  const fourth = adapter.add(startY, 3, 'day');
+  const start = adapter.startOf(fourth, 'isoWeek', 1);
+  for (let dt = start; dt < end; dt = adapter.add(dt, 1, 'week')) {
+    const isoYear = adapter.format(dt, 'RRRR');
+    const iso = adapter.format(dt, 'RRRR-MM-dd');
+    const weekMonths = [];
+    const monday = adapter.startOf(dt, 'isoWeek', 1);
+    const sunday = adapter.add(dt, 7, 'day');
+    const isoWeek = +adapter.format(dt, 'I');
+    const monthIndex = isoWeek === 1 ? 0 : monday.getMonth();
+    const startWeekOfMonth = +adapter.format(adapter.startOf(dt, 'month'), 'I');
+    const weekOfMonth = startWeekOfMonth > isoWeek ? isoWeek : isoWeek - startWeekOfMonth + 1;
+    const x = monthIndex * 6 + weekOfMonth;
     data.push({
-      x: Utils.isoDayOfWeek(dt),
-      y: iso,
+      x,
+      y: isoYear,
       d: iso,
-      v: Math.random() * 50
+      w: adapter.format(monday, 'yyyy-MM-dd') + ' - ' + adapter.format(sunday, 'yyyy-MM-dd'),
+      v: Math.random() * 50,
+      iw: isoWeek,
     });
-    dt = new Date(dt.setDate(dt.getDate() + 1));
   }
+  window.data = data;
   return data;
 }
 // </block:generate>
@@ -36,29 +53,30 @@ const data = {
     borderWidth: 1,
     hoverBackgroundColor: 'yellow',
     hoverBorderColor: 'yellowgreen',
-    width: ({chart}) => (chart.chartArea || {}).width / chart.scales.x.ticks.length - 3,
+    width: 10,
     height: ({chart}) =>(chart.chartArea || {}).height / chart.scales.y.ticks.length - 3
   }]
 };
 // </block:data>
 
 // <block:scales:3>
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const scales = {
   y: {
     type: 'time',
     left: 'left',
     offset: true,
     time: {
-      unit: 'week',
-      round: 'week',
-      isoWeekday: 1,
+      unit: 'year',
+      round: 'year',
       displayFormats: {
-        week: 'I'
+        parsing: 'yyyy',
+        year: 'R' // ISO week-numbering year
       }
     },
     ticks: {
       maxRotation: 0,
-      autoSkip: true,
+      autoSkip: false,
       padding: 1
     },
     grid: {
@@ -69,25 +87,22 @@ const scales = {
     title: {
       display: true,
       font: {size: 15, weigth: 'bold'},
-      text: ({chart}) => chart.scales.x._adapter.format(Date.now(), 'MMM, yyyy'),
+      text: 'Year',
       padding: 0
     }
   },
   x: {
-    type: 'time',
+    type: 'linear',
     position: 'top',
     offset: true,
-    time: {
-      unit: 'day',
-      parser: 'i',
-      isoWeekday: 1,
-      displayFormats: {
-        day: 'iiiiii'
-      }
-    },
+    min: 1,
+    max: 72,
     reverse: false,
     ticks: {
-      source: 'data',
+      autoSkip: false,
+      callback: (val, index) => val % 6 === 3 ? months[(val - 3) / 6] : '',
+      maxTicksLimit: 100,
+      stepSize: 1,
       padding: 0,
       maxRotation: 0,
     },
@@ -109,9 +124,8 @@ const options = {
         title() {
           return '';
         },
-        label(context) {
-          const v = context.dataset.data[context.dataIndex];
-          return ['d: ' + v.d, 'v: ' + v.v.toFixed(2)];
+        label({raw}) {
+          return ['w: ' + raw.w, 'isoWeek: ' + raw.iw, 'v: ' + raw.v.toFixed(2)];
         }
       }
     },
@@ -124,6 +138,7 @@ const options = {
   }
 };
 // </block:options>
+
 // <block:config:0>
 const config = {
   type: 'matrix',
@@ -132,19 +147,7 @@ const config = {
 };
 // </block:config>
 
-const actions = [
-  {
-    name: 'Randomize',
-    handler(chart) {
-      chart.data.datasets.forEach(dataset => {
-        dataset.data.forEach(point => {
-          point.v = Math.random() * 50;
-        });
-      });
-      chart.update();
-    }
-  },
-];
+const actions = [];
 
 module.exports = {
   actions,

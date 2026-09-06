@@ -1,6 +1,9 @@
-# Basic (Linear Scale)
+---
+title: Basic
+description: Basic matrix sample on a linear scale.
+---
 
-```js chart-editor
+```js chart-editor title="Basic (Linear Scale)"
 // <block:data:1>
 const data = {
   datasets: [{

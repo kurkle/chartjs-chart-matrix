@@ -1,6 +1,9 @@
-# Zoom and Pan
+---
+title: Zoom
+description: Matrix sample with wheel/pinch zoom and pan via chartjs-plugin-zoom.
+---
 
-```js chart-editor
+```js chart-editor title="Zoom and Pan"
 // <block:generate:4>
 function generateData() {
   const data = [];
