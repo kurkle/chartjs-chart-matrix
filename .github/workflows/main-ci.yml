@@ -35,7 +35,7 @@ jobs:
           node-version: 24
           cache: npm
       - name: Install dependencies
-        run: npm clean-install
+        run: npm clean-install --ignore-scripts
       - name: Build
         run: npm run build
       - name: Release
