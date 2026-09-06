@@ -1,3 +1,5 @@
-describe('auto', jasmine.fixtures('anchor'))
-describe('auto', jasmine.fixtures('border'))
-describe('auto', jasmine.fixtures('scales'))
+describe('fixtures', () => {
+  describe('anchor', jasmine.fixtures('anchor'))
+  describe('border', jasmine.fixtures('border'))
+  describe('scales', jasmine.fixtures('scales'))
+})
