@@ -1,4 +1,28 @@
-```js chart-editor
+---
+title: Usage
+---
+
+The chartjs-chart-matrix plugin provides matrix charts, which visualize data in a grid format using colored rectangular cells.
+
+- X-axis value (column position)
+- Y-axis value (row position)
+- Value (`v`) represented by color intensity or another visual cue
+
+## Common Use Cases
+
+1. Heatmaps
+2. Confusion matrices
+3. Availability or occupancy grids
+4. Correlation matrices
+
+## Chart Features
+
+- Supports linear, category, and time scales
+- Customizable cell size
+- Dynamic color mapping for data values
+- Interactive tooltips and legend integration
+
+```js chart-editor title="Usage example"
 const config = {
   type: 'matrix',
   data: {

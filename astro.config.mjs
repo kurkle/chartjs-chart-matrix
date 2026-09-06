@@ -1,9 +1,14 @@
 import mdx from '@astrojs/mdx'
 import starlight from '@astrojs/starlight'
+import chartEditor from '@kurkle/astro-chartjs-editor'
 import { defineConfig } from 'astro/config'
 
 export default defineConfig({
   integrations: [
+    chartEditor({
+      runtime: './docs/chart-runtime.js',
+      sourceBaseUrl: 'https://github.com/kurkle/chartjs-chart-matrix/blob/main/',
+    }),
     starlight({
       customCss: ['./docs/styles/starlight.css'],
       description: 'Chart.js module for creating matrix charts',
