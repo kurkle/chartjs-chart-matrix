@@ -92,6 +92,7 @@
     "lint": "biome check",
     "predocs": "npm run docs:version",
     "predocs:dev": "npm run docs:version",
+    "prepack": "npm run build",
     "prepare": "git config core.hooksPath .githooks || true",
     "pretest:unit": "swc --config-file .swcrc-spec src -d build",
     "test": "npm run test:unit && npm run test:fixture && npm run test:integration:browser-module && npm run test:integration:node-commonjs && npm run test:integration:node-module",
