@@ -50,43 +50,43 @@ describe('parseBorderWidth', () => {
 
 describe('inRange', () => {
   it('should return false if rect is null', () => {
-    expect(inRange(null, 5, 5, false)).toBeFalse()
+    expect(inRange(null, 5, 5, false)).toBe(false)
   })
 
   it('should return false if both x and y are null', () => {
     const rect = new MatrixElement({ height: 10, width: 10, x: 0, y: 0 })
-    expect(inRange(rect, null, null, false)).toBeFalse()
+    expect(inRange(rect, null, null, false)).toBe(false)
   })
 
   it('should return true if x and y are within bounds', () => {
     const rect = new MatrixElement({ height: 10, width: 10, x: 0, y: 0 })
-    expect(inRange(rect, 5, 5, false)).toBeTrue()
+    expect(inRange(rect, 5, 5, false)).toBe(true)
   })
 
   it('should return false if x is out of bounds', () => {
     const rect = new MatrixElement({ height: 10, width: 10, x: 0, y: 0 })
-    expect(inRange(rect, 15, 5, false)).toBeFalse()
+    expect(inRange(rect, 15, 5, false)).toBe(false)
   })
 
   it('should return false if y is out of bounds', () => {
     const rect = new MatrixElement({ height: 10, width: 10, x: 0, y: 0 })
-    expect(inRange(rect, 5, 15, false)).toBeFalse()
+    expect(inRange(rect, 5, 15, false)).toBe(false)
   })
 
   it('should return true if x is null (ignores x check)', () => {
     const rect = new MatrixElement({ height: 10, width: 10, x: 0, y: 0 })
-    expect(inRange(rect, null, 5, false)).toBeTrue()
+    expect(inRange(rect, null, 5, false)).toBe(true)
   })
 
   it('should return true if y is null (ignores y check)', () => {
     const rect = new MatrixElement({ height: 10, width: 10, x: 0, y: 0 })
-    expect(inRange(rect, 5, null, false)).toBeTrue()
+    expect(inRange(rect, 5, null, false)).toBe(true)
   })
 
   it('should return true if x and y are on the boundary', () => {
     const rect = new MatrixElement({ height: 10, width: 10, x: 0, y: 0 })
-    expect(inRange(rect, 0, 0, false)).toBeTrue()
-    expect(inRange(rect, 10, 10, false)).toBeTrue()
+    expect(inRange(rect, 0, 0, false)).toBe(true)
+    expect(inRange(rect, 10, 10, false)).toBe(true)
   })
 })
 

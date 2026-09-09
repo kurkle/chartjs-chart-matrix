@@ -21,7 +21,7 @@
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
     "target": "ES6",
-    "types": ["jasmine"]
+    "types": []
   },
   "exclude": [
     "./dist/**",
