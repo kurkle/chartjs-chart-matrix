@@ -27,7 +27,7 @@ describe('controller', () => {
     const controller = meta.controller
 
     meta.xScale = null
-    spyOn(controller, 'resolveDataElementOptions')
+    vi.spyOn(controller, 'resolveDataElementOptions').mockImplementation(() => {})
 
     expect(() => controller.updateElements(meta.data, 0, meta.data.length, 'default')).not.toThrow()
     expect(controller.resolveDataElementOptions).not.toHaveBeenCalled()
@@ -52,8 +52,8 @@ describe('controller', () => {
     })
     const meta = chart.getDatasetMeta(0)
 
-    spyOn(meta.xScale, 'getBasePixel').and.callThrough()
-    spyOn(meta.yScale, 'getBasePixel').and.callThrough()
+    vi.spyOn(meta.xScale, 'getBasePixel')
+    vi.spyOn(meta.yScale, 'getBasePixel')
 
     meta.controller.updateElements(meta.data, 0, meta.data.length, 'reset')
 

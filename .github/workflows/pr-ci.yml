@@ -12,6 +12,13 @@ jobs:
     uses: kurkle/configs/.github/workflows/shared-ci.yml@v1
     with:
       fetch-depth: 1
+      install-command: npm clean-install --ignore-scripts && npx playwright install chromium firefox
+      # Vitest browser mode replaced Karma, so the per-browser lcov split is gone.
+      coverage-paths: |
+        coverage/browser/lcov.info
+        coverage/unit/lcov.info
+      # Playwright's browsers are headless; the shared xvfb wrapper is not needed.
+      browser-tests: false
       run-audit-signatures: false
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

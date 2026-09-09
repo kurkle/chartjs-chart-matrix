@@ -1,5 +1,7 @@
+import { specsFromFixtures } from '../utils'
+
 describe('fixtures', () => {
-  describe('anchor', jasmine.fixtures('anchor'))
-  describe('border', jasmine.fixtures('border'))
-  describe('scales', jasmine.fixtures('scales'))
+  describe('anchor', specsFromFixtures('anchor'))
+  describe('border', specsFromFixtures('border'))
+  describe('scales', specsFromFixtures('scales'))
 })

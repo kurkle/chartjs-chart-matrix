@@ -1,47 +1,49 @@
+import type { Mock } from 'vitest'
+
 import MatrixElement from './element'
 
 type MockCanvasContext = Pick<
   CanvasRenderingContext2D,
   'arc' | 'beginPath' | 'lineTo' | 'restore' | 'save'
 > & {
-  fill: jasmine.Spy
+  fill: Mock
   fillStyle: CanvasRenderingContext2D['fillStyle']
 }
 
 function createMockContext(): MockCanvasContext {
   return {
-    arc: jasmine.createSpy('arc'),
-    beginPath: jasmine.createSpy('beginPath'),
-    fill: jasmine.createSpy('fill'),
+    arc: vi.fn(),
+    beginPath: vi.fn(),
+    fill: vi.fn(),
     fillStyle: '',
-    lineTo: jasmine.createSpy('lineTo'),
-    restore: jasmine.createSpy('restore'),
-    save: jasmine.createSpy('save'),
+    lineTo: vi.fn(),
+    restore: vi.fn(),
+    save: vi.fn(),
   }
 }
 
 describe('MatrixElement range methods', () => {
   it('should default inRange to the current position', () => {
     const rect = new MatrixElement({ height: 10, width: 10, x: 0, y: 0 })
-    const getProps = spyOn(rect, 'getProps').and.callThrough()
+    const getProps = vi.spyOn(rect, 'getProps')
 
-    expect(rect.inRange(5, 5)).toBeTrue()
+    expect(rect.inRange(5, 5)).toBe(true)
     expect(getProps).toHaveBeenCalledWith(['x', 'y', 'width', 'height'], false)
   })
 
   it('should default inXRange to the current position', () => {
     const rect = new MatrixElement({ height: 10, width: 10, x: 0, y: 0 })
-    const getProps = spyOn(rect, 'getProps').and.callThrough()
+    const getProps = vi.spyOn(rect, 'getProps')
 
-    expect(rect.inXRange(5)).toBeTrue()
+    expect(rect.inXRange(5)).toBe(true)
     expect(getProps).toHaveBeenCalledWith(['x', 'y', 'width', 'height'], false)
   })
 
   it('should default inYRange to the current position', () => {
     const rect = new MatrixElement({ height: 10, width: 10, x: 0, y: 0 })
-    const getProps = spyOn(rect, 'getProps').and.callThrough()
+    const getProps = vi.spyOn(rect, 'getProps')
 
-    expect(rect.inYRange(5)).toBeTrue()
+    expect(rect.inYRange(5)).toBe(true)
     expect(getProps).toHaveBeenCalledWith(['x', 'y', 'width', 'height'], false)
   })
 })
@@ -63,7 +65,7 @@ describe('MatrixElement drawing and positioning', () => {
 
     element.draw(ctx as unknown as CanvasRenderingContext2D)
 
-    expect(ctx.fill.calls.count()).toBe(1)
+    expect(ctx.fill.mock.calls).toHaveLength(1)
   })
 
   it('should draw a border with the evenodd fill rule', () => {
@@ -83,9 +85,9 @@ describe('MatrixElement drawing and positioning', () => {
 
     element.draw(ctx as unknown as CanvasRenderingContext2D)
 
-    expect(ctx.fill.calls.count()).toBe(2)
-    expect(ctx.fill.calls.argsFor(0)).toEqual([])
-    expect(ctx.fill.calls.argsFor(1)).toEqual(['evenodd'])
+    expect(ctx.fill.mock.calls).toHaveLength(2)
+    expect(ctx.fill.mock.calls[0]).toEqual([])
+    expect(ctx.fill.mock.calls[1]).toEqual(['evenodd'])
   })
 
   it('should return its center point', () => {
