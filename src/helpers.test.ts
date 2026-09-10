@@ -1,5 +1,5 @@
-import MatrixElement from './element'
-import { boundingRects, inRange, parseBorderWidth } from './helpers'
+import MatrixElement from './element.js'
+import { boundingRects, inRange, parseBorderWidth } from './helpers.js'
 
 describe('parseBorderWidth', () => {
   it('should return uniform border width when given a number', () => {

@@ -1,4 +1,4 @@
-import type MatrixElement from './element'
+import type MatrixElement from './element.js'
 
 import { isObject } from 'chart.js/helpers'
 
