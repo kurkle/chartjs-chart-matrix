@@ -29,5 +29,17 @@
       "vitest.config.ts",
       "vitest.integration.config.ts"
     ]
-  }
+  },
+  "overrides": [
+    {
+      "assist": {
+        "actions": {
+          "source": {
+            "useSortedKeys": "off"
+          }
+        }
+      },
+      "includes": ["package.json"]
+    }
+  ]
 }

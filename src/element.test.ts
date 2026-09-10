@@ -1,6 +1,6 @@
 import type { Mock } from 'vitest'
 
-import MatrixElement from './element'
+import MatrixElement from './element.js'
 
 type MockCanvasContext = Pick<
   CanvasRenderingContext2D,

@@ -1,5 +1,5 @@
 import type { UpdateMode } from 'chart.js'
-import type MatrixElement from './element'
+import type MatrixElement from './element.js'
 import type { AnchorX, AnchorY, MatrixParsedDataPoint } from './types.js'
 
 import { DatasetController } from 'chart.js'
