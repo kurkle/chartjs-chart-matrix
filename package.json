@@ -5,7 +5,6 @@
   },
   "description": "Chart.js module for creating matrix charts",
   "devDependencies": {
-    "@arethetypeswrong/cli": "^0.18.5",
     "@astrojs/check": "^0.9.9",
     "@astrojs/mdx": "^8.0.0",
     "@astrojs/starlight": "^0.42.0",
@@ -35,7 +34,6 @@
     "pixelmatch": "^7.1.0",
     "playwright": "^1.63.0",
     "png-to-ico": "^3.0.2",
-    "publint": "^0.3.24",
     "rollup": "^4.21.2",
     "rollup-plugin-analyzer": "^4.0.0",
     "rollup-plugin-cleanup": "^3.2.1",
@@ -100,7 +98,7 @@
     "test:integration:browser-module": "vitest run --config vitest.integration.config.ts",
     "test:integration:node-commonjs": "node test/integration/node-commonjs/test.cjs",
     "test:integration:node-module": "node test/integration/node-module/test.mjs",
-    "test:pack": "attw --pack . && publint --pack npm",
+    "test:pack": "kurkle-check-package",
     "test:unit": "vitest run --config vitest.config.ts --coverage",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.test.json && tsc -p tsconfig.json --emitDeclarationOnly && tsc --noEmit -p test/types/ && tsc --noEmit -p tsconfig.tooling.json",
     "typecheck:docs": "astro check"
