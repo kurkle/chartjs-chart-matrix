@@ -5,20 +5,29 @@ description: Matrix sample using category scales on both axes.
 
 ```js chart-editor title="Category Scale"
 // <block:data:1>
-const data = {
-  datasets: [{
-    label: 'My Matrix',
-    data: [
-      {x: 'A', y: 'X', v: 11},
-      {x: 'A', y: 'Y', v: 12},
-      {x: 'A', y: 'Z', v: 13},
-      {x: 'B', y: 'X', v: 21},
-      {x: 'B', y: 'Y', v: 22},
-      {x: 'B', y: 'Z', v: 23},
-      {x: 'C', y: 'X', v: 31},
-      {x: 'C', y: 'Y', v: 32},
-      {x: 'C', y: 'Z', v: 33}
-    ],
+const points = [
+  {x: 'A', y: 'X', v: 11},
+  {x: 'A', y: 'Y', v: 12},
+  {x: 'A', y: 'Z', v: 13},
+  {x: 'B', y: 'X', v: 21},
+  {x: 'B', y: 'Y', v: 22},
+  {x: 'B', y: 'Z', v: 23},
+  {x: 'C', y: 'X', v: 31},
+  {x: 'C', y: 'Y', v: 32},
+  {x: 'C', y: 'Z', v: 33}
+];
+// </block:data>
+
+// <block:config:0>
+const config = {
+  type: 'matrix',
+  data: {
+    datasets: [{
+      label: 'My Matrix',
+      data: points
+    }]
+  },
+  options: {
     backgroundColor(context) {
       const value = context.dataset.data[context.dataIndex].v;
       const alpha = (value - 5) / 40;
@@ -31,16 +40,7 @@ const data = {
     },
     borderWidth: 1,
     width: ({chart}) => (chart.chartArea || {}).width / 3 - 1,
-    height: ({chart}) =>(chart.chartArea || {}).height / 3 - 1
-  }]
-};
-// </block:data>
-
-// <block:config:0>
-const config = {
-  type: 'matrix',
-  data: data,
-  options: {
+    height: ({chart}) =>(chart.chartArea || {}).height / 3 - 1,
     plugins: {
       legend: false,
       tooltip: {
