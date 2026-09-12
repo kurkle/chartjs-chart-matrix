@@ -1,3 +1,15 @@
+:root {
+  --sl-content-width: 52rem;
+  --sl-text-h1: 2rem;
+  --sl-text-h2: 1.5rem;
+  --sl-text-h3: 1.25rem;
+  --sl-text-h4: 1.125rem;
+}
+
+.content-panel {
+  padding-block: 1rem;
+}
+
 @layer starlight.overrides {
   .site-title {
     display: inline-flex;

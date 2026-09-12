@@ -4,7 +4,7 @@ description: Matrix sample with wheel/pinch zoom and pan via chartjs-plugin-zoom
 ---
 
 ```js chart-editor title="Zoom and Pan"
-// <block:generate:4>
+// <block:generate:2>
 function generateData() {
   const data = [];
 
@@ -22,11 +22,20 @@ function generateData() {
 }
 // </block:generate>
 
-// <block:data:2>
+// <block:data:1>
 const data = {
   datasets: [{
     label: 'My Matrix',
-    data: generateData(),
+    data: generateData()
+  }]
+};
+// </block:data>
+
+// <block:config:0>
+const config = {
+  type: 'matrix',
+  data: data,
+  options: {
     backgroundColor({raw}) {
       const alpha = (10 + raw.v) / 110;
       return helpers.color('green').alpha(alpha).rgbString();
@@ -43,79 +52,66 @@ const data = {
     height({chart}) {
       const y = chart.scales.y;
       return Math.abs(y.getPixelForValue(2) - y.getPixelForValue(1)) - 1;
-    }
-  }]
-};
-// </block:data>
-
-// <block:options:1>
-const options = {
-  plugins: {
-    legend: false,
-    tooltip: {
-      callbacks: {
-        title() {
-          return '';
+    },
+    plugins: {
+      legend: false,
+      tooltip: {
+        callbacks: {
+          title() {
+            return '';
+          },
+          label(context) {
+            const v = context.dataset.data[context.dataIndex];
+            return ['x: ' + v.x, 'y: ' + v.y, 'v: ' + v.v.toFixed(2)];
+          }
+        }
+      },
+      zoom: {
+        limits: {
+          x: {min: 0.5, max: 30.5, minRange: 3},
+          y: {min: 0.5, max: 20.5, minRange: 3}
         },
-        label(context) {
-          const v = context.dataset.data[context.dataIndex];
-          return ['x: ' + v.x, 'y: ' + v.y, 'v: ' + v.v.toFixed(2)];
+        pan: {
+          enabled: true,
+          mode: 'xy'
+        },
+        zoom: {
+          wheel: {
+            enabled: true
+          },
+          pinch: {
+            enabled: true
+          },
+          mode: 'xy'
         }
       }
     },
-    zoom: {
-      limits: {
-        x: {min: 0.5, max: 30.5, minRange: 3},
-        y: {min: 0.5, max: 20.5, minRange: 3}
-      },
-      pan: {
-        enabled: true,
-        mode: 'xy'
-      },
-      zoom: {
-        wheel: {
-          enabled: true
+    scales: {
+      x: {
+        display: false,
+        min: 0.5,
+        max: 30.5,
+        ticks: {
+          stepSize: 1
         },
-        pinch: {
-          enabled: true
+        grid: {
+          display: false
+        }
+      },
+      y: {
+        display: false,
+        min: 0.5,
+        max: 20.5,
+        reverse: true,
+        ticks: {
+          stepSize: 1
         },
-        mode: 'xy'
-      }
-    }
-  },
-  scales: {
-    x: {
-      display: false,
-      min: 0.5,
-      max: 30.5,
-      ticks: {
-        stepSize: 1
-      },
-      grid: {
-        display: false
-      }
-    },
-    y: {
-      display: false,
-      min: 0.5,
-      max: 20.5,
-      reverse: true,
-      ticks: {
-        stepSize: 1
-      },
-      grid: {
-        display: false
+        grid: {
+          display: false
+        }
       }
     }
   }
-};
-// </block:options>
-
-// <block:config:0>
-const config = {
-  type: 'matrix',
-  data: data,
-  options: options
 };
 // </block:config>
 

@@ -4,7 +4,7 @@ description: Matrix sample rendered as a calendar heatmap on a time scale.
 ---
 
 ```js chart-editor title="Calendar (Time Scale)"
-// <block:generate:4>
+// <block:generate:2>
 function generateData() {
   const adapter = new helpers._adapters._date();
   const data = [];
@@ -24,10 +24,19 @@ function generateData() {
 }
 // </block:generate>
 
-// <block:data:2>
+// <block:data:1>
 const data = {
   datasets: [{
-    data: generateData(),
+    data: generateData()
+  }]
+};
+// </block:data>
+
+// <block:config:0>
+const config = {
+  type: 'matrix',
+  data: data,
+  options: {
     backgroundColor({raw}) {
       const alpha = (10 + raw.v) / 60;
       return helpers.color('green').alpha(alpha).rgbString();
@@ -40,98 +49,82 @@ const data = {
     hoverBackgroundColor: 'yellow',
     hoverBorderColor: 'yellowgreen',
     width: ({chart}) => (chart.chartArea || {}).width / chart.scales.x.ticks.length - 3,
-    height: ({chart}) =>(chart.chartArea || {}).height / chart.scales.y.ticks.length - 3
-  }]
-};
-// </block:data>
-
-// <block:scales:3>
-const scales = {
-  y: {
-    type: 'time',
-    left: 'left',
-    offset: true,
-    time: {
-      unit: 'week',
-      round: 'week',
-      isoWeekday: 1,
-      displayFormats: {
-        week: 'I'
-      }
+    height: ({chart}) =>(chart.chartArea || {}).height / chart.scales.y.ticks.length - 3,
+    plugins: {
+      legend: false,
+      tooltip: {
+        displayColors: false,
+        callbacks: {
+          title() {
+            return '';
+          },
+          label(context) {
+            const v = context.dataset.data[context.dataIndex];
+            return ['d: ' + v.d, 'v: ' + v.v.toFixed(2)];
+          }
+        }
+      },
     },
-    ticks: {
-      maxRotation: 0,
-      autoSkip: true,
-      padding: 1
-    },
-    grid: {
-      display: false,
-      drawBorder: false,
-      tickLength: 0,
-    },
-    title: {
-      display: true,
-      font: {size: 15, weigth: 'bold'},
-      text: ({chart}) => chart.scales.x._adapter.format(Date.now(), 'MMM, yyyy'),
-      padding: 0
-    }
-  },
-  x: {
-    type: 'time',
-    position: 'top',
-    offset: true,
-    time: {
-      unit: 'day',
-      parser: 'i',
-      isoWeekday: 1,
-      displayFormats: {
-        day: 'iiiiii'
-      }
-    },
-    reverse: false,
-    ticks: {
-      source: 'data',
-      padding: 0,
-      maxRotation: 0,
-    },
-    grid: {
-      display: false,
-      drawBorder: false,
-    }
-  }
-};
-// </block:scales>
-
-// <block:options:1>
-const options = {
-  plugins: {
-    legend: false,
-    tooltip: {
-      displayColors: false,
-      callbacks: {
-        title() {
-          return '';
+    scales: {
+      y: {
+        type: 'time',
+        left: 'left',
+        offset: true,
+        time: {
+          unit: 'week',
+          round: 'week',
+          isoWeekday: 1,
+          displayFormats: {
+            week: 'I'
+          }
         },
-        label(context) {
-          const v = context.dataset.data[context.dataIndex];
-          return ['d: ' + v.d, 'v: ' + v.v.toFixed(2)];
+        ticks: {
+          maxRotation: 0,
+          autoSkip: true,
+          padding: 1
+        },
+        grid: {
+          display: false,
+          drawBorder: false,
+          tickLength: 0,
+        },
+        title: {
+          display: true,
+          font: {size: 15, weigth: 'bold'},
+          text: ({chart}) => chart.scales.x._adapter.format(Date.now(), 'MMM, yyyy'),
+          padding: 0
+        }
+      },
+      x: {
+        type: 'time',
+        position: 'top',
+        offset: true,
+        time: {
+          unit: 'day',
+          parser: 'i',
+          isoWeekday: 1,
+          displayFormats: {
+            day: 'iiiiii'
+          }
+        },
+        reverse: false,
+        ticks: {
+          source: 'data',
+          padding: 0,
+          maxRotation: 0,
+        },
+        grid: {
+          display: false,
+          drawBorder: false,
         }
       }
     },
-  },
-  scales: scales,
-  layout: {
-    padding: {
-      top: 10,
+    layout: {
+      padding: {
+        top: 10,
+      }
     }
   }
-};
-// </block:options>
-// <block:config:0>
-const config = {
-  type: 'matrix',
-  data: data,
-  options: options
 };
 // </block:config>
 
