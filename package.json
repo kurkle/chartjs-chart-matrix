@@ -80,7 +80,7 @@
   },
   "scripts": {
     "autobuild": "rollup -c -w",
-    "build": "rollup -c && tsc -p tsconfig.json --emitDeclarationOnly && node scripts/build-cjs-types.mjs",
+    "build": "rollup -c && tsc -p tsconfig.json --emitDeclarationOnly && kurkle-build-cjs-types",
     "dev": "vitest --config vitest.browser.config.ts",
     "docs": "npm run build && astro build",
     "docs:dev": "npm run build && astro dev",
