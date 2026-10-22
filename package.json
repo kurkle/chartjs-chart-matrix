@@ -31,7 +31,7 @@
     "chartjs-plugin-zoom": "^2.2.0",
     "date-fns": "^4.3.0",
     "globals": "^17.0.0",
-    "pixelmatch": "^7.1.0",
+    "pixelmatch": "^8.0.0",
     "playwright": "^1.63.0",
     "png-to-ico": "^3.0.2",
     "rollup": "^4.21.2",
