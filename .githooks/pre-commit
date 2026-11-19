@@ -1,8 +1,12 @@
 #!/bin/sh
 set -eu
 
-npm run lint
-npm test
-npm run typecheck
-npm run build
-npm run docs
+# Each script runs only when the package defines it, so the same hook works
+# in every repository regardless of which parts of the toolchain it uses.
+# The order follows CI: build comes before test because tests may load the
+# built package from dist.
+npm run lint --if-present
+npm run typecheck --if-present
+npm run build --if-present
+npm run test --if-present
+npm run docs --if-present
