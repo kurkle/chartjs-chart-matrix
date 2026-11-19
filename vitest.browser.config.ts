@@ -1,9 +1,6 @@
-import { defineBrowserCommand } from '@vitest/browser'
 import { playwright } from '@vitest/browser-playwright'
+import { createSaveFixtureImage } from 'chartjs-test-utils/node'
 import { defineConfig } from 'vitest/config'
-
-import { writeFileSync } from 'node:fs'
-import { resolve } from 'node:path'
 
 // Reference images can only be produced by a real browser, so producing them is
 // a mode of this suite rather than a separate tool. `npm run fixtures:update`
@@ -15,12 +12,6 @@ import { resolve } from 'node:path'
 // "false", which is truthy, and every fixture quietly rewrites itself while
 // reporting a pass.
 const updating = process.env.UPDATE_FIXTURES === '1'
-
-const saveFixtureImage = defineBrowserCommand<[string, string]>((_context, name, dataUrl) => {
-  const file = resolve(process.cwd(), 'test/fixtures', `${name}.png`)
-  writeFileSync(file, Buffer.from(dataUrl.split(',')[1], 'base64'))
-  console.log(`updated ${file}`)
-})
 
 // The same flags karma.conf.cjs used, so the canvas is rasterized by the CPU
 // in both browsers and the pixel fixtures stay comparable.
@@ -45,7 +36,7 @@ const firefoxPrefs = {
 export default defineConfig({
   test: {
     browser: {
-      commands: updating ? { saveFixtureImage } : {},
+      commands: updating ? { saveFixtureImage: createSaveFixtureImage() } : {},
       enabled: true,
       headless: true,
       instances: updating

@@ -1,9 +1,9 @@
 import { Chart, registerables } from 'chart.js'
 import * as helpers from 'chart.js/helpers'
+import { acquireChart, afterEvent, setup, triggerMouseEvent } from 'chartjs-test-utils'
 
 import 'chartjs-adapter-date-fns'
 import '../src/index'
-import { acquireChart, afterEvent, imageMatchers, releaseCharts, triggerMouseEvent } from './utils'
 
 // Karma loaded the UMD bundle, which registers every Chart.js component.
 Chart.register(...registerables)
@@ -19,14 +19,10 @@ globalThis.acquireChart = acquireChart
 globalThis.afterEvent = afterEvent
 globalThis.triggerMouseEvent = triggerMouseEvent
 
-// Pin the backing store to CSS pixels so the reference PNGs stay comparable
-// whatever the host display reports.
-Chart.defaults.devicePixelRatio = 1
+// Registers the image matchers and the per-spec chart release, and pins the
+// backing store to CSS pixels so the reference PNGs stay comparable whatever
+// the host display reports.
+setup({ Chart })
+
 // Disable colors plugin for tests.
 Chart.defaults.plugins.colors.enabled = false
-
-expect.extend(imageMatchers)
-
-afterEach(() => {
-  releaseCharts()
-})

@@ -20,7 +20,6 @@
       "test/specs/**/*.js",
       "test/types/**/*.json",
       "test/types/**/*.ts",
-      "test/utils/**/*.js",
       "tsconfig.test.json",
       "tsconfig.tooling.json",
       "types/**/*.json",
