@@ -34,6 +34,13 @@ const firefoxPrefs = {
 }
 
 export default defineConfig({
+  // The browser imports the istanbul coverage module, and Vitest leaves that
+  // package out of pre-bundling, so Vite serves it from its real path. When
+  // `node_modules` is a link to a directory outside the project root (a git
+  // worktree sharing another checkout's install), Vite refuses that path and
+  // the run fails with a dynamic import error and no coverage, even though
+  // the tests pass. Pre-bundling it keeps it inside the allowed files.
+  optimizeDeps: { include: ['@vitest/coverage-istanbul/browser'] },
   test: {
     browser: {
       commands: updating ? { saveFixtureImage: createSaveFixtureImage() } : {},
