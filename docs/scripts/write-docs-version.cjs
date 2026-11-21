@@ -6,7 +6,7 @@ function normalizeVersion(version) {
 
 const resolvedVersion = normalizeVersion(process.env.DOCS_VERSION) || '0.0.0-development'
 
-const escapedVersion = resolvedVersion.replaceAll('\\', '\\\\').replaceAll("'", "\\'")
+const escapedVersion = resolvedVersion.replaceAll('\\', String.raw`\\`).replaceAll("'", String.raw`\'`)
 
 const target = path.resolve(__dirname, '../src/generated/version.js')
 
