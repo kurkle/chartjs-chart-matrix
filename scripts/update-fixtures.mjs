@@ -7,10 +7,16 @@
  *   npm run fixtures:update
  */
 import { spawnSync } from 'node:child_process'
+import { createRequire } from 'node:module'
+import { dirname, join } from 'node:path'
+
+// Run vitest's own CLI with this Node binary instead of looking `npx` up on PATH.
+const pkg = createRequire(import.meta.url).resolve('vitest/package.json')
+const vitest = join(dirname(pkg), 'vitest.mjs')
 
 const result = spawnSync(
-  'npx',
-  ['vitest', 'run', '--config', 'vitest.browser.config.ts', ...process.argv.slice(2)],
+  process.execPath,
+  [vitest, 'run', '--config', 'vitest.browser.config.ts', ...process.argv.slice(2)],
   { env: { ...process.env, UPDATE_FIXTURES: '1' }, stdio: 'inherit' }
 )
 
