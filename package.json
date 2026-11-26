@@ -28,7 +28,7 @@
     "astro": "^7.0.6",
     "chart.js": "^4.0.1",
     "chartjs-adapter-date-fns": "^3.0.0",
-    "chartjs-plugin-zoom": "^2.2.0",
+    "chartjs-plugin-zoom": "^3.0.1",
     "chartjs-test-utils": "^1.1.0",
     "date-fns": "^4.3.0",
     "globals": "^17.0.0",
